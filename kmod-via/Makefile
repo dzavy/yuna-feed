@@ -1,5 +1,6 @@
 include $(TOPDIR)/rules.mk
 include $(INCLUDE_DIR)/kernel.mk
+include $(INCLUDE_DIR)/package.mk
 
 define KernelPackage/hwmon-via-cputemp
     TITLE:=VIA CPU temp
