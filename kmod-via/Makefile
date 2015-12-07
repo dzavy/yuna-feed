@@ -8,6 +8,7 @@ define KernelPackage/hwmon-via-cputemp
     KCONFIG:=CONFIG_SENSORS_VIA_CPUTEMP
     FILES:=$(LINUX_DIR)/drivers/hwmon/via-cputemp.ko
     AUTOLOAD:=$(call AutoLoad,42,hwmon-via-cputemp)
+    DEPENDS:=kmod-hwmon-core +kmod-hwmon-vid
 endef
 
 define KernelPackage/hwmon-via-cputemp/description
