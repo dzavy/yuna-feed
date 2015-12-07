@@ -1,3 +1,5 @@
+
+
 define KernelPackage/hwmon-via-cputemp
     TITLE:=VIA CPU temp
     DESCRIPTION:=Kernel modules for VIA CPU temperature 
