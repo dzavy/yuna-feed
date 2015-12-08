@@ -15,11 +15,11 @@ include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/cmake.mk
 
 define Package/mysql-connector-odbc
-        SECTION:=libs
-        CATEGORY:=Libraries
-        SUBMENU:=database
-        TITLE:=ODBC Connector for MySQL
-        DEPENDS:=+libpthread +unixodbc +libmysqlclient-r +librt
+	SECTION:=libs
+	CATEGORY:=Libraries
+	SUBMENU:=database
+	TITLE:=ODBC Connector for MySQL
+	DEPENDS:=+libpthread +unixodbc +libmysqlclient-r +librt
 endef
 
 define Package/mysql-connector-odbc/description
@@ -27,8 +27,8 @@ define Package/mysql-connector-odbc/description
 endef
 
 define Package/mysql-connector-odbc/install
-        $(INSTALL_DIR) $(1)/usr/lib
-        $(INSTALL_BIN) $(PKG_BUILD_DIR)/lib/libmyodbc5.so $(1)/usr/lib/
+	$(INSTALL_DIR) $(1)/usr/lib
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/lib/libmyodbc5.so $(1)/usr/lib/
 endef
 
 $(eval $(call BuildPackage,mysql-connector-odbc))
