@@ -33,4 +33,4 @@ define Package/yunapbx-webui/install
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/user $(1)/www/
 endef
 
-$(eval $(call BuildPackage,mysql-connector-yunapbx-webui)
+$(eval $(call BuildPackage,mysql-connector-yunapbx-webui))
