@@ -1,7 +1,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=yunapbx
-PKG_VERSION:=2015-12-18
+PKG_VERSION:=2015-12-23
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=git://github.com/dzavy/yunapbx.git
 PKG_SOURCE:=$(PKG_NAME).tar.gz
