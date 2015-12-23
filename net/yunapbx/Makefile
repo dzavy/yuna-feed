@@ -24,6 +24,9 @@ define Package/yunapbx-webui/description
   ODBC Connector for MySQL
 endef
 
+define Package/yunapbx-webui/compile
+endef
+
 define Package/yunapbx-webui/install
 	$(INSTALL_DIR) $(1)/www
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/admin $(1)/www/
