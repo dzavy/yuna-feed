@@ -8,7 +8,7 @@ PKG_SOURCE:=$(PKG_NAME).tar.gz
 PKG_SOURCE_VERSION:=HEAD
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
-
+PKG_INSTALL:=0
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -24,7 +24,10 @@ define Package/yunapbx-webui/description
   ODBC Connector for MySQL
 endef
 
-define Package/yunapbx-webui/compile
+define Build/Configure
+endef
+
+define Build/Compile
 endef
 
 define Package/yunapbx-webui/install
