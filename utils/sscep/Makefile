@@ -4,8 +4,8 @@ PKG_NAME:=sscep
 PKG_VERSION:=v0.6.1
 PKG_RELEASE:=1
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://github.com/certnanny/sscep/archive/
+PKG_SOURCE:=$(PKG_VERSION).tar.gz
+PKG_SOURCE_URL:=https://github.com/certnanny/sscep/archive/$(PKG_NAME)/
 PKG_INSTALL:=
 
 include $(INCLUDE_DIR)/package.mk
