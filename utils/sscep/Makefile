@@ -15,7 +15,7 @@ define Package/sscep
 	CATEGORY:=Utilities
 	SUBMENU:=SSL
 	TITLE:=Simple SCEP client
-	DEPENDS:=+openssl
+	DEPENDS:=+libc +libcrypto
 endef
 
 define Package/sscep/description
@@ -27,7 +27,7 @@ endef
 
 define Build/Compile
 	(cd $(PKG_BUILD_DIR); \
-		$(HOSTCC) -Wall -I$(STAGING_DIR)/usr/include/openssl -lcrypto -o sscep sscep.c init.c net.c sceputils.c pkcs7.c ias.c fileutils.c configuration.c engine.c \
+		$(TARGET_CC) -Wall -I$(STAGING_DIR)/usr/include/openssl -lcrypto -o sscep sscep.c init.c net.c sceputils.c pkcs7.c ias.c fileutils.c configuration.c engine.c \
 	)
 endef
 
