@@ -23,7 +23,7 @@ define Package/sscep/description
 endef
 
 define Build/Configure
-	ln -fs Linux/Makefile Makefile
+	ln -fs $(PKG_BUILD_DIR)/Linux/Makefile $(PKG_BUILD_DIR)/Makefile
 endef
 
 define Build/Compile
