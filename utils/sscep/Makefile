@@ -23,16 +23,17 @@ define Package/sscep/description
 endef
 
 define Build/Configure
-	ln -fs $(PKG_BUILD_DIR)/Linux/Makefile $(PKG_BUILD_DIR)/Makefile
 endef
 
 define Build/Compile
-	$(HOSTCC) -I$(STAGING_DIR)/usr/include/openssl -lcrypto -o sscep sscep.o init.o net.o sceputils.o pkcs7.o ias.o fileutils.o configuration.o engine.o
+	(cd $(PKG_BUILD_DIR); \
+		$(HOSTCC) -Wall -I$(STAGING_DIR)/usr/include/openssl -lcrypto -o sscep sscep.o init.o net.o sceputils.o pkcs7.o ias.o fileutils.o configuration.o engine.o
+	)
 endef
 
 define Package/sscep/install
 	$(INSTALL_DIR) $(1)/usr/bin
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/sscep_dyn $(1)/usr/bin/sscep
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/sscep $(1)/usr/bin/
 endef
 
 $(eval $(call BuildPackage,sscep))
