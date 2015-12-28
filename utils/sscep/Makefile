@@ -27,7 +27,7 @@ endef
 
 define Build/Compile
 	(cd $(PKG_BUILD_DIR); \
-		$(HOSTCC) -Wall -I$(STAGING_DIR)/usr/include/openssl -lcrypto -o sscep sscep.o init.o net.o sceputils.o pkcs7.o ias.o fileutils.o configuration.o engine.o
+		$(HOSTCC) -Wall -I$(STAGING_DIR)/usr/include/openssl -lcrypto -o sscep sscep.o init.o net.o sceputils.o pkcs7.o ias.o fileutils.o configuration.o engine.o \
 	)
 endef
 
