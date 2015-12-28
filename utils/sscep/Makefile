@@ -22,6 +22,10 @@ define Package/sscep/description
   SSCEP is a client-only implementation of the SCEP (Cisco System's Simple Certificate Enrollment Protocol).
 endef
 
+define Build/Configure
+	ln -fs Linux/Makefile Makefile
+endef
+
 define Build/Compile
 	$(call Build/Compile/Default,sscep_dyn)
 endef
