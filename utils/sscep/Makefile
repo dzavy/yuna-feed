@@ -27,7 +27,7 @@ define Build/Configure
 endef
 
 define Build/Compile
-	$(call Build/Compile/Default,sscep_dyn)
+	$(HOSTCC) -I$(STAGING_DIR)/usr/include/openssl -lcrypto -o sscep sscep.o init.o net.o sceputils.o pkcs7.o ias.o fileutils.o configuration.o engine.o
 endef
 
 define Package/sscep/install
