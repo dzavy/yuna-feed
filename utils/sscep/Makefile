@@ -33,7 +33,9 @@ endef
 
 define Package/sscep/install
 	$(INSTALL_DIR) $(1)/usr/bin
+	$(INSTALL_DIR) $(1)/etc
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/sscep $(1)/usr/bin/
+	$(CP) ./files/sscep.conf $(1)/etc/
 endef
 
 $(eval $(call BuildPackage,sscep))

@@ -1,0 +1,51 @@
+--- a/sscep.c
++++ b/sscep.c
+@@ -71,7 +71,7 @@
+ 	struct http_reply	reply;
+ 	unsigned int		n;
+ 	unsigned char		md[EVP_MAX_MD_SIZE];
+-	struct scep		scep_t;
++	struct scep		scep_t = {0};
+ 	FILE			*fp = NULL;
+ 	BIO			*bp;
+ 	STACK_OF(X509)		*nextcara = NULL;
+@@ -501,6 +501,10 @@
+ 		sig_alg = (EVP_MD *)EVP_md5();
+ 	} else if (!strncmp(S_char, "sha1", 4)) {
+ 		sig_alg = (EVP_MD *)EVP_sha1();
++	} else if (!strncmp(S_char, "sha256", 6)) {
++		sig_alg = (EVP_MD *)EVP_sha256();
++	} else if (!strncmp(S_char, "sha512", 6)) {
++		sig_alg = (EVP_MD *)EVP_sha512();
+ 	} else {
+ 		fprintf(stderr, "%s: unsupported algorithm: %s\n",
+ 			pname, S_char);
+@@ -513,6 +517,10 @@
+ 		fp_alg = (EVP_MD *)EVP_md5();
+ 	} else if (!strncmp(F_char, "sha1", 4)) {
+ 		fp_alg = (EVP_MD *)EVP_sha1();
++	} else if (!strncmp(F_char, "sha256", 6)) {
++		fp_alg = (EVP_MD *)EVP_sha256();
++	} else if (!strncmp(F_char, "sha512", 6)) {
++		fp_alg = (EVP_MD *)EVP_sha512();
+ 	} else {
+ 		fprintf(stderr, "%s: unsupported algorithm: %s\n",
+ 			pname, F_char);
+@@ -609,7 +617,7 @@
+ 					"writing\n", pname);
+ 				exit (SCEP_PKISTATUS_ERROR);
+ 			}
+-			if (PEM_write_X509(fp, c_char) != 1) {
++			if (PEM_write_X509(fp, cacert) != 1) {
+ 				fprintf(stderr, "%s: error while writing CA "
+ 					"file\n", pname);
+ 				ERR_print_errors_fp(stderr);
+@@ -619,7 +627,7 @@
+ 			printf("%s: CA certificate written as %s\n",
+ 				pname, c_char);
+ 			(void)fclose(fp);
+-			pkistatus = SCEP_PKISTATUS_SUCCESS;
++			scep_t.pki_status = pkistatus = SCEP_PKISTATUS_SUCCESS;
+ 			break;
+ 
+ 		case SCEP_OPERATION_GETNEXTCA:
