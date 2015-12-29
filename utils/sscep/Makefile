@@ -8,8 +8,6 @@ PKG_SOURCE:=v$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://github.com/certnanny/$(PKG_NAME)/archive/
 PKG_INSTALL:=
 
-EXTRA_CFLAGS:=-lcrypto -I$(STAGING_DIR)/usr/include/openssl
-
 include $(INCLUDE_DIR)/package.mk
 
 define Package/sscep
@@ -29,7 +27,7 @@ endef
 
 define Build/Compile
 	(cd $(PKG_BUILD_DIR); \
-		$(TARGET_CC) $(TARGET_CFLAGS) -Wall $(TARGET_LDFLAGS) -o sscep sscep.c init.c net.c sceputils.c pkcs7.c ias.c fileutils.c configuration.c engine.c \
+		$(TARGET_CC) $(TARGET_CFLAGS) -lcrypto -Wall $(TARGET_LDFLAGS) -I$(STAGING_DIR)/usr/include/openssl -o sscep sscep.c init.c net.c sceputils.c pkcs7.c ias.c fileutils.c configuration.c engine.c \
 	)
 endef
 
