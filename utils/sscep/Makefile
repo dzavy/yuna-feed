@@ -15,7 +15,7 @@ define Package/sscep
 	CATEGORY:=Utilities
 	SUBMENU:=SSL
 	TITLE:=Simple SCEP client
-	DEPENDS:=+libc +libcrypto
+	DEPENDS:=+libopenssl
 endef
 
 define Package/sscep/description
