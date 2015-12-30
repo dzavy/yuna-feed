@@ -1,18 +1,16 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=yunapbx
-PKG_VERSION:=2015-12-23
-PKG_SOURCE_PROTO:=git
-PKG_SOURCE_URL:=git://github.com/dzavy/yunapbx.git
-PKG_SOURCE:=$(PKG_NAME).tar.gz
-PKG_SOURCE_VERSION:=HEAD
-PKG_SOURCE_SUBDIR:=$(PKG_NAME)
-PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)
+PKG_VERSION:=0.1-alpha
+PKG_RELEASE:=1
+PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
+PKG_SOURCE:=v$(PKG_VERSION).tar.gz
+PKG_SOURCE_URL:=https://github.com/dzavy/$(PKG_NAME)/archive/
 PKG_INSTALL:=
 
 include $(INCLUDE_DIR)/package.mk
 
-define Package/yunapbx-webui
+define Package/yunapbx
 	SECTION:=utils
 	CATEGORY:=Utilities
 	SUBMENU:=Telephony
@@ -20,7 +18,7 @@ define Package/yunapbx-webui
 	DEPENDS:=+php5-mod-mysqli +php5-mod-json +php5-mod-session +php5-fastcgi +usbutils +uci
 endef
 
-define Package/yunapbx-webui/description
+define Package/yunapbx/description
   ODBC Connector for MySQL
 endef
 
@@ -30,13 +28,9 @@ endef
 define Build/Compile
 endef
 
-define Package/yunapbx-webui/install
+define Package/yunapbx/install
 	$(INSTALL_DIR) $(1)/www
-	cp -pR $(PKG_BUILD_DIR)/admin $(1)/www/
-	cp -pR $(PKG_BUILD_DIR)/include $(1)/www/
-	cp -pR $(PKG_BUILD_DIR)/lib $(1)/www/
-	cp -pR $(PKG_BUILD_DIR)/static $(1)/www/
-	cp -pR $(PKG_BUILD_DIR)/user $(1)/www/
+	cp -pR $(PKG_BUILD_DIR)/* $(1)/www/
 endef
 
-$(eval $(call BuildPackage,yunapbx-webui))
+$(eval $(call BuildPackage,yunapbx))
