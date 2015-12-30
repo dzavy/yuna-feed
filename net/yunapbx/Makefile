@@ -30,7 +30,14 @@ endef
 
 define Package/yunapbx/install
 	$(INSTALL_DIR) $(1)/www
-	cp -pR $(PKG_BUILD_DIR)/* $(1)/www/
+	cp -pR $(PKG_BUILD_DIR)/admin $(1)/www/
+	cp -pR $(PKG_BUILD_DIR)/favicon.ico $(1)/www/
+	cp -pR $(PKG_BUILD_DIR)/generator $(1)/www/
+	cp -pR $(PKG_BUILD_DIR)/include $(1)/www/
+	cp -pR $(PKG_BUILD_DIR)/index.php $(1)/www/
+	cp -pR $(PKG_BUILD_DIR)/lib $(1)/www/
+	cp -pR $(PKG_BUILD_DIR)/static $(1)/www/
+	cp -pR $(PKG_BUILD_DIR)/user $(1)/www/
 endef
 
 $(eval $(call BuildPackage,yunapbx))
