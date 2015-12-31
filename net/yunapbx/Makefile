@@ -19,7 +19,7 @@ define Package/yunapbx
 endef
 
 define Package/yunapbx/description
-  ODBC Connector for MySQL
+  Asterisk Web Management Interface
 endef
 
 define Build/Configure
@@ -30,6 +30,7 @@ endef
 
 define Package/yunapbx/install
 	$(INSTALL_DIR) $(1)/www
+	$(INSTALL_DIR) $(1)/usr/share/yunapbx
 	cp -pR $(PKG_BUILD_DIR)/admin $(1)/www/
 	cp -pR $(PKG_BUILD_DIR)/favicon.ico $(1)/www/
 	cp -pR $(PKG_BUILD_DIR)/generator $(1)/www/
@@ -38,6 +39,7 @@ define Package/yunapbx/install
 	cp -pR $(PKG_BUILD_DIR)/lib $(1)/www/
 	cp -pR $(PKG_BUILD_DIR)/static $(1)/www/
 	cp -pR $(PKG_BUILD_DIR)/user $(1)/www/
+	cp -pR $(PKG_BUILD_DIR)/sql $(1)/usr/share/yunapbx
 endef
 
 $(eval $(call BuildPackage,yunapbx))
