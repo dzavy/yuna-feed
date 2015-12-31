@@ -15,7 +15,7 @@ define Package/yunapbx
 	CATEGORY:=Utilities
 	SUBMENU:=Telephony
 	TITLE:=YunaPBX WebUI
-	DEPENDS:=+php5-mod-mysqli +php5-mod-json +php5-mod-session +php5-fastcgi +usbutils +uci
+	DEPENDS:=+php5-mod-mysqli +php5-mod-json +php5-mod-session +php5-mod-curl +php5-mod-fileinfo +php5-mod-openssl +php5-fastcgi +php5-cli +usbutils +uci +mysql-connector-odbc +lighttpd +lighttpd-mod-fastcgi +mysql-server +openssl-util +curl +@OPENSSL_WITH_SSL3 +@OPENSSL_ENGINE_CRYPTO +@LIBCURL_OPENSSL +@LIGHTTPD_SSL +@GNUTLS_CRYPTODEV
 endef
 
 define Package/yunapbx/description
