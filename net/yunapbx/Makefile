@@ -1,7 +1,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=yunapbx
-PKG_VERSION:=0.1-alpha
+PKG_VERSION:=0.2-alpha
 PKG_RELEASE:=1
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE:=v$(PKG_VERSION).tar.gz
