@@ -24,7 +24,7 @@ define Package/yunapbx
 	CATEGORY:=Utilities
 	SUBMENU:=Telephony
 	TITLE:=YunaPBX WebUI
-	DEPENDS:=+php5-mod-mysqli +php5-mod-json +php5-mod-session +php5-mod-curl +php5-mod-fileinfo +php5-mod-openssl +php5-fastcgi +php5-cli +usbutils +uci +mysql-connector-odbc +lighttpd +lighttpd-mod-fastcgi +mysql-server +openssl-util +curl +zoneinfo-core +madplay +lame +@OPENSSL_WITH_SSL3 +@OPENSSL_ENGINE_CRYPTO +@OPENSSL_ENGINE_DIGEST +@LIBCURL_OPENSSL +@LIGHTTPD_SSL +@GNUTLS_CRYPTODEV +@BUSYBOX_CONFIG_LOGIN
+	DEPENDS:=+php5-mod-mysqli +php5-mod-json +php5-mod-session +php5-mod-curl +php5-mod-fileinfo +php5-mod-openssl +php5-fastcgi +php5-cli +usbutils +uci +mysql-connector-odbc +lighttpd +lighttpd-mod-fastcgi +lighttpd-mod-proxy +prosody +mysql-server +openssl-util +curl +zoneinfo-core +madplay +lame +@OPENSSL_WITH_SSL3 +@OPENSSL_ENGINE_CRYPTO +@OPENSSL_ENGINE_DIGEST +@LIBCURL_OPENSSL +@LIGHTTPD_SSL +@GNUTLS_CRYPTODEV +@BUSYBOX_CONFIG_LOGIN
 endef
 
 define Package/yunapbx/description
