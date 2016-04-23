@@ -11,7 +11,7 @@ PKG_NAME:=libphonenumber-for-php
 PKG_VERSION:=7.3.1
 PKG_RELEASE:=1
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
-PKG_SOURCE:=v$(PKG_VERSION).tar.gz
+PKG_SOURCE:=$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://github.com/giggsey/$(PKG_NAME)/archive/
 PKG_INSTALL:=
 
