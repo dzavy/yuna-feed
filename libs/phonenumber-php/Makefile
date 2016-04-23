@@ -37,6 +37,7 @@ define Build/Compile
 endef
 
 define Package/phonenumber-php/install
+	$(INSTALL_DIR) $(1)/usr/share/
 	cp -pR $(PKG_BUILD_DIR)/src/libphonenumber $(1)/usr/share/
 endef
 
