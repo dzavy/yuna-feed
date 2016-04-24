@@ -17,7 +17,7 @@ PKG_INSTALL:=1
 
 PKG_MAINTAINER:=Jan Havelka <dzavy@dzavy.net>
 
-CMAKE_OPTIONS:=
+CMAKE_OPTIONS:=-DUSE_ICU_REGEXP=OFF -DUSE_BOOST=OFF -DGTEST_SOURCE_DIR=/home/builder/googletest_clone/googletest/googletest/ -DGTEST_INCLUDE_DIR=/home/builder/googletest_clone/googletest/googletest/include/
 CMAKE_SOURCE_DIR:=./cpp/
 
 include $(INCLUDE_DIR)/package.mk
@@ -28,7 +28,7 @@ define Package/libphonenumber
 	CATEGORY:=Libraries
 	SUBMENU:=Telephony
 	TITLE:=PhoneNumber library for C++
-	DEPENDS:=+protobuf +boost +boost-system +boost-thread +icu
+	DEPENDS:=+protobuf
 endef
 
 define Package/libphonenumber/description
