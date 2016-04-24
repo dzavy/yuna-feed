@@ -19,14 +19,15 @@ PKG_MAINTAINER:=Jan Havelka <dzavy@dzavy.net>
 
 include $(INCLUDE_DIR)/package.mk
 
-define Package/phonenumber-php
+define Package/libphonenumber-php
 	SECTION:=libs
 	CATEGORY:=Libraries
+	SUBMENU:=Telephony
 	TITLE:=PhoneNumber library for PHP
 	DEPENDS:=+php5-mod-mbstring +php5-mod-intl
 endef
 
-define Package/phonenumber-php/description
+define Package/libphonenumber-php/description
   Google's common PHP library for parsing, formatting, and validating international phone numbers.
 endef
 
@@ -36,9 +37,9 @@ endef
 define Build/Compile
 endef
 
-define Package/phonenumber-php/install
+define Package/libphonenumber-php/install
 	$(INSTALL_DIR) $(1)/usr/share/php/
 	cp -pR $(PKG_BUILD_DIR)/src/libphonenumber $(1)/usr/share/php/
 endef
 
-$(eval $(call BuildPackage,phonenumber-php))
+$(eval $(call BuildPackage,libphonenumber-php))

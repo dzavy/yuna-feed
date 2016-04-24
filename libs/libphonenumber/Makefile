@@ -23,20 +23,21 @@ CMAKE_SOURCE_DIR:=./cpp/
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/cmake.mk
 
-define Package/phonenumber
+define Package/libphonenumber
 	SECTION:=libs
 	CATEGORY:=Libraries
+	SUBMENU:=Telephony
 	TITLE:=PhoneNumber library for C++
 	DEPENDS:=+protobuf +boost +boost-system +boost-thread +icu
 endef
 
-define Package/phonenumber/description
+define Package/libphonenumber/description
   Google's common C++ library for parsing, formatting, and validating international phone numbers.
 endef
 
-define Package/phonenumber/install
+define Package/libphonenumber/install
 	$(INSTALL_DIR) $(1)/usr/lib
 	cp -pR $(PKG_BUILD_DIR)/lib/*.so $(1)/usr/lib/
 endef
 
-$(eval $(call BuildPackage,phonenumber))
+$(eval $(call BuildPackage,libphonenumber))
