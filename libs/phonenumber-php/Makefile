@@ -23,7 +23,7 @@ define Package/phonenumber-php
 	SECTION:=libs
 	CATEGORY:=Libraries
 	TITLE:=PhoneNumber library for PHP
-	DEPENDS:=+php5-mod-mbstring
+	DEPENDS:=+php5-mod-mbstring +php5-mod-intl
 endef
 
 define Package/phonenumber-php/description
