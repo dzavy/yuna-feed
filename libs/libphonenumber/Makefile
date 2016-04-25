@@ -21,7 +21,7 @@ include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/cmake.mk
 
 CMAKE_OPTIONS:=-DUSE_ICU_REGEXP=OFF -DUSE_BOOST=OFF -DGTEST_SOURCE_DIR=/home/builder/googletest_clone/googletest/googletest/ -DGTEST_INCLUDE_DIR=/home/builder/googletest_clone/googletest/googletest/include/
-CMAKE_SOURCE_DIR:=./cpp/
+CMAKE_SOURCE_DIR:=$(PKG_BUILD_DIR)/cpp/
 
 define Package/libphonenumber
 	SECTION:=libs
