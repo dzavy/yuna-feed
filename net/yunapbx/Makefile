@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=yunapbx
 PKG_VERSION:=0.2-alpha
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE:=v$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://github.com/dzavy/$(PKG_NAME)/archive/
@@ -24,7 +24,7 @@ define Package/yunapbx
 	CATEGORY:=Utilities
 	SUBMENU:=Telephony
 	TITLE:=YunaPBX WebUI
-	DEPENDS:=+php5-mod-mysqli +php5-mod-json +php5-mod-session +php5-mod-curl +php5-mod-fileinfo +php5-mod-openssl +php5-fastcgi +php5-cli +usbutils +uci +mysql-connector-odbc +lighttpd +lighttpd-mod-fastcgi +lighttpd-mod-proxy +prosody +luadbi-mysql +mysql-server +openssl-util +curl +zoneinfo-core +madplay +lame +@OPENSSL_WITH_SSL3 +@OPENSSL_ENGINE_CRYPTO +@OPENSSL_ENGINE_DIGEST +@LIBCURL_OPENSSL +@LIGHTTPD_SSL +@GNUTLS_CRYPTODEV +@BUSYBOX_CONFIG_LOGIN +@BUSYBOX_CONFIG_FEATURE_UTMP +@BUSYBOX_CONFIG_WHO
+	DEPENDS:=+php5-mod-mysqli +php5-mod-json +php5-mod-session +php5-mod-curl +php5-mod-fileinfo +php5-mod-openssl +php5-cgi +php5-cli +usbutils +uci +mysql-connector-odbc +lighttpd +lighttpd-mod-cgi +lighttpd-mod-proxy +prosody +luadbi-mysql +mysql-server +openssl-util +curl +zoneinfo-core +madplay +lame +@OPENSSL_WITH_SSL3 +@OPENSSL_ENGINE_CRYPTO +@OPENSSL_ENGINE_DIGEST +@LIBCURL_OPENSSL +@LIGHTTPD_SSL +@GNUTLS_CRYPTODEV +@BUSYBOX_CONFIG_LOGIN +@BUSYBOX_CONFIG_FEATURE_UTMP +@BUSYBOX_CONFIG_WHO
 endef
 
 define Package/yunapbx/description
