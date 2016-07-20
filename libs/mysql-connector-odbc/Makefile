@@ -38,8 +38,8 @@ endef
 define Package/mysql-connector-odbc/install
 	$(INSTALL_DIR) $(1)/usr/lib
 	$(INSTALL_DIR) $(1)/usr/share/mysql/
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/lib/libmyodbc5.so $(1)/usr/lib/
-	cp -pR ./files/odbcinst.ini $(1)/usr/share/mysql/
+	$(CP) $(PKG_BUILD_DIR)/lib/libmyodbc5.so $(1)/usr/lib/
+	$(CP) ./files/odbcinst.ini $(1)/usr/share/mysql/
 endef
 
 $(eval $(call BuildPackage,mysql-connector-odbc))
