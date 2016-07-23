@@ -1,0 +1,34 @@
+#!/bin/sh
+
+/usr/sbin/asterisk -rx 'core show version' &> /dev/null
+if [[ "$?" != "0" ]] ;then
+/etc/init.d/asterisk restart
+fi
+
+echo "select 1 from dual;" | /usr/bin/mysql &> /dev/null
+if [[ "$?" != "0" ]] ;then
+/etc/init.d/mysqld restart
+fi
+
+/usr/bin/curl -f -k -s -o /dev/null https://localhost/index.php
+if [[ "$?" != "0" ]] ;then
+/etc/init.d/haproxy restart
+/etc/init.d/lighttpd restart
+fi
+
+/usr/bin/curl -f -k -s -o /dev/null https://localhost/http-bind
+if [[ "$?" != "0" ]] ;then
+/etc/init.d/haproxy restart
+/etc/init.d/prosody restart
+fi
+
+httpcode=`/usr/bin/curl -f -k -s -o /dev/null -w "%{http_code}" https://localhost/ws`
+if [[ "$httpcode" != "426" ]] ;then
+/etc/init.d/haproxy restart
+/etc/init.d/asterisk restart
+fi
+
+echo | /usr/bin/nc localhost 10050 &> /dev/null
+if [[ "$?" != "0" ]] ;then
+/etc/init.d/zabbix_agentd restart
+fi

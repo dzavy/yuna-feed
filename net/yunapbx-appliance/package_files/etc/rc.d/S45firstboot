@@ -1,0 +1,16 @@
+#!/bin/sh /etc/rc.common
+
+start() {
+    mkdir -p /data/ssl
+    mkdir -p /data/moh
+    mkdir -p /data/monitor
+
+    chmod 0700 /etc/dropbear
+    chmod 0600 /etc/dropbear/authorized_keys
+
+    if [ ! -f "/data/ssl/server.key" ] || [ ! -f "/data/ssl/server.crt" ] || [ ! -f "/data/ssl/server.keycrt" ]; then
+        /usr/sbin/sslkeygen
+    fi
+
+    rm /etc/rc.d/S45firstboot
+}

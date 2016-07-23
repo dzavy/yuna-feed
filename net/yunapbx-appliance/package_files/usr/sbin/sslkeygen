@@ -1,0 +1,38 @@
+#!/usr/bin/php-cli
+
+<?php
+
+$keyconfig = array(
+    "digest_alg" => "sha256",
+    "private_key_bits" => 2048,
+    "private_key_type" => OPENSSL_KEYTYPE_RSA,
+);
+
+$dn = array(
+    "commonName" => gethostname()
+);
+
+$csrconfig = array(
+    "digest_alg" => "sha256"
+);
+
+$certconfig = array(
+    "digest_alg" => "sha256"
+);
+
+$privkey = openssl_pkey_new($keyconfig);
+$csr = openssl_csr_new($dn, $privkey, $csrconfig);
+$sslcert = openssl_csr_sign($csr, NULL, $privkey, 3650, $certconfig);
+
+openssl_pkey_export($privkey, $privkey_pem);
+openssl_x509_export($sslcert, $sslcert_pem);
+
+file_put_contents("/data/ssl/server.key", $privkey_pem);
+file_put_contents("/data/ssl/server.crt", $sslcert_pem);
+file_put_contents("/data/ssl/server.keycrt", $privkey_pem . "\n" . $sslcert_pem);
+
+chmod("/data/ssl/server.key", 0600);
+chmod("/data/ssl/server.crt", 0644);
+chmod("/data/ssl/server.keycrt", 0600);
+
+?>

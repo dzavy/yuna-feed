@@ -1,0 +1,20 @@
+#!/bin/sh /etc/rc.common
+
+start() {
+    echo "n
+p
+3
+215040
+
+w
+" | /usr/sbin/fdisk /dev/sda &> /dev/null
+    /usr/sbin/partx -a /dev/sda &> /dev/null
+    /usr/sbin/tune2fs -l /dev/sda3 &> /dev/null
+    if [[ "$?" != "0" ]] ;then
+        /usr/sbin/mkfs.ext4 -q -F -m0 -O ^has_journal /dev/sda3
+    fi
+    /usr/sbin/e2fsck -p /dev/sda3 &> /dev/null
+
+    rm /etc/rc.d/S00firstboot
+    
+}
