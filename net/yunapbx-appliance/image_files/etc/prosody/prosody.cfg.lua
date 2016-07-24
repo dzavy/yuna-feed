@@ -49,9 +49,9 @@ authentication = "internal_plain"
 storage = "sql"
 sql = { driver = "MySQL", database = "yunapbx", username = "root", password = "", host = "127.0.0.1" }
 
-log = { error = "/var/log/prosody/prosody.err" }
+log = { error = "/var/log/prosody.log" }
 
-pidfile = "/var/run/prosody/prosody.pid"
+pidfile = "/var/run/prosody.pid"
 
 consider_bosh_secure = true
 http_default_host = "localhost"
