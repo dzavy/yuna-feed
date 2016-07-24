@@ -30,7 +30,7 @@ define Package/yunapbx-appliance/description
 endef
 
 define Build/Prepare
-	ln -s `pwd`/image_files $(TOPDIR)/files
+	ln -s -n -f `pwd`/image_files $(TOPDIR)/files
 endef
 
 define Build/Configure
