@@ -41,16 +41,16 @@ define Package/yunapbx/install
 	$(INSTALL_DIR) $(1)/etc
 	$(INSTALL_DIR) $(1)/www
 	$(INSTALL_DIR) $(1)/usr/share/yunapbx
-	$(INSTALL_DATA) $(PKG_BUILD_DIR)/admin $(1)/www/
-	$(INSTALL_DATA) $(PKG_BUILD_DIR)/favicon.ico $(1)/www/
-	$(INSTALL_DATA) $(PKG_BUILD_DIR)/generator $(1)/www/
-	$(INSTALL_DATA) $(PKG_BUILD_DIR)/include $(1)/www/
-	$(INSTALL_DATA) $(PKG_BUILD_DIR)/index.php $(1)/www/
-	$(INSTALL_DATA) $(PKG_BUILD_DIR)/lib $(1)/www/
-	$(INSTALL_DATA) $(PKG_BUILD_DIR)/static $(1)/www/
-	$(INSTALL_DATA) $(PKG_BUILD_DIR)/user $(1)/www/
-	$(INSTALL_DATA) $(PKG_BUILD_DIR)/db $(1)/usr/share/yunapbx
-	$(INSTALL_DATA) $(PKG_BUILD_DIR)/config/* $(1)/etc
+	$(CP) $(PKG_BUILD_DIR)/admin $(1)/www/
+	$(CP) $(PKG_BUILD_DIR)/favicon.ico $(1)/www/
+	$(CP) $(PKG_BUILD_DIR)/generator $(1)/www/
+	$(CP) $(PKG_BUILD_DIR)/include $(1)/www/
+	$(CP) $(PKG_BUILD_DIR)/index.php $(1)/www/
+	$(CP) $(PKG_BUILD_DIR)/lib $(1)/www/
+	$(CP) $(PKG_BUILD_DIR)/static $(1)/www/
+	$(CP) $(PKG_BUILD_DIR)/user $(1)/www/
+	$(CP) $(PKG_BUILD_DIR)/db $(1)/usr/share/yunapbx
+	$(CP) $(PKG_BUILD_DIR)/config/* $(1)/etc
 endef
 
 $(eval $(call BuildPackage,yunapbx))
