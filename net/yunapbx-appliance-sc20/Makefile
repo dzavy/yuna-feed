@@ -16,6 +16,7 @@ define Package/yunapbx-appliance-sc20
 	CATEGORY:=Utilities
 	SUBMENU:=Telephony
 	TITLE:=YunaPBX for Cranberry SC20
+	VERSION:=1.0
 	DEPENDS:=+yunapbx-appliance +kmod-crypto-hw-geode +kmod-8139too +kmod-button-hotplug +kmod-acpi-button
 endef
 
