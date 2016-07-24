@@ -23,7 +23,7 @@ define Package/yunapbx-appliance-fx130
 	CATEGORY:=Utilities
 	SUBMENU:=Telephony
 	TITLE:=YunaPBX for Dell FX130
-	DEPENDS:=+yunapbx-appliance +cpufreq-powersaver +hwmon-via-cputemp
+	DEPENDS:=+yunapbx-appliance +kmod-cpufreq-powersaver +kmod-hwmon-via-cputemp
 endef
 
 define Package/yunapbx-appliance-fx130/description
