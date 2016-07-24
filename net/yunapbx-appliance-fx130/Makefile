@@ -71,4 +71,4 @@ endef
 
 $(eval $(call KernelPackage,cpufreq-powersaver))
 $(eval $(call KernelPackage,hwmon-via-cputemp))
-$(eval $(call BuildPackage,yunapbx-appliance))
+$(eval $(call BuildPackage,yunapbx-appliance-fx130))
