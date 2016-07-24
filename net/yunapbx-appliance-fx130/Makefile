@@ -17,6 +17,7 @@ define Package/yunapbx-appliance-fx130
 	CATEGORY:=Utilities
 	SUBMENU:=Telephony
 	TITLE:=YunaPBX for Dell FX130
+	KCONFIG:=CONFIG_MVIAC7=y CONFIG_HIGHMEM64G=y CONFIG_X86_32_SMP=y CONFIG_SMP=y 
 	VERSION:=1.0
 	DEPENDS:=+yunapbx-appliance +kmod-cpufreq-powersaver +kmod-hwmon-via-cputemp +kmod-crypto-hw-padlock +kmod-r8169 +kmod-button-hotplug +kmod-acpi-button
 endef
@@ -53,7 +54,7 @@ endef
 define KernelPackage/hwmon-via-cputemp
 	TITLE:=VIA CPU temp
 	SUBMENU:=Hardware Monitoring Support
-	KCONFIG:=CONFIG_MVIAC7=y CONFIG_HIGHMEM64G=y CONFIG_X86_32_SMP=y CONFIG_SMP=y CONFIG_SENSORS_VIA_CPUTEMP=m
+	KCONFIG:=CONFIG_SENSORS_VIA_CPUTEMP=m
 	FILES:=$(LINUX_DIR)/drivers/hwmon/via-cputemp.ko
 	AUTOLOAD:=$(call AutoLoad,42,via-cputemp)
 	DEPENDS:=kmod-hwmon-core +kmod-hwmon-vid
