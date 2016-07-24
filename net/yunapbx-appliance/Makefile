@@ -43,7 +43,7 @@ define Package/yunapbx-appliance/install
 	$(INSTALL_DIR) $(1)/etc/crontabs
 	$(INSTALL_DIR) $(1)/etc/rc.d
 	$(INSTALL_DIR) $(1)/usr/sbin
-	$(CP) ./package_files/etc/crontabs/* $(1)/etc/crontabs/
+	$(INSTALL_CONF) ./package_files/etc/crontabs/* $(1)/etc/crontabs/
 	$(INSTALL_BIN) ./package_files/etc/rc.d/* $(1)/etc/rc.d/
 	$(INSTALL_BIN) ./package_files/usr/sbin/* $(1)/usr/sbin/
 endef

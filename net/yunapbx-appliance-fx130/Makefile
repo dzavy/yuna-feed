@@ -45,7 +45,7 @@ endef
 define KernelPackage/cpufreq-powersaver
 	TITLE:=VIA E-Powersaver
 	SUBMENU:=Other modules
-	KCONFIG:=CONFIG_X86_E_POWERSAVER
+	KCONFIG:=CONFIG_CPU_FREQ=y CONFIG_CPU_FREQ_GOV_COMMON=y CONFIG_CPU_FREQ_DEFAULT_GOV_ONDEMAND=y CONFIG_CPU_FREQ_GOV_PERFORMANCE=y CONFIG_CPU_FREQ_GOV_POWERSAVE=y CONFIG_CPU_FREQ_GOV_USERSPACE=y CONFIG_CPU_FREQ_GOV_ONDEMAND=y CONFIG_CPU_FREQ_GOV_CONSERVATIVE=y CONFIG_X86_E_POWERSAVER=m
 	FILES:=$(LINUX_DIR)/drivers/cpufreq/e_powersaver.ko
 	AUTOLOAD:=$(call AutoLoad,01,e_powersaver)
 endef
@@ -58,7 +58,7 @@ endef
 define KernelPackage/hwmon-via-cputemp
 	TITLE:=VIA CPU temp
 	SUBMENU:=Hardware Monitoring Support
-	KCONFIG:=CONFIG_SENSORS_VIA_CPUTEMP
+	KCONFIG:=CONFIG_MVIAC7=y CONFIG_HIGHMEM64G=y CONFIG_X86_32_SMP=y CONFIG_SMP=y CONFIG_SENSORS_VIA_CPUTEMP=m
 	FILES:=$(LINUX_DIR)/drivers/hwmon/via-cputemp.ko
 	AUTOLOAD:=$(call AutoLoad,42,via-cputemp)
 	DEPENDS:=kmod-hwmon-core +kmod-hwmon-vid
