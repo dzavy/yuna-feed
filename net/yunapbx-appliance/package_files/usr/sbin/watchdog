@@ -22,13 +22,7 @@ if [[ "$?" != "0" ]] ;then
 /etc/init.d/prosody restart
 fi
 
-httpcode=`/usr/bin/curl -f -k -s -o /dev/null -w "%{http_code}" https://localhost/ws`
-if [[ "$httpcode" != "426" ]] ;then
-/etc/init.d/haproxy restart
-/etc/init.d/asterisk restart
-fi
-
-echo | /usr/bin/nc localhost 10050 &> /dev/null
+/bin/pidof zabbix_agentd &> /dev/null
 if [[ "$?" != "0" ]] ;then
 /etc/init.d/zabbix_agentd restart
 fi
