@@ -1,3 +1,2 @@
 Defaults !syslog
 root ALL=(ALL) ALL
-zabbix ALL=(ALL) NOPASSWD: /sbin/logread
