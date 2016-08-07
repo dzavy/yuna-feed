@@ -12,11 +12,12 @@ error() {
 }
 
 start() {
-	if [ ! -d "/data/mysql" ]; then
-		mkdir -p "/data/mysql"
-        chown mysql:mysql /data/mysql
-        chmod 0700 /data/mysql
-	fi
+    mkdir -m 0700 -p /data/mysql
+    chown mysql:mysql /data/mysql
+
+    mkdir -m 0755 -p /var/log/mysql
+    chown mysql:mysql /var/log/mysql
+
 	if [ ! -f "/data/mysql/mysql/tables_priv.MYD" ]; then
 		/usr/bin/mysql_install_db --force
 	fi
