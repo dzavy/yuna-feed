@@ -8,6 +8,7 @@ www-data:x:33:
 haproxy:x:34:
 zabbix:x:53:
 prosody:x:54:
+asterisk:x:55:
 users:x:100:
 network:x:101:
 nogroup:x:65534:
