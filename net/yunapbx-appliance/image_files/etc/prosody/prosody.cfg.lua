@@ -1,13 +1,13 @@
 admins = { "admin@localhost" }
 interfaces = { "127.0.0.1" }
-ssl = { key = "/data/ssl/server.key", certificate = "/data/ssl/server.crt" }
+--ssl = { key = "/data/ssl/server.key", certificate = "/data/ssl/server.crt" }
 
 modules_enabled = {
 
         -- Generally required
                 "roster"; -- Allow users to have a roster. Recommended ;)
                 "saslauth"; -- Authentication for clients and servers. Recommended if you want to log in.
-                "tls"; -- Add support for secure TLS on c2s/s2s connections
+                --"tls"; -- Add support for secure TLS on c2s/s2s connections
                 "dialback"; -- s2s dialback support
                 "disco"; -- Service discovery
 
@@ -18,17 +18,17 @@ modules_enabled = {
                 --"compression"; -- Stream compression
 
         -- Nice to have
-                "legacyauth"; -- Legacy authentication. Only used by some old clients and bots.
+                --"legacyauth"; -- Legacy authentication. Only used by some old clients and bots.
                 "version"; -- Replies to server version requests
                 "uptime"; -- Report how long server has been running
                 "time"; -- Let others know the time here on this server
                 "ping"; -- Replies to XMPP pings with pongs
                 "pep"; -- Enables users to publish their mood, activity, playing music and more
-                "register"; -- Allow users to register on this server using a client and change passwords
+                --"register"; -- Allow users to register on this server using a client and change passwords
                 "adhoc"; -- Support for "ad-hoc commands" that can be executed with an XMPP client
 
         -- Admin interfaces
-                "admin_adhoc"; -- Allows administration via an XMPP client that supports ad-hoc commands
+                --"admin_adhoc"; -- Allows administration via an XMPP client that supports ad-hoc commands
                 "admin_telnet"; -- Opens telnet console interface on localhost port 5582
 
         -- Other specific functionality
