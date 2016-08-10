@@ -13,15 +13,6 @@ RUN_USER=prosody
 RUN_GROUP=prosody
 
 start_service() {
-        [ -f /sbin/paxctl ] && {
-                paxctl  -v /usr/bin/ > /dev/null  2>&1
-                [ $? -ne 0 ] && {
-                        cp /usr/bin/lua /tmp
-                        paxctl -c -m /tmp/lua
-                        cp -f /tmp/lua /usr/bin/lua
-                }
-        }
-
         procd_open_instance
         procd_set_param command "$BIN" start
         procd_set_param file /etc/prosody/prosody.cfg.lua
@@ -30,4 +21,8 @@ start_service() {
 
 stop_service() {
         ${BIN} stop
+}
+
+reload_service() {
+        ${BIN} reload
 }
