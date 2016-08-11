@@ -1,2 +1,5 @@
 Defaults !syslog
 root ALL=(ALL) ALL
+http ALL=(ALL) NOPASSWD: /sbin/uci
+http ALL=(ALL) NOPASSWD: /sbin/sysupgrade
+http ALL=(ALL) NOPASSWD: /sbin/reboot
