@@ -35,4 +35,8 @@ chmod("/data/ssl/server.key", 0600);
 chmod("/data/ssl/server.crt", 0644);
 chmod("/data/ssl/server.keycrt", 0600);
 
+chgrp("/data/ssl/server.key", "ssl");
+chgrp("/data/ssl/server.crt", "ssl");
+chgrp("/data/ssl/server.keycrt", "ssl");
+
 ?>
