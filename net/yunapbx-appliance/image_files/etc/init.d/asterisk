@@ -11,6 +11,14 @@ start() {
        chown -R asterisk:asterisk /var/spool/asterisk
        chown -R asterisk:asterisk /usr/lib/asterisk
 
+       mkdir -m 0777 -p /tmp/ssl
+
+       /usr/sbin/touchmod /tmp/ssl/asterisk.key 0600 asterisk asterisk
+       /usr/sbin/touchmod /tmp/ssl/asterisk.crt 0600 asterisk asterisk
+
+       cat /etc/ssl/private/server.key > /tmp/ssl/asterisk.key
+       cat /etc/ssl/private/server.crt > /tmp/ssl/asterisk.crt
+
        service_start /usr/sbin/asterisk
 }
 
