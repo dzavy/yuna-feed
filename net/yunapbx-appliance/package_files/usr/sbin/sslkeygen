@@ -27,16 +27,10 @@ $sslcert = openssl_csr_sign($csr, NULL, $privkey, 3650, $certconfig);
 openssl_pkey_export($privkey, $privkey_pem);
 openssl_x509_export($sslcert, $sslcert_pem);
 
-file_put_contents("/data/ssl/server.key", $privkey_pem);
-file_put_contents("/data/ssl/server.crt", $sslcert_pem);
-file_put_contents("/data/ssl/server.keycrt", $privkey_pem . "\n" . $sslcert_pem);
+file_put_contents("/etc/ssl/private/server.key", $privkey_pem);
+file_put_contents("/etc/ssl/private/server.crt", $sslcert_pem);
 
-chmod("/data/ssl/server.key", 0600);
-chmod("/data/ssl/server.crt", 0644);
-chmod("/data/ssl/server.keycrt", 0600);
-
-chgrp("/data/ssl/server.key", "ssl");
-chgrp("/data/ssl/server.crt", "ssl");
-chgrp("/data/ssl/server.keycrt", "ssl");
+chmod("/etc/ssl/private/server.key", 0600);
+chmod("/etc/ssl/private/server.crt", 0644);
 
 ?>
