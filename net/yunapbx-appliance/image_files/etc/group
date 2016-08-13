@@ -11,5 +11,4 @@ prosody:x:54:
 asterisk:x:55:
 users:x:100:
 network:x:101:
-ssl:x:200:asterisk,haproxy
 nogroup:x:65534:
