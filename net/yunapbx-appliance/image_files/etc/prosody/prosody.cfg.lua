@@ -1,6 +1,5 @@
 admins = { "admin@localhost" }
 interfaces = { "127.0.0.1" }
---ssl = { key = "/data/ssl/server.key", certificate = "/data/ssl/server.crt" }
 
 modules_enabled = {
 
@@ -42,36 +41,27 @@ modules_enabled = {
                 --"motd"; -- Send a message to users when they log in
 };
 
+modules_disabled = {
+                "mod_s2s";
+                "mod_c2s";
+};
+
 allow_registration = false;
---c2s_require_encryption = false
---s2s_require_encryption = false
 authentication = "internal_plain"
 storage = "sql"
 sql = { driver = "MySQL", database = "yunapbx", username = "root", password = "", host = "127.0.0.1" }
 
 log = { error = "*syslog" }
-
 pidfile = "/var/run/prosody.pid"
+prosody_user = "prosody"
+prosody_group = "prosody"
 
 consider_bosh_secure = true
 http_default_host = "localhost"
-
--- User and group, used for daemon
-prosody_user = "prosody"
-prosody_group = "prosody"
 
 VirtualHost "localhost"
 
 Component "conference.localhost" "muc"
 
--- Set up a SOCKS5 bytestream proxy for server-proxied file transfers:
---Component "proxy.example.com" "proxy65"
-
----Set up an external component (default component port is 5347)
---
--- External components allow adding various services, such as gateways/
--- transports to other networks like ICQ, MSN and Yahoo. For more info
--- see: http://prosody.im/doc/components#adding_an_external_component
---
---Component "gateway.example.com"
---      component_secret = "password"
+Component "asterisk.localhost"
+      component_secret = "asterisk"
