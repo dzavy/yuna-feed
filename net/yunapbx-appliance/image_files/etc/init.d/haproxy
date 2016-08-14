@@ -1,7 +1,7 @@
 #!/bin/sh /etc/rc.common
 # Copyright (C) 2009-2010 OpenWrt.org
 
-START=99
+START=60
 STOP=80
 
 SERVICE_USE_PID=1
@@ -11,8 +11,6 @@ HAPROXY_CONFIG="/etc/haproxy.cfg"
 HAPROXY_PID="/var/run/haproxy.pid"
 
 start() {
-        mkdir -m 0777 -p /var/ssl
-
         /usr/sbin/touchmod /var/ssl/haproxy.crt 0600 haproxy haproxy
 
         /usr/bin/openssl rsa -in /etc/ssl/private/server.key -passin file:/sys/class/dmi/id/product_uuid > /var/ssl/haproxy.crt
