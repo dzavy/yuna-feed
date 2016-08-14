@@ -11,12 +11,12 @@ HAPROXY_CONFIG="/etc/haproxy.cfg"
 HAPROXY_PID="/var/run/haproxy.pid"
 
 start() {
-        mkdir -m 0777 -p /tmp/ssl
+        mkdir -m 0777 -p /var/ssl
 
-        /usr/sbin/touchmod /tmp/ssl/haproxy.crt 0600 haproxy haproxy
+        /usr/sbin/touchmod /var/ssl/haproxy.crt 0600 haproxy haproxy
 
-        cat /etc/ssl/private/server.key > /tmp/ssl/haproxy.crt
-        cat /etc/ssl/private/server.crt >> /tmp/ssl/haproxy.crt
+        /usr/bin/openssl rsa -in /etc/ssl/private/server.key -passin file:/sys/class/dmi/id/product_uuid > /var/ssl/haproxy.crt
+        cat /etc/ssl/private/server.crt >> /var/ssl/haproxy.crt
 
         service_start $HAPROXY_BIN -q -D -f "$HAPROXY_CONFIG" -p "$HAPROXY_PID"
 }
