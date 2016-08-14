@@ -1,11 +1,2 @@
 #!/bin/sh
 
-mkdir -m 0700 -p /etc/ssl/private
-
-/usr/sbin/touchmod /etc/ssl/private/server.key 0600 root root
-/usr/sbin/touchmod /etc/ssl/private/server.csr 0600 root root
-/usr/sbin/touchmod /etc/ssl/private/server.crt 0600 root root
-
-/usr/bin/openssl genrsa -aes256 -passout file:/sys/class/dmi/id/product_uuid 2048 > /etc/ssl/private/server.key
-/usr/bin/openssl req -new -key /etc/ssl/private/server.key -passin file:/sys/class/dmi/id/product_uuid -days 3650 -sha256 -subj "/CN=`cat /proc/sys/kernel/hostname`" > /etc/ssl/private/server.csr
-/usr/bin/openssl x509 -req -in /etc/ssl/private/server.csr -signkey /etc/ssl/private/server.key -sha256 -passin file:/sys/class/dmi/id/product_uuid > /etc/ssl/private/server.crt

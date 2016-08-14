@@ -40,10 +40,30 @@ define Build/Compile
 endef
 
 define Package/yunapbx-appliance/install
+	$(INSTALL_DIR) $(1)/etc/init.d
 	$(INSTALL_DIR) $(1)/etc/rc.d
 	$(INSTALL_DIR) $(1)/usr/sbin
+	$(INSTALL_BIN) ./package_files/etc/init.d/* $(1)/etc/init.d/
 	$(INSTALL_BIN) ./package_files/etc/rc.d/* $(1)/etc/rc.d/
 	$(INSTALL_BIN) ./package_files/usr/sbin/* $(1)/usr/sbin/
+endef
+
+define Package/yunapbx-appliance/postinst
+#!/bin/sh
+
+if [ -z "$${IPKG_INSTROOT}" ]; then
+    /etc/init.d/yunapbx enable
+fi
+exit 0
+endef
+
+define Package/yunapbx-appliance/prerm
+#!/bin/sh
+
+if [ -z "$${IPKG_INSTROOT}" ]; then
+    /etc/init.d/yunapbx disable
+fi
+exit 0
 endef
 
 $(eval $(call BuildPackage,yunapbx-appliance))

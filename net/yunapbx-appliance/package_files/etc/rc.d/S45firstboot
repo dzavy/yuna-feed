@@ -1,9 +1,0 @@
-#!/bin/sh /etc/rc.common
-
-start() {
-    if [ ! -f "/etc/ssl/private/server.key" ] || [ ! -f "/etc/ssl/private/server.crt" ]; then
-        /usr/sbin/sslkeygen
-    fi
-
-    rm /etc/rc.d/S45firstboot
-}
