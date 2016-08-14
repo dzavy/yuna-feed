@@ -1,36 +1,11 @@
-#!/usr/bin/php-cli
+#!/bin/sh
 
-<?php
+mkdir -m 0700 -p /etc/ssl/private
 
-$keyconfig = array(
-    "digest_alg" => "sha256",
-    "private_key_bits" => 2048,
-    "private_key_type" => OPENSSL_KEYTYPE_RSA,
-);
+/usr/sbin/touchmod /etc/ssl/private/server.key 0600 root root
+/usr/sbin/touchmod /etc/ssl/private/server.csr 0600 root root
+/usr/sbin/touchmod /etc/ssl/private/server.crt 0600 root root
 
-$dn = array(
-    "commonName" => gethostname()
-);
-
-$csrconfig = array(
-    "digest_alg" => "sha256"
-);
-
-$certconfig = array(
-    "digest_alg" => "sha256"
-);
-
-$privkey = openssl_pkey_new($keyconfig);
-$csr = openssl_csr_new($dn, $privkey, $csrconfig);
-$sslcert = openssl_csr_sign($csr, NULL, $privkey, 3650, $certconfig);
-
-openssl_pkey_export($privkey, $privkey_pem);
-openssl_x509_export($sslcert, $sslcert_pem);
-
-file_put_contents("/etc/ssl/private/server.key", $privkey_pem);
-file_put_contents("/etc/ssl/private/server.crt", $sslcert_pem);
-
-chmod("/etc/ssl/private/server.key", 0600);
-chmod("/etc/ssl/private/server.crt", 0644);
-
-?>
+/usr/bin/openssl genrsa -aes256 -passout file:/sys/class/dmi/id/product_uuid 2048 > /etc/ssl/private/server.key
+/usr/bin/openssl req -new -key /etc/ssl/private/server.key -passin file:/sys/class/dmi/id/product_uuid -days 3650 -sha256 -subj "/CN=`cat /proc/sys/kernel/hostname`" > /etc/ssl/private/server.csr
+/usr/bin/openssl x509 -req -in /etc/ssl/private/server.csr -signkey /etc/ssl/private/server.key -sha256 -passin file:/sys/class/dmi/id/product_uuid > /etc/ssl/private/server.crt

@@ -1,11 +1,7 @@
 #!/bin/sh /etc/rc.common
 
 start() {
-    mkdir -p /data/moh
-    mkdir -p /data/monitor
-
     if [ ! -f "/etc/ssl/private/server.key" ] || [ ! -f "/etc/ssl/private/server.crt" ]; then
-        mkdir -p /etc/ssl/private
         /usr/sbin/sslkeygen
     fi
 
