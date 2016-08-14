@@ -3,10 +3,10 @@
 
 SERVICE_USE_PID=1
 
-START=50
+START=60
 
 start() {
-        chown -R http:yunapbx /www
+        chown -R http:http /www
         service_start /usr/sbin/lighttpd -f /etc/lighttpd/lighttpd.conf
 }
 
