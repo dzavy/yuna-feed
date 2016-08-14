@@ -5,33 +5,16 @@ START=99
 
 start() {
         mkdir -p /var/log/asterisk
-        mkdir -p /var/spool/asterisk
         mkdir -p /usr/lib/asterisk/keys
-        mkdir -p /data/moh
-        mkdir -p /data/monitor
 
-        chown -R asterisk:yunapbx /var/log/asterisk
-        chown -R asterisk:yunapbx /var/spool/asterisk
-        chown -R asterisk:yunapbx /usr/lib/asterisk
-        chown -R asterisk:yunapbx /data/moh
-        chown -R asterisk:yunapbx /data/monitor
+        chown -R asterisk:asterisk /var/log/asterisk
+        chown -R asterisk:asterisk /usr/lib/asterisk
 
-        mkdir -m 0777 -p /var/ssl
-
-        /usr/sbin/touchmod /var/ssl/asterisk.key 0600 asterisk yunapbx
-        /usr/sbin/touchmod /var/ssl/asterisk.crt 0600 asterisk yunapbx
+        /usr/sbin/touchmod /var/ssl/asterisk.key 0600 asterisk asterisk
+        /usr/sbin/touchmod /var/ssl/asterisk.crt 0600 asterisk asterisk
 
         /usr/bin/openssl rsa -in /etc/ssl/private/server.key -passin file:/sys/class/dmi/id/product_uuid > /var/ssl/asterisk.key
         cat /etc/ssl/private/server.crt > /var/ssl/asterisk.crt
-
-        #/usr/bin/php-cli /www/generator/dongle.conf.php
-        #/usr/bin/php-cli /www/generator/extensions.conf.php
-        #/usr/bin/php-cli /www/generator/features.conf.php
-        #/usr/bin/php-cli /www/generator/meetme.conf.php
-        #/usr/bin/php-cli /www/generator/musiconhold.conf.php
-        #/usr/bin/php-cli /www/generator/queues.conf.php
-        #/usr/bin/php-cli /www/generator/sip.conf.php
-        #/usr/bin/php-cli /www/generator/voicemail.conf.php
 
         service_start /usr/sbin/asterisk
 }
