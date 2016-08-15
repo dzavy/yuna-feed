@@ -49,12 +49,12 @@ modules_disabled = {
 allow_registration = false;
 authentication = "internal_plain"
 storage = "sql"
-sql = { driver = "MySQL", database = "yunapbx", username = "root", password = "", host = "127.0.0.1" }
+sql = { driver = "MySQL", database = "yunapbx", username = "root", password = "", host = "/var/run/mysqld.sock" }
 
 log = { error = "*syslog" }
 pidfile = "/var/run/prosody.pid"
 prosody_user = "prosody"
-prosody_group = "prosody"
+prosody_group = "yunapbx"
 
 consider_bosh_secure = true
 http_default_host = "localhost"

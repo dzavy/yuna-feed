@@ -9,6 +9,6 @@ haproxy:x:34:
 zabbix:x:53:
 prosody:x:54:
 asterisk:x:55:
-yunapbx:x:100:http,asterisk
+yunapbx:x:100:http,asterisk,prosody
 network:x:101:
 nogroup:x:65534:
