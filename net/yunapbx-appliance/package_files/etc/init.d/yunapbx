@@ -27,6 +27,18 @@ start() {
     chown -R asterisk:yunapbx /data/moh
     chown -R asterisk:yunapbx /data/monitor
 
+    mkdir -m 0770 -p /var/yunapbx
+    chown -R asterisk:yunapbx /var/yunapbx
+
+    /usr/sbin/touchmod /var/yunapbx/dongle.conf 0660 asterisk yunapbx
+    /usr/sbin/touchmod /var/yunapbx/extensions.conf 0660 asterisk yunapbx
+    /usr/sbin/touchmod /var/yunapbx/features.conf 0660 asterisk yunapbx
+    /usr/sbin/touchmod /var/yunapbx/meetme.conf 0660 asterisk yunapbx
+    /usr/sbin/touchmod /var/yunapbx/musiconhold.conf 0660 asterisk yunapbx
+    /usr/sbin/touchmod /var/yunapbx/queues.conf 0660 asterisk yunapbx
+    /usr/sbin/touchmod /var/yunapbx/sip.conf 0660 asterisk yunapbx
+    /usr/sbin/touchmod /var/yunapbx/voicemail.conf 0660 asterisk yunapbx
+
     #/usr/bin/php-cli /www/generator/dongle.conf.php
     #/usr/bin/php-cli /www/generator/extensions.conf.php
     #/usr/bin/php-cli /www/generator/features.conf.php
