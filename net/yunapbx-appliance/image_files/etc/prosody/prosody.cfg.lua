@@ -42,8 +42,8 @@ modules_enabled = {
 };
 
 modules_disabled = {
-                "mod_s2s";
-                "mod_c2s";
+                "s2s";
+                "c2s";
 };
 
 allow_registration = false;
