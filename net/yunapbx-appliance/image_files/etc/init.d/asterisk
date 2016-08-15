@@ -15,7 +15,7 @@ start() {
     /usr/sbin/touchmod /var/ssl/asterisk.key 0600 asterisk asterisk
     /usr/sbin/touchmod /var/ssl/asterisk.crt 0600 asterisk asterisk
 
-    /usr/bin/openssl rsa -in /etc/ssl/private/server.key -passin file:/sys/class/dmi/id/product_uuid > /var/ssl/asterisk.key
+    /usr/bin/openssl rsa -in /etc/ssl/private/server.key -passin file:/sys/class/dmi/id/product_uuid -out /var/ssl/asterisk.key &>/dev/null
     cat /etc/ssl/private/server.crt > /var/ssl/asterisk.crt
 
     service_start /usr/sbin/asterisk

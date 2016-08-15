@@ -14,9 +14,9 @@ start() {
         /usr/sbin/touchmod "$SSL_PATH/server.csr" 0600 root root
         /usr/sbin/touchmod "$SSL_PATH/server.crt" 0600 root root
 
-        /usr/bin/openssl genrsa -aes256 -passout "$KEY_PASS" 2048 > "$SSL_PATH/server.key"
-        /usr/bin/openssl req -new -key "$SSL_PATH/server.key" -passin "$KEY_PASS" -days 3650 -sha256 -subj "/CN=`cat /proc/sys/kernel/hostname`" > "$SSL_PATH/server.csr"
-        /usr/bin/openssl x509 -req -in "$SSL_PATH/server.csr" -signkey "$SSL_PATH/server.key" -sha256 -passin "$KEY_PASS" > "$SSL_PATH/server.crt"
+        /usr/bin/openssl genrsa -aes256 -passout "$KEY_PASS" 2048 -out "$SSL_PATH/server.key" &>/dev/null
+        /usr/bin/openssl req -new -key "$SSL_PATH/server.key" -passin "$KEY_PASS" -days 3650 -sha256 -subj "/CN=`cat /proc/sys/kernel/hostname`" -out "$SSL_PATH/server.csr" &>/dev/null
+        /usr/bin/openssl x509 -req -in "$SSL_PATH/server.csr" -signkey "$SSL_PATH/server.key" -sha256 -passin "$KEY_PASS" -out "$SSL_PATH/server.crt" &>/dev/null
     fi
 
     mkdir -m 0777 -p /var/ssl
@@ -32,7 +32,7 @@ start() {
     /usr/sbin/touchmod /var/yunapbx/dongle.conf 0660 asterisk yunapbx
     /usr/sbin/touchmod /var/yunapbx/extensions.conf 0660 asterisk yunapbx
     /usr/sbin/touchmod /var/yunapbx/features.conf 0660 asterisk yunapbx
-    /usr/sbin/touchmod /var/yunapbx/meetme.conf 0660 asterisk yunapbx
+    /usr/sbin/touchmod /var/yunapbx/confbridge.conf 0660 asterisk yunapbx
     /usr/sbin/touchmod /var/yunapbx/musiconhold.conf 0660 asterisk yunapbx
     /usr/sbin/touchmod /var/yunapbx/queues.conf 0660 asterisk yunapbx
     /usr/sbin/touchmod /var/yunapbx/sip.conf 0660 asterisk yunapbx
