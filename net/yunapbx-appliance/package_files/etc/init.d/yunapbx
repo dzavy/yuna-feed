@@ -23,11 +23,10 @@ start() {
 
     mkdir -m 0770 -p /data/moh
     mkdir -m 0770 -p /data/monitor
+    mkdir -m 0770 -p /var/yunapbx
 
     chown -R asterisk:yunapbx /data/moh
     chown -R asterisk:yunapbx /data/monitor
-
-    mkdir -m 0770 -p /var/yunapbx
     chown -R asterisk:yunapbx /var/yunapbx
 
     /usr/sbin/touchmod /var/yunapbx/dongle.conf 0660 asterisk yunapbx

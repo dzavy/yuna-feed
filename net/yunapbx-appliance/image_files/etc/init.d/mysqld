@@ -13,18 +13,17 @@ error() {
 
 start() {
     mkdir -m 0700 -p /data/mysql
-    chown -R mysql:mysql /data/mysql
-
     mkdir -m 0700 -p /var/log/mysql
+    mkdir -m 0770 -p /var/run/mysql
+
     chown -R mysql:mysql /var/log/mysql
+    chown -R mysql:mysql /data/mysql
+    chown -R mysql:yunapbx /var/run/mysql
 
 	if [ ! -f "/data/mysql/mysql/tables_priv.MYD" ]; then
 		/usr/bin/mysql_install_db --force
 	fi
 	service_start /usr/bin/mysqld
-    
-    chmod 0770 /var/run/mysqld.sock
-    chown mysql:yunapbx /var/run/mysqld.sock
 }
 
 stop() {

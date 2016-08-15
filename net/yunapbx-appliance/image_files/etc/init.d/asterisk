@@ -4,25 +4,27 @@
 START=99
 
 start() {
-        mkdir -p /var/log/asterisk
-        mkdir -p /usr/lib/asterisk/keys
+    mkdir -p /var/log/asterisk
+    mkdir -p /usr/lib/asterisk/keys
+    mkdir -p /var/run/asterisk    
 
-        chown -R asterisk:asterisk /var/log/asterisk
-        chown -R asterisk:asterisk /usr/lib/asterisk
+    chown -R asterisk:asterisk /var/log/asterisk
+    chown -R asterisk:asterisk /usr/lib/asterisk
+    chown -R asterisk:asterisk /var/run/asterisk
 
-        /usr/sbin/touchmod /var/ssl/asterisk.key 0600 asterisk asterisk
-        /usr/sbin/touchmod /var/ssl/asterisk.crt 0600 asterisk asterisk
+    /usr/sbin/touchmod /var/ssl/asterisk.key 0600 asterisk asterisk
+    /usr/sbin/touchmod /var/ssl/asterisk.crt 0600 asterisk asterisk
 
-        /usr/bin/openssl rsa -in /etc/ssl/private/server.key -passin file:/sys/class/dmi/id/product_uuid > /var/ssl/asterisk.key
-        cat /etc/ssl/private/server.crt > /var/ssl/asterisk.crt
+    /usr/bin/openssl rsa -in /etc/ssl/private/server.key -passin file:/sys/class/dmi/id/product_uuid > /var/ssl/asterisk.key
+    cat /etc/ssl/private/server.crt > /var/ssl/asterisk.crt
 
-        service_start /usr/sbin/asterisk
+    service_start /usr/sbin/asterisk
 }
 
 stop() {
-        /usr/sbin/asterisk -rx 'core stop now'
+    /usr/sbin/asterisk -rx 'core stop now'
 }
 
 reload() {
-        /usr/sbin/asterisk -rx 'core reload'
+    /usr/sbin/asterisk -rx 'core reload'
 }
