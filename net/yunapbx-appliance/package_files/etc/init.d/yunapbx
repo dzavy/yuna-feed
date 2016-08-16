@@ -14,7 +14,7 @@ start() {
         /usr/sbin/touchmod "$SSL_PATH/server.csr" 0600 root root
         /usr/sbin/touchmod "$SSL_PATH/server.crt" 0600 root root
 
-        /usr/bin/openssl genrsa -aes256 -passout "$KEY_PASS" 2048 -out "$SSL_PATH/server.key" &>/dev/null
+        /usr/bin/openssl genrsa -aes256 -passout "$KEY_PASS" -out "$SSL_PATH/server.key" 2048 &>/dev/null
         /usr/bin/openssl req -new -key "$SSL_PATH/server.key" -passin "$KEY_PASS" -days 3650 -sha256 -subj "/CN=`cat /proc/sys/kernel/hostname`" -out "$SSL_PATH/server.csr" &>/dev/null
         /usr/bin/openssl x509 -req -in "$SSL_PATH/server.csr" -signkey "$SSL_PATH/server.key" -sha256 -passin "$KEY_PASS" -out "$SSL_PATH/server.crt" &>/dev/null
     fi
