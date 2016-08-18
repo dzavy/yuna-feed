@@ -1,0 +1,33 @@
+#!/bin/sh /etc/rc.common
+# Copyright (C) 2008-2013 OpenWrt.org
+# Copyright (C) 2008 Jo-Philipp Wich
+# This is free software, licensed under the GNU General Public License v2.
+# See /LICENSE for more information.
+
+START=90
+STOP=10
+
+USE_PROCD=1
+
+ssl_start() {
+    /usr/sbin/touchmod /var/ssl/openvpn.key 0600 root root
+    /usr/sbin/touchmod /var/ssl/openvpn.crt 0600 root root
+
+    /usr/bin/openssl rsa -in /etc/ssl/private/server.key -passin file:/sys/class/dmi/id/product_uuid -out /var/ssl/openvpn.key &>/dev/null
+    cat /etc/ssl/private/server.crt > /var/ssl/openvpn.crt
+}
+
+ssl_stop() {
+    rm /var/ssl/openvpn.key
+    rm /var/ssl/openvpn.crt
+}
+
+start() {
+    ssl_start
+    service_start /usr/sbin/openvpn --syslog openvpn --status /var/run/openvpn.status --config /etc/openvpn/client.conf
+}
+
+stop() {
+    service_stop /usr/sbin/openvpn
+    ssl_stop
+}

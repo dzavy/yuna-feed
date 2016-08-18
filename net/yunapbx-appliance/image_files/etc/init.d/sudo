@@ -4,7 +4,7 @@
 START=99
 
 start() {
-        chmod 0440 /etc/sudoers
-        mkdir -m 0755 -p /var/lib/sudo
-        chmod 0700 /var/lib/sudo
+    chmod 0440 /etc/sudoers
+    mkdir -m 0755 -p /var/lib/sudo
+    chmod 0700 /var/lib/sudo
 }

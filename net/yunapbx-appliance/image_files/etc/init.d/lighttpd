@@ -6,10 +6,10 @@ SERVICE_USE_PID=1
 START=60
 
 start() {
-        chown -R http:http /www
-        service_start /usr/sbin/lighttpd -f /etc/lighttpd/lighttpd.conf
+    chown -R http:http /www
+    service_start /usr/sbin/lighttpd -f /etc/lighttpd/lighttpd.conf
 }
 
 stop() {
-        service_stop /usr/sbin/lighttpd
+    service_stop /usr/sbin/lighttpd
 }
