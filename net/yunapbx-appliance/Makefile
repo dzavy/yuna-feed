@@ -22,7 +22,7 @@ define Package/yunapbx-appliance
 	CATEGORY:=Utilities
 	SUBMENU:=Telephony
 	TITLE:=YunaPBX Appliance
-	DEPENDS:=+yunapbx +lighttpd +lighttpd-mod-cgi +php5-cgi +php5-cli +php5-mod-openssl +mysql-server +haproxy +prosody +luadbi-mysql +openssl-util +curl +lame +zabbix-agentd +tune2fs +fdisk +partx-utils +sudo +kmod-ipv6 +kmod-usb-hid +kmod-fs-cifs +kmod-fs-msdos +kmod-fuse +@USE_GLIBC +@OPENSSL_WITH_EC +@OPENSSL_WITH_EC2M +@OPENSSL_ENGINE_CRYPTO +@OPENSSL_ENGINE_DIGEST +@GNUTLS_CRYPTODEV +@LIBCURL_OPENSSL +@BUSYBOX_CONFIG_LOGIN +@BUSYBOX_CONFIG_FEATURE_UTMP +@BUSYBOX_CONFIG_WHO
+	DEPENDS:=+yunapbx +lighttpd +lighttpd-mod-cgi +php5-cgi +php5-cli +php5-mod-openssl +mysql-server +haproxy +prosody +luadbi-mysql +openssl-util +curl +lame +zabbix-agentd +tune2fs +fdisk +partx-utils +sudo +kmod-ipv6 +kmod-usb-hid +kmod-fs-cifs +kmod-fs-msdos +kmod-fuse +@USE_GLIBC +@GLIBC_VERSION_2_21 +@GLIBC_USE_VERSION_2_21 +@OPENSSL_WITH_EC +@OPENSSL_WITH_EC2M +@OPENSSL_ENGINE_CRYPTO +@OPENSSL_ENGINE_DIGEST +@GNUTLS_CRYPTODEV +@LIBCURL_OPENSSL +@BUSYBOX_CONFIG_LOGIN +@BUSYBOX_CONFIG_FEATURE_UTMP +@BUSYBOX_CONFIG_WHO
 endef
 
 define Package/yunapbx-appliance/description
