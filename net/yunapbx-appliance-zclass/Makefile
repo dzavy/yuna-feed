@@ -18,7 +18,7 @@ define Package/yunapbx-appliance-zclass
 	TITLE:=YunaPBX for Wyse Z-Class
 	KCONFIG:=CONFIG_HIGHMEM64G=y CONFIG_X86_32_SMP=y CONFIG_SMP=y 
 	VERSION:=1.0
-	DEPENDS:=+yunapbx-appliance +kmod-cpufreq-acpi +kmod-hwmon-k10-cputemp +kmod-r8169 +kmod-button-hotplug +kmod-acpi-button +kmod-usb3
+	DEPENDS:=+yunapbx-appliance +kmod-cpufreq-acpi +kmod-hwmon-k10temp +kmod-r8169 +kmod-button-hotplug +kmod-acpi-button +kmod-usb3
 endef
 
 define Package/yunapbx-appliance-zclass/description

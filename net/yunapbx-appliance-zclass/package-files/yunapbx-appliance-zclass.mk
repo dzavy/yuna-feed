@@ -17,19 +17,5 @@ define KernelPackage/cpufreq-acpi/description
   Kernel module for VIA E-Powersaver
 endef
 
-define KernelPackage/hwmon-k10-cputemp
-	TITLE:=AMD K10 CPU temp
-	SUBMENU:=Hardware Monitoring Support
-	KCONFIG:=CONFIG_SENSORS_K10TEMP=m
-	FILES:=$(LINUX_DIR)/drivers/hwmon/k10temp.ko
-	AUTOLOAD:=$(call AutoLoad,42,k10temp)
-	DEPENDS:=kmod-hwmon-core +kmod-hwmon-vid
-endef
-
-define KernelPackage/hwmon-k10-cputemp/description
-  Kernel modules for AMD K10 CPU temperature
-endef
-
 
 $(eval $(call KernelPackage,cpufreq-acpi))
-$(eval $(call KernelPackage,hwmon-k10-cputemp))
