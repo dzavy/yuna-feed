@@ -1,0 +1,8 @@
+#!/bin/sh
+
+if [ "${ACTION}" = "ifup" ]; then
+    if [ "${INTERFACE}" = "lan" ]; then
+        /etc/init.d/zabbix_agentd restart
+        /etc/init.d/openvpn restart
+    fi
+fi
