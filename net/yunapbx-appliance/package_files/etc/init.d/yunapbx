@@ -7,6 +7,8 @@ SSL_PATH="/etc/ssl/private"
 KEY_PASS="file:/sys/class/dmi/id/product_uuid"
 
 start() {
+    find -L /sys/class/hwmon/ -maxdepth 3 -name 'temp*_input' -exec ln -sf {} /tmp/cpu_temp \; 2>/dev/null
+
     if [ ! -f "$SSL_PATH/server.key" ] || [ ! -f "$SSL_PATH/server.crt" ]; then
         mkdir -m 0700 -p "$SSL_PATH"
 
