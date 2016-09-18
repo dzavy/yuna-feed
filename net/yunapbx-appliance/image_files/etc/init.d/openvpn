@@ -10,6 +10,11 @@ STOP=10
 USE_PROCD=1
 
 ssl_start() {
+    /usr/bin/openssl verify -CAfile /etc/ssl/private/server.crt /etc/ssl/private/server.crt &>/dev/null
+    if [[ "$?" == "0" ]] ;then
+        exit 0
+    fi
+
     /usr/sbin/touchmod /var/ssl/openvpn.key 0600 root root
     /usr/sbin/touchmod /var/ssl/openvpn.crt 0600 root root
 
