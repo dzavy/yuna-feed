@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=yunapbx-appliance
 PKG_VERSION:=0.1
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
 PKG_INSTALL:=
 
@@ -22,7 +22,7 @@ define Package/yunapbx-appliance
 	CATEGORY:=Utilities
 	SUBMENU:=Telephony
 	TITLE:=YunaPBX Appliance
-	DEPENDS:=+yunapbx +lighttpd +lighttpd-mod-cgi +php5-cgi +php5-cli +php5-mod-openssl +mysql-server +haproxy +prosody +luadbi-mysql +openssl-util +curl +lame +zabbix-agentd +tune2fs +fdisk +partx-utils +sudo +kmod-ipv6 +kmod-usb-hid +kmod-fs-cifs +kmod-fs-msdos +kmod-fuse +@USE_GLIBC +@GLIBC_VERSION_2_21 +@GLIBC_USE_VERSION_2_21 +@OPENSSL_WITH_EC +@OPENSSL_WITH_EC2M +@OPENSSL_ENGINE_CRYPTO +@OPENSSL_ENGINE_DIGEST +@GNUTLS_CRYPTODEV +@LIBCURL_OPENSSL +@BUSYBOX_CONFIG_LOGIN +@BUSYBOX_CONFIG_FEATURE_UTMP +@BUSYBOX_CONFIG_WHO
+	DEPENDS:=+yunapbx +odhcp6c +lighttpd +lighttpd-mod-cgi +lighttpd-mod-extforward +php5-cgi +php5-cli +php5-mod-openssl +mysql-server +haproxy +prosody +tcpdump +openvpn-openssl +luadbi-mysql +openssl-util +curl +lame +zabbix-agentd +tune2fs +fdisk +partx-utils +sudo +kmod-usb-hid +kmod-fs-cifs +kmod-fs-msdos +kmod-fuse +asterisk11 +asterisk11-app-mixmonitor +asterisk11-cdr +asterisk11-chan-dongle +asterisk11-chan-motif +asterisk11-codec-a-mu +asterisk11-codec-adpcm +asterisk11-codec-alaw +asterisk11-codec-g722 +asterisk11-codec-g726 +asterisk11-codec-gsm +asterisk11-codec-ilbc +asterisk11-codec-lpc10 +asterisk11-format-gsm +asterisk11-format-wav +asterisk11-format-wav-gsm +asterisk11-odbc +asterisk11-res-agi +asterisk11-res-monitor +asterisk11-res-musiconhold +asterisk11-res-srtp +asterisk11-res-timing-pthread +asterisk11-res-xmpp +asterisk11-sounds +asterisk11-voicemail +@OPENSSL_WITH_EC +@OPENSSL_WITH_EC2M +@OPENSSL_ENGINE_CRYPTO +@OPENSSL_ENGINE_DIGEST +@GNUTLS_CRYPTODEV +@LIBCURL_OPENSSL +@BUSYBOX_CUSTOM +@BUSYBOX_CONFIG_LOGIN
 endef
 
 define Package/yunapbx-appliance/description

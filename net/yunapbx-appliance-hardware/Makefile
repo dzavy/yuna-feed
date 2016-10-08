@@ -7,6 +7,12 @@
 
 include $(TOPDIR)/rules.mk
 
+PKG_NAME:=yunapbx-appliance
+PKG_VERSION:=0.1
+PKG_RELEASE:=2
+PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
+PKG_INSTALL:=
+
 PKG_MAINTAINER:=Jan Havelka <dzavy@dzavy.net>
 	
 include $(INCLUDE_DIR)/package.mk
