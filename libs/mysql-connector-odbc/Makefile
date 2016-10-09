@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=mysql-connector-odbc
 PKG_VERSION:=5.3.6-src
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=http://dev.mysql.com/get/Downloads/Connector-ODBC/5.3/
@@ -18,7 +18,7 @@ PKG_INSTALL:=1
 PKG_MAINTAINER:=Jan Havelka <dzavy@dzavy.net>
 
 EXTRA_CFLAGS:=-lpthread
-CMAKE_OPTIONS:=-DWITH_UNIXODBC=1 -DMYSQL_INCLUDE_DIR=$(STAGING_DIR)/usr/include/mysql -DODBC_INCLUDES=$(STAGING_DIR)/usr/include -DMYSQLCLIENT_LIB_NAME=libmysqlclient_r.so.16 -DMYSQL_LIB_DIR=$(STAGING_DIR)/usr/lib -DODBC_LIB_DIR=$(STAGING_DIR)/usr/lib
+CMAKE_OPTIONS:=-DWITH_UNIXODBC=1 -DMYSQL_INCLUDE_DIR=$(STAGING_DIR)/usr/include/mysql -DODBC_INCLUDES=$(STAGING_DIR)/usr/include -DMYSQLCLIENT_LIB_NAME=libmysqlclient_r.so.16 -DMYSQL_LIB_DIR=$(STAGING_DIR)/usr/lib/mysql -DODBC_LIB_DIR=$(STAGING_DIR)/usr/lib
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/cmake.mk
