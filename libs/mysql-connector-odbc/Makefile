@@ -8,11 +8,11 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=mysql-connector-odbc
-PKG_VERSION:=5.1.13-src
+PKG_VERSION:=5.3.6-src
 PKG_RELEASE:=1
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=http://dev.mysql.com/get/Downloads/Connector-ODBC/5.1/
+PKG_SOURCE_URL:=http://dev.mysql.com/get/Downloads/Connector-ODBC/5.3/
 PKG_INSTALL:=1
 
 PKG_MAINTAINER:=Jan Havelka <dzavy@dzavy.net>
