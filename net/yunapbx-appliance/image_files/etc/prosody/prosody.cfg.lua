@@ -52,7 +52,7 @@ storage = "sql"
 sql = { driver = "MySQL", database = "yunapbx", username = "root", password = "", host = "/var/run/mysql/mysqld.sock" }
 
 log = { error = "*syslog" }
-pidfile = "/var/run/prosody.pid"
+pidfile = "/var/run/prosody/prosody.pid"
 prosody_user = "prosody"
 prosody_group = "yunapbx"
 

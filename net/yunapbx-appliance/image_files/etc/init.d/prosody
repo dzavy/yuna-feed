@@ -13,6 +13,9 @@ RUN_USER=prosody
 RUN_GROUP=prosody
 
 start_service() {
+    mkdir -p /var/run/prosody
+    chown -R prosody:prosody /var/run/prosody
+
     procd_open_instance
     procd_set_param command "$BIN" start
     procd_set_param file /etc/prosody/prosody.cfg.lua
