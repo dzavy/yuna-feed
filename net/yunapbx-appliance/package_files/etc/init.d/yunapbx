@@ -29,24 +29,16 @@ start() {
 
     chown -R asterisk:yunapbx /data/moh
     chown -R asterisk:yunapbx /data/monitor
-    chown -R asterisk:yunapbx /var/yunapbx
+    chown -R http:yunapbx /var/yunapbx
 
-    /usr/sbin/touchmod /var/yunapbx/dongle.conf 0660 asterisk yunapbx
-    /usr/sbin/touchmod /var/yunapbx/extensions.conf 0660 asterisk yunapbx
-    /usr/sbin/touchmod /var/yunapbx/features.conf 0660 asterisk yunapbx
-    /usr/sbin/touchmod /var/yunapbx/confbridge.conf 0660 asterisk yunapbx
-    /usr/sbin/touchmod /var/yunapbx/musiconhold.conf 0660 asterisk yunapbx
-    /usr/sbin/touchmod /var/yunapbx/queues.conf 0660 asterisk yunapbx
-    /usr/sbin/touchmod /var/yunapbx/sip.conf 0660 asterisk yunapbx
-    /usr/sbin/touchmod /var/yunapbx/voicemail.conf 0660 asterisk yunapbx
+    umask 0027
 
-    #/usr/bin/php-cli /www/generator/dongle.conf.php
-    #/usr/bin/php-cli /www/generator/extensions.conf.php
-    #/usr/bin/php-cli /www/generator/features.conf.php
-    #/usr/bin/php-cli /www/generator/meetme.conf.php
-    #/usr/bin/php-cli /www/generator/musiconhold.conf.php
-    #/usr/bin/php-cli /www/generator/queues.conf.php
-    #/usr/bin/php-cli /www/generator/sip.conf.php
-    #/usr/bin/php-cli /www/generator/voicemail.conf.php
-
+    /usr/bin/sudo -u http -g yunapbx /usr/bin/php-cli /www/generator/confbridge.conf.php
+    /usr/bin/sudo -u http -g yunapbx /usr/bin/php-cli /www/generator/dongle.conf.php
+    /usr/bin/sudo -u http -g yunapbx /usr/bin/php-cli /www/generator/extensions.conf.php
+    /usr/bin/sudo -u http -g yunapbx /usr/bin/php-cli /www/generator/features.conf.php
+    /usr/bin/sudo -u http -g yunapbx /usr/bin/php-cli /www/generator/musiconhold.conf.php
+    /usr/bin/sudo -u http -g yunapbx /usr/bin/php-cli /www/generator/queues.conf.php
+    /usr/bin/sudo -u http -g yunapbx /usr/bin/php-cli /www/generator/sip.conf.php
+    /usr/bin/sudo -u http -g yunapbx /usr/bin/php-cli /www/generator/voicemail.conf.php
 }
