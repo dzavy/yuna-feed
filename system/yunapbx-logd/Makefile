@@ -24,7 +24,7 @@ define Package/yunapbx-logd
   SECTION:=base
   CATEGORY:=Base system
   DEPENDS:=+libubox +libubus +libblobmsg-json +USE_GLIBC:librt
-  TITLE:=OpenWrt system log implementation
+  TITLE:=YunaPBX system log implementation
 endef
 
 define Build/Download
