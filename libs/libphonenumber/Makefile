@@ -28,7 +28,7 @@ define Package/libphonenumber
 	CATEGORY:=Libraries
 	SUBMENU:=Telephony
 	TITLE:=PhoneNumber library for C++
-	DEPENDS:=+protobuf
+	DEPENDS:=+protobuf +icu
 #	PKG_BUILD_DEPENDS:=+boost +boost-system +boost-thread
 endef
 
