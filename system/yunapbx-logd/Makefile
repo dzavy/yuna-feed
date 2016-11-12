@@ -23,8 +23,12 @@ TARGET_LDFLAGS += $(if $(CONFIG_USE_GLIBC),-lrt)
 define Package/yunapbx-logd
   SECTION:=base
   CATEGORY:=Base system
-  DEPENDS:=!PACKAGE_logd +libubox +libubus +libblobmsg-json +USE_GLIBC:librt
+  DEPENDS:=+libubox +libubus +libblobmsg-json +USE_GLIBC:librt
   TITLE:=YunaPBX system log implementation
+endef
+
+define Package/yunapbx-logd/config
+  deselect PACKAGE_logd
 endef
 
 define Build/Download
