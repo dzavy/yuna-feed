@@ -22,6 +22,7 @@ start() {
     fi
 
     mkdir -m 0777 -p /var/ssl
+    find /etc/ssl/certs/ -type f -exec cat {} \; > /var/ssl/ca-bundle.crt
 
     mkdir -m 0770 -p /data/moh
     mkdir -m 0770 -p /data/monitor
