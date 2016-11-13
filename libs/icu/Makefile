@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=icu4c
-PKG_VERSION:=55.1
+PKG_VERSION:=58.1
 PKG_RELEASE:=1
 
-PKG_SOURCE:=$(PKG_NAME)-55_1-src.tgz
-PKG_SOURCE_URL:=http://download.icu-project.org/files/icu4c/55.1
-PKG_MD5SUM:=e2d523df79d6cb7855c2fbe284f4db29
+PKG_SOURCE:=$(PKG_NAME)-58_1-src.tgz
+PKG_SOURCE_URL:=http://download.icu-project.org/files/icu4c/58.1
+PKG_MD5SUM:=1901302aaff1c1633ef81862663d2917
 
 PKG_LICENSE:=ICU-1.8.1+
 PKG_LICENSE_FILES:=license.html
@@ -58,6 +58,7 @@ define Build/Configure
 		--disable-tests \
 		--disable-samples \
 		--with-cross-build="$(HOST_BUILD_DIR)" \
+		--with-data-packaging=files \
 	)
 endef
 
