@@ -58,7 +58,6 @@ define Build/Configure
 		--disable-tests \
 		--disable-samples \
 		--with-cross-build="$(HOST_BUILD_DIR)" \
-		--with-data-packaging=files \
 	)
 endef
 
