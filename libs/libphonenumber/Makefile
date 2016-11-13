@@ -38,7 +38,7 @@ endef
 
 define Package/libphonenumber/install
 	$(INSTALL_DIR) $(1)/usr/lib
-	cp -pR $(PKG_BUILD_DIR)/libphonenumber.so $(1)/usr/lib/
+	cp -pR $(PKG_BUILD_DIR)/libphonenumber.so* $(1)/usr/lib/
 endef
 
 $(eval $(call BuildPackage,libphonenumber))
