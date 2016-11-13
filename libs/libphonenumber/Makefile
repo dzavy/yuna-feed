@@ -17,8 +17,6 @@ PKG_INSTALL:=1
 
 PKG_MAINTAINER:=Jan Havelka <dzavy@dzavy.net>
 
-PKG_BUILD_DEPENDS:=libphonenumber/host
-
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/cmake.mk
 
@@ -38,13 +36,9 @@ define Package/libphonenumber/description
   Google's common C++ library for parsing, formatting, and validating international phone numbers.
 endef
 
-define Host/install
-endef
-
 define Package/libphonenumber/install
 	$(INSTALL_DIR) $(1)/usr/lib
 	cp -pR $(PKG_BUILD_DIR)/libphonenumber.so* $(1)/usr/lib/
 endef
 
 $(eval $(call BuildPackage,libphonenumber))
-$(eval $(call HostBuild))
