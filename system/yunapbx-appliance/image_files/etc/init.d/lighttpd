@@ -7,6 +7,15 @@ START=60
 
 start() {
     chown -R http:http /www
+
+    mkdir -m 0770 -p /data/moh
+    mkdir -m 0770 -p /data/monitor
+    mkdir -m 0770 -p /var/yunapbx
+
+    chown -R asterisk:yunapbx /data/moh
+    chown -R asterisk:yunapbx /data/monitor
+    chown -R http:yunapbx /var/yunapbx
+
     service_start /usr/sbin/lighttpd -f /etc/lighttpd/lighttpd.conf
 }
 

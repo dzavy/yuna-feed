@@ -12,6 +12,16 @@ ssl_start() {
     cat /etc/ssl/private/server.crt > /var/ssl/asterisk.crt
 }
 
+gen_conf() {
+    /usr/bin/sudo -u http -g yunapbx /usr/bin/php-cli /www/generator/confbridge.conf.php
+    /usr/bin/sudo -u http -g yunapbx /usr/bin/php-cli /www/generator/dongle.conf.php
+    /usr/bin/sudo -u http -g yunapbx /usr/bin/php-cli /www/generator/extensions.conf.php
+    /usr/bin/sudo -u http -g yunapbx /usr/bin/php-cli /www/generator/musiconhold.conf.php
+    /usr/bin/sudo -u http -g yunapbx /usr/bin/php-cli /www/generator/queues.conf.php
+    /usr/bin/sudo -u http -g yunapbx /usr/bin/php-cli /www/generator/sip.conf.php
+    /usr/bin/sudo -u http -g yunapbx /usr/bin/php-cli /www/generator/voicemail.conf.php
+}
+
 ssl_stop() {
     rm /var/ssl/asterisk.key
     rm /var/ssl/asterisk.crt
@@ -20,13 +30,23 @@ ssl_stop() {
 start() {
     mkdir -p /var/log/asterisk
     mkdir -p /usr/lib/asterisk/keys
-    mkdir -p /var/run/asterisk    
+    mkdir -p /var/run/asterisk
+
+    mkdir -m 0770 -p /data/moh
+    mkdir -m 0770 -p /data/monitor
+    mkdir -m 0770 -p /var/yunapbx
 
     chown -R asterisk:asterisk /var/log/asterisk
     chown -R asterisk:asterisk /usr/lib/asterisk
     chown -R asterisk:asterisk /var/run/asterisk
 
+    chown -R asterisk:yunapbx /data/moh
+    chown -R asterisk:yunapbx /data/monitor
+    chown -R http:yunapbx /var/yunapbx
+
     ssl_start
+    gen_conf
+
     service_start /usr/sbin/asterisk
 }
 
