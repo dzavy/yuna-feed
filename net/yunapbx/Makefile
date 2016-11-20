@@ -32,7 +32,6 @@ define Build/Download
 endef
 
 define Build/Prepare
-	$(CP) ./src/* $(PKG_BUILD_DIR)
 endef
 
 define Build/Configure
@@ -46,16 +45,16 @@ define Package/yunapbx/install
 	$(INSTALL_DIR) $(1)/www
 	$(INSTALL_DIR) $(1)/usr/share/yunapbx
 	$(LN) /www/config/yunapbx.php $(1)/etc/yunapbx.php
-	$(CP) $(PKG_BUILD_DIR)/admin $(1)/www/
-	$(CP) $(PKG_BUILD_DIR)/config $(1)/www/
-	$(CP) $(PKG_BUILD_DIR)/favicon.ico $(1)/www/
-	$(CP) $(PKG_BUILD_DIR)/generator $(1)/www/
-	$(CP) $(PKG_BUILD_DIR)/include $(1)/www/
-	$(CP) $(PKG_BUILD_DIR)/index.php $(1)/www/
-	$(CP) $(PKG_BUILD_DIR)/lib $(1)/www/
-	$(CP) $(PKG_BUILD_DIR)/static $(1)/www/
-	$(CP) $(PKG_BUILD_DIR)/user $(1)/www/
-	$(CP) $(PKG_BUILD_DIR)/db $(1)/usr/share/yunapbx
+	$(CP) ./src/admin $(1)/www/
+	$(CP) ./src/config $(1)/www/
+	$(CP) ./src/favicon.ico $(1)/www/
+	$(CP) ./src/generator $(1)/www/
+	$(CP) ./src/include $(1)/www/
+	$(CP) ./src/index.php $(1)/www/
+	$(CP) ./src/lib $(1)/www/
+	$(CP) ./src/static $(1)/www/
+	$(CP) ./src/user $(1)/www/
+	$(CP) ./src/db $(1)/usr/share/yunapbx/
 endef
 
 $(eval $(call BuildPackage,yunapbx))
