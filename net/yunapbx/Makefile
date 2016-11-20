@@ -8,12 +8,9 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=yunapbx
-PKG_VERSION:=0.4-alpha
+PKG_VERSION:=2016-11-20
 PKG_RELEASE:=1
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
-PKG_SOURCE:=v$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://github.com/dzavy/$(PKG_NAME)/archive/
-PKG_INSTALL:=
 
 PKG_MAINTAINER:=Jan Havelka <dzavy@dzavy.net>
 
@@ -31,6 +28,13 @@ define Package/yunapbx/description
   Asterisk Web Management Interface
 endef
 
+define Build/Download
+endef
+
+define Build/Prepare
+	$(CP) ./src/* $(PKG_BUILD_DIR)
+endef
+
 define Build/Configure
 endef
 
@@ -38,8 +42,10 @@ define Build/Compile
 endef
 
 define Package/yunapbx/install
+	$(INSTALL_DIR) $(1)/etc
 	$(INSTALL_DIR) $(1)/www
 	$(INSTALL_DIR) $(1)/usr/share/yunapbx
+	$(LN) /www/config/yunapbx.php $(1)/etc/yunapbx.php
 	$(CP) $(PKG_BUILD_DIR)/admin $(1)/www/
 	$(CP) $(PKG_BUILD_DIR)/config $(1)/www/
 	$(CP) $(PKG_BUILD_DIR)/favicon.ico $(1)/www/
