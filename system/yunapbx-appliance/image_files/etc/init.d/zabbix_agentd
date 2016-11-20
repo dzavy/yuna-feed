@@ -18,6 +18,8 @@ ssl_start() {
 start_service() {
     mkdir -p /var/run/zabbix
     chown -R zabbix:zabbix /var/run/zabbix
+
+    find -L /sys/class/hwmon/ -maxdepth 3 -name 'temp*_input' -exec ln -sf {} /tmp/cpu_temp \; 2>/dev/null
     
     ssl_start
     
