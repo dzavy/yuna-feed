@@ -21,10 +21,11 @@ include $(INCLUDE_DIR)/cmake.mk
 TARGET_LDFLAGS += $(if $(CONFIG_USE_GLIBC),-lrt)
 
 define Package/yunapbx-logd
-  SECTION:=base
-  CATEGORY:=Base system
-  DEPENDS:=@!PACKAGE_logd +libubox +libubus +libblobmsg-json +USE_GLIBC:librt
-  TITLE:=YunaPBX system log implementation
+	SECTION:=base
+	CATEGORY:=Base system
+	DEPENDS:=+libubox +libubus +libblobmsg-json +USE_GLIBC:librt
+	CONFLICTS:=logd
+	TITLE:=YunaPBX system log implementation
 endef
 
 define Build/Download
