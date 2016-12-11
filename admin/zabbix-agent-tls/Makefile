@@ -8,7 +8,7 @@
 include $(TOPDIR)/rules.mk
 include $(TOPDIR)/rules.mk
 
-PKG_NAME:=yunapbx-zabbix
+PKG_NAME:=zabbix-agent-tls
 PKG_VERSION:=3.0.6
 PKG_RELEASE:=1
 
@@ -19,7 +19,7 @@ PKG_MD5SUM:=f7ab89d9b7b73f337c2bdd52d2cfab2d
 PKG_LICENSE:=GPL-2.0
 PKG_LICENSE_FILES:=COPYING
 
-PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
+PKG_BUILD_DIR:=$(BUILD_DIR)/zabbix-$(PKG_VERSION)
 
 PKG_MAINTAINER:=Jan Havelka <dzavy@dzavy.net>
 
@@ -28,14 +28,14 @@ PKG_FIXUP:=autoreconf
 
 include $(INCLUDE_DIR)/package.mk
 
-define Package/yunapbx-zabbix
+define Package/zabbix-agent-tls
 	SECTION:=admin
 	CATEGORY:=Administration
 	SUBMENU:=zabbix
 	DEPENDS:=+libopenssl
 	CONFLICTS:=zabbix-agentd
 	USERID:=zabbix=53:zabbix=53
-	TITLE:=YunaPBX Zabbix agent
+	TITLE:=Zabbix agent with TLS
 endef
 
 CONFIGURE_ARGS+= \
@@ -48,7 +48,7 @@ CONFIGURE_ARGS+= \
 
 MAKE_FLAGS += ARCH="linux"
 
-define Package/yunapbx-zabbix/install
+define Package/zabbix-agent-tls/install
 	$(INSTALL_DIR) $(1)/etc
 	$(INSTALL_DIR) $(1)/etc/init.d
 	$(INSTALL_DIR) $(1)/usr/sbin
@@ -58,8 +58,8 @@ define Package/yunapbx-zabbix/install
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/sbin/zabbix_agentd $(1)/usr/sbin/
 endef
 
-define Package/yunapbx-zabbix/conffiles
+define Package/zabbix-agent-tls/conffiles
 /etc/zabbix_agentd.conf
 endef
 
-$(eval $(call BuildPackage,yunapbx-zabbix))
+$(eval $(call BuildPackage,zabbix-agent-tls))
