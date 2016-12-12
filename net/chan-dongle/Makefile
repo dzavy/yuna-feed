@@ -49,18 +49,18 @@ endef
 
 Package/asterisk13-chan-dongle/description = $(Package/description/Default)
 
-CONFIGURE_VARS:= \
+CONFIGURE_VARS += \
 	ac_cv_type_size_t=yes \
-	ac_cv_type_ssize_t=yes
+	ac_cv_type_ssize_t=yes \
+	DESTDIR="$(PKG_INSTALL_DIR)/usr/lib/asterisk/modules"
 
 MAKE_ARGS:= \
 	CC="$(TARGET_CC)" \
 	LD="$(TARGET_CC)" \
-	LDFLAGS="$(TARGET_LDFLAGS) -L$(STAGING_DIR)/usr/lib/libiconv-full/lib -liconv" \
-	DESTDIR="$(PKG_INSTALL_DIR)/usr/lib/asterisk/modules"
+	LDFLAGS="$(TARGET_LDFLAGS) -L$(STAGING_DIR)/usr/lib/libiconv-full/lib -liconv"
 
 ifeq ($(BUILD_VARIANT),asterisk13)
-  CONFIGURE_ARGS += --with-asterisk=$(STAGING_DIR)/usr/include/asterisk-13
+  CONFIGURE_ARGS += --with-astversion=130000 --with-asterisk=$(STAGING_DIR)/usr/include/asterisk-13/include
   MAKE_ARGS += CFLAGS="$(TARGET_CFLAGS) -DASTERISK_VERSION_NUM=130000 -DLOW_MEMORY -D_GNU_SOURCE -D_XOPEN_SOURCE=600 $(TARGET_CPPFLAGS) -I$(STAGING_DIR)/usr/lib/libiconv-full/include -I$(STAGING_DIR)/usr/include/asterisk-13/include -DHAVE_CONFIG_H -I. -fPIC"
 endif
 
