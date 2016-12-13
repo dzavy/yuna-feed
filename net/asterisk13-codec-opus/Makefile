@@ -26,7 +26,7 @@ define Package/asterisk13-codec-opus
   CATEGORY:=Network
   TITLE:=Opus codec for Asterisk open source PBX
   URL:=http://www.digium.com
-  DEPENDS:= @TARGET_x86 +asterisk13 +asterisk13-curl +libopus
+  DEPENDS:= @TARGET_x86 asterisk13 +asterisk13-curl +libopus
 endef
 
 define Package/asterisk13-codec-opus/description
