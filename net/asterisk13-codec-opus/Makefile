@@ -11,7 +11,7 @@ PKG_NAME:=asterisk13-codec-opus
 PKG_VERSION:=1.0.1
 PKG_RELEASE:=1
 
-PKG_SOURCE:=codec_opus-13.0_$(PKG_VERSION)-x86_32.tar.bz2
+PKG_SOURCE:=codec_opus-13.0_$(PKG_VERSION)-x86_32.tar.gz
 PKG_SOURCE_URL:=http://downloads.digium.com/pub/telephony/codec_opus/asterisk-13.0/x86-32/
 PKG_MD5SUM:=b65a9c8ba234e5bf9abf7a70f94589ae
 
