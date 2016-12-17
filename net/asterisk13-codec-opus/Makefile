@@ -41,8 +41,12 @@ endef
 
 define Package/asterisk13-codec-opus/install
 	$(INSTALL_DIR) $(1)/usr/lib/asterisk/modules/
+	$(INSTALL_DIR) $(1)/usr/lib/asterisk/documentation/thirdparty/codec_opus/
 	$(CP) $(PKG_BUILD_DIR)/format_ogg_opus.so $(1)/usr/lib/asterisk/modules/
 	$(CP) $(PKG_BUILD_DIR)/codec_opus.so $(1)/usr/lib/asterisk/modules/
+	$(CP) $(PKG_BUILD_DIR)/codec_opus_config-en_US.xml $(1)/usr/lib/asterisk/documentation/thirdparty/
+	$(CP) $(PKG_BUILD_DIR)/LICENSE $(1)/usr/lib/asterisk/documentation/thirdparty/codec_opus/
+	$(CP) $(PKG_BUILD_DIR)/README $(1)/usr/lib/asterisk/documentation/thirdparty/codec_opus/
 endef
 
 $(eval $(call BuildPackage,asterisk13-codec-opus))
