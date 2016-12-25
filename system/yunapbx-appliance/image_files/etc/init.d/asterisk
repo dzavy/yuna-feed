@@ -44,6 +44,8 @@ start() {
     chown -R asterisk:yunapbx /data/monitor
     chown -R http:yunapbx /var/yunapbx
 
+    chmod 0777 /var/lock
+
     ssl_start
     gen_conf
 
