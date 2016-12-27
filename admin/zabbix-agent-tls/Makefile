@@ -6,15 +6,14 @@
 #
 
 include $(TOPDIR)/rules.mk
-include $(TOPDIR)/rules.mk
 
 PKG_NAME:=zabbix-agent-tls
-PKG_VERSION:=3.0.6
+PKG_VERSION:=3.0.7
 PKG_RELEASE:=1
 
 PKG_SOURCE:=zabbix-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=@SF/zabbix
-PKG_MD5SUM:=f7ab89d9b7b73f337c2bdd52d2cfab2d
+PKG_MD5SUM:=72702f13ae7bba08cc2d68840208b1a5
 
 PKG_LICENSE:=GPL-2.0
 PKG_LICENSE_FILES:=COPYING
