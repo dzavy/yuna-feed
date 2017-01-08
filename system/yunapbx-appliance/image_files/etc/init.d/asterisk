@@ -17,6 +17,7 @@ gen_conf() {
     /usr/bin/sudo -u http -g yunapbx /usr/bin/php-cli /www/generator/dongle.conf.php
     /usr/bin/sudo -u http -g yunapbx /usr/bin/php-cli /www/generator/extensions.conf.php
     /usr/bin/sudo -u http -g yunapbx /usr/bin/php-cli /www/generator/musiconhold.conf.php
+    /usr/bin/sudo -u http -g yunapbx /usr/bin/php-cli /www/generator/pjsip.conf.php
     /usr/bin/sudo -u http -g yunapbx /usr/bin/php-cli /www/generator/queues.conf.php
     /usr/bin/sudo -u http -g yunapbx /usr/bin/php-cli /www/generator/sip.conf.php
     /usr/bin/sudo -u http -g yunapbx /usr/bin/php-cli /www/generator/voicemail.conf.php
