@@ -42,21 +42,7 @@ define KernelPackage/hwmon-via-cputemp/description
   Kernel modules for VIA CPU temperature sensor
 endef
 
-define KernelPackage/hwmon-coretemp
-	TITLE:=Intel Core/Core2/Atom CPU temp
-	SUBMENU:=Hardware Monitoring Support
-	KCONFIG:=CONFIG_SENSORS_CORETEMP=m
-	FILES:=$(LINUX_DIR)/drivers/hwmon/coretemp.ko
-	AUTOLOAD:=$(call AutoLoad,42,coretemp)
-	DEPENDS:=kmod-hwmon-core
-endef
-
-define KernelPackage/hwmon-coretemp/description
-  Kernel modules for Intel Core/Core2/Atom CPU temperature sensor
-endef
-
 
 $(eval $(call KernelPackage,cpufreq-powersaver))
 $(eval $(call KernelPackage,cpufreq-acpi))
 $(eval $(call KernelPackage,hwmon-via-cputemp))
-$(eval $(call KernelPackage,hwmon-coretemp))
