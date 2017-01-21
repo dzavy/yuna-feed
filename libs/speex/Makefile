@@ -41,18 +41,6 @@ endef
 
 TARGET_CFLAGS += $(FPIC)
 
-define Build/Configure
-	$(call Build/Configure/Default, \
-		--enable-shared \
-		--enable-static \
-		--enable-fixed-point \
-		--disable-oggtest \
-		--disable-float-api \
-		--disable-vbr \
-		--with-ogg=$(STAGING_DIR)/usr \
-	)
-endef
-
 define Build/Compile
 	$(MAKE) -C $(PKG_BUILD_DIR) \
 		DESTDIR="$(PKG_INSTALL_DIR)" \
