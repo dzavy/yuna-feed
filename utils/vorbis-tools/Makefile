@@ -44,7 +44,7 @@ fee, royalty or patent concerns.
 endef
 
 CONFIGURE_ARGS+= \
-	--disable-oggtest --disable-vorbistest --disable-curltest \
+	--disable-oggtest --disable-vorbistest --disable-curltest --without-flac --disable-nls \
 
 define Package/vorbis-tools/install
 	$(INSTALL_DIR) $(1)/usr/bin/
