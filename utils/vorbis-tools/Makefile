@@ -29,7 +29,7 @@ define Package/vorbis-tools
   CATEGORY:=Utilities
   TITLE:=vorbis-tools
   URL:=http://xiph.org/vorbis/
-  DEPENDS:=+libvorbis +libogg
+  DEPENDS:=+libvorbis +libogg +libao
 endef
 
 define Package/vorbis-tools/description
