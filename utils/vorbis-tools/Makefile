@@ -49,9 +49,6 @@ CONFIGURE_ARGS+= \
 TARGET_CFLAGS += $(FPIC)
 
 define Build/Compile
-	$(MAKE) -C $(PKG_BUILD_DIR)/ogg123 \
-		DESTDIR="$(PKG_INSTALL_DIR)" \
-		all install
 	$(MAKE) -C $(PKG_BUILD_DIR)/oggdec \
 		DESTDIR="$(PKG_INSTALL_DIR)" \
 		all install
