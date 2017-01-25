@@ -46,6 +46,29 @@ endef
 CONFIGURE_ARGS+= \
 	--disable-oggtest --disable-vorbistest --disable-curltest --without-flac --disable-nls \
 
+TARGET_CFLAGS += $(FPIC)
+
+define Build/Compile
+	$(MAKE) -C $(PKG_BUILD_DIR)/ogg123 \
+		DESTDIR="$(PKG_INSTALL_DIR)" \
+		all install
+	$(MAKE) -C $(PKG_BUILD_DIR)/oggdec \
+		DESTDIR="$(PKG_INSTALL_DIR)" \
+		all install
+	$(MAKE) -C $(PKG_BUILD_DIR)/oggenc \
+		DESTDIR="$(PKG_INSTALL_DIR)" \
+		all install
+	$(MAKE) -C $(PKG_BUILD_DIR)/ogginfo \
+		DESTDIR="$(PKG_INSTALL_DIR)" \
+		all install
+	$(MAKE) -C $(PKG_BUILD_DIR)/vcut \
+		DESTDIR="$(PKG_INSTALL_DIR)" \
+		all install
+	$(MAKE) -C $(PKG_BUILD_DIR)/vorbiscomment \
+		DESTDIR="$(PKG_INSTALL_DIR)" \
+		all install
+endef
+
 define Package/vorbis-tools/install
 	$(INSTALL_DIR) $(1)/usr/bin/
 	$(CP) $(PKG_INSTALL_DIR)/usr/bin/* $(1)/usr/bin/
