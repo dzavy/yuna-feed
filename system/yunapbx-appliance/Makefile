@@ -34,9 +34,6 @@ define Package/yunapbx-appliance/description
 endef
 
 define Build/Prepare
-	ln -s -n -f `pwd`/image_files $(TOPDIR)/files
-	ln -s -n -f `pwd`/package_files/yunapbx-appliance.mk $(TOPDIR)/package/kernel/linux/modules/yunapbx-appliance.mk
-	touch $(TOPDIR)/package/kernel/linux/Makefile
 endef
 
 define Build/Configure
