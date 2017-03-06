@@ -1,0 +1,41 @@
+--- a/log/logread.c
++++ b/log/logread.c
+@@ -103,7 +103,8 @@
+ 	uint32_t p;
+ 	char *str;
+ 	time_t t;
+-	char *c, *m;
++	char *m;
++	char c[20];
+ 	int ret = 0;
+
+ 	if (sender.fd < 0)
+@@ -122,7 +123,7 @@
+ 			rename(log_file, old);
+ 			free(old);
+ 		}
+-		sender.fd = open(log_file, O_CREAT | O_WRONLY | O_APPEND, 0600);
++		sender.fd = open(log_file, O_CREAT | O_WRONLY | O_APPEND, 0644);
+ 		if (sender.fd < 0) {
+ 			fprintf(stderr, "failed to open %s: %s\n", log_file, strerror(errno));
+ 			exit(-1);
+@@ -134,9 +135,8 @@
+ 	    regexec(&regexp_preg, m, 0, NULL, 0) == REG_NOMATCH)
+ 		return 0;
+ 	t = blobmsg_get_u64(tb[LOG_TIME]) / 1000;
+-	c = ctime(&t);
+ 	p = blobmsg_get_u32(tb[LOG_PRIO]);
+-	c[strlen(c) - 1] = '\0';
++	strftime(c, 20, "%Y-%m-%d %H:%M:%S", localtime(&t));
+ 	str = blobmsg_format_json(msg, true);
+ 	if (log_type == LOG_NET) {
+ 		int err;
+@@ -335,7 +335,7 @@
+ 			uloop_timeout_set(&retry, 1000);
+ 		} else if (log_file) {
+ 			log_type = LOG_FILE;
+-			sender.fd = open(log_file, O_CREAT | O_WRONLY| O_APPEND, 0600);
++			sender.fd = open(log_file, O_CREAT | O_WRONLY| O_APPEND, 0644);
+ 			if (sender.fd < 0) {
+ 				fprintf(stderr, "failed to open %s: %s\n", log_file, strerror(errno));
+ 				exit(-1);
