@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=icu4c
-PKG_VERSION:=55.1
+PKG_VERSION:=58.2
 PKG_RELEASE:=1
 
-PKG_SOURCE:=$(PKG_NAME)-55_1-src.tgz
-PKG_SOURCE_URL:=http://download.icu-project.org/files/icu4c/55.1
-PKG_MD5SUM:=e2d523df79d6cb7855c2fbe284f4db29
+PKG_SOURCE:=$(PKG_NAME)-58_2-src.tgz
+PKG_SOURCE_URL:=http://download.icu-project.org/files/$(PKG_NAME)/$(PKG_VERSION)
+PKG_MD5SUM:=fac212b32b7ec7ab007a12dff1f3aea1
 
 PKG_LICENSE:=ICU-1.8.1+
 PKG_LICENSE_FILES:=license.html
