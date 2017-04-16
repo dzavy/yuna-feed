@@ -35,6 +35,7 @@ define Package/zabbix/Default
 	SUBMENU:=zabbix
 	USERID:=zabbix=53:zabbix=53
 	DEPENDS +=+ZABBIX_SSL:libopenssl $(ICONV_DEPENDS)
+	MENU:=1
 endef
 
 define Package/zabbix/config
@@ -53,19 +54,19 @@ endef
 define Package/zabbix-extra-mac80211
   $(call Package/zabbix/Default)
   TITLE+= discovery/userparameters for mac80211
-  DEPENDS = +zabbix-agentd @PACKAGE_MAC80211_DEBUGFS @KERNEL_DEBUG_FS
+  DEPENDS = zabbix-agentd @PACKAGE_MAC80211_DEBUGFS @KERNEL_DEBUG_FS
 endef
 
 define Package/zabbix-extra-network
   $(call Package/zabbix/Default)
   TITLE+= discovery/userparameters for network
-  DEPENDS = +zabbix-agentd +libuci-lua +lua
+  DEPENDS = zabbix-agentd +libuci-lua +lua
 endef
 
 define Package/zabbix-extra-wifi
   $(call Package/zabbix/Default)
   TITLE+= discovery/userparameters for wifi
-  DEPENDS = +zabbix-agentd +libiwinfo-lua +libuci-lua +lua
+  DEPENDS = zabbix-agentd +libiwinfo-lua +libuci-lua +lua
 endef
 
 define Package/zabbix-sender
