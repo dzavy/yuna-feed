@@ -35,15 +35,6 @@ define Package/zabbix/Default
 	SUBMENU:=zabbix
 	USERID:=zabbix=53:zabbix=53
 	DEPENDS +=+ZABBIX_SSL:libopenssl $(ICONV_DEPENDS)
-	MENU:=1
-endef
-
-define Package/zabbix/config
-config ZABBIX_SSL
-	bool "SSL support"
-	default y
-	help
-	  Implements SSL support in Zabbix (using libopenssl).
 endef
 
 define Package/zabbix-agentd
@@ -54,7 +45,7 @@ endef
 define Package/zabbix-extra-mac80211
   $(call Package/zabbix/Default)
   TITLE+= discovery/userparameters for mac80211
-  DEPENDS = zabbix-agentd @PACKAGE_MAC80211_DEBUGFS @KERNEL_DEBUG_FS
+  DEPENDS = zabbix-agentd +@PACKAGE_MAC80211_DEBUGFS +@KERNEL_DEBUG_FS
 endef
 
 define Package/zabbix-extra-network
@@ -115,15 +106,9 @@ CONFIGURE_ARGS+= \
 	--enable-proxy \
 	$(call autoconf_bool,CONFIG_IPV6,ipv6) \
 	--disable-java \
-	--with-sqlite3="$(STAGING_DIR)/usr"
-
-ifneq ($(strip $(CONFIG_ZABBIX_SSL)),)
-  CONFIGURE_ARGS+= \
+	--with-sqlite3="$(STAGING_DIR)/usr" \
 	--with-openssl="$(STAGING_DIR)/usr"
-else
-  CONFIGURE_ARGS+= \
-	--without-openssl
-endif
+
 
 MAKE_FLAGS += ARCH="linux"
 
