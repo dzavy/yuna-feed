@@ -25,16 +25,17 @@ CONFIGURE_ARGS+= \
 	--with-apr="$(STAGING_DIR)/usr/bin/apr-1-config" \
 	--with-apu="$(STAGING_DIR)/usr/bin/apu-1-config" \
 	--with-pcre="$(STAGING_DIR)/usr/bin/pcre-config" \
-	--with-curl="$(STAGING_DIR)/usr/lib" \
 	--with-libxml="$(STAGING_DIR)/usr/lib" \
-	--without-lua
-	
+	--without-curl \
+	--without-lua \
+	--disable-mlogc
+
 define Package/modsecurity
   SECTION:=net
   CATEGORY:=Network
   SUBMENU:=Web Servers/Proxies
   TITLE:=ModSecurity Module for Apache Web Server
-  DEPENDS +=+apache +libapr +libaprutil +libpcre +libopenssl +libcurl +libxml2
+  DEPENDS +=+apache +libapr +libaprutil +libpcre +libopenssl +libxml2
   URL:=https://modsecurity.org/
 endef
 
@@ -44,7 +45,7 @@ endef
 
 define Package/modsecurity/install
 	$(INSTALL_DIR) $(1)/usr/lib
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/*.so.* $(1)/usr/lib/
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/mod_security2.so $(1)/usr/lib/
 endef
 
 $(eval $(call BuildPackage,modsecurity))
