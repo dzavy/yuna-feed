@@ -24,7 +24,10 @@ CONFIGURE_ARGS+= \
 	--with-apxs="$(STAGING_DIR)/usr/bin/apxs" \
 	--with-apr="$(STAGING_DIR)/usr/bin/apr-1-config" \
 	--with-apu="$(STAGING_DIR)/usr/bin/apu-1-config" \
-	--with-pcre="$(STAGING_DIR)/usr/bin/pcre-config"
+	--with-pcre="$(STAGING_DIR)/usr/bin/pcre-config" \
+	--with-curl="$(STAGING_DIR)/usr/lib" \
+	--with-libxml="$(STAGING_DIR)/usr/lib" \
+	--without-lua
 	
 define Package/modsecurity
   SECTION:=net
