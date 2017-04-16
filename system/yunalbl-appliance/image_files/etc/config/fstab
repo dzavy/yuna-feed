@@ -1,0 +1,10 @@
+# Copyright (C) 2006 OpenWrt.org
+
+config 'global'
+	option  anon_mount  0
+    option  auto_mount  1
+
+config 'mount'
+	option  target      '/data'
+	option  device      '/dev/sda3'
+	option  options     'rw,noatime'

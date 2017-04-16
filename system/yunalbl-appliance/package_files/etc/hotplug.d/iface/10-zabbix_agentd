@@ -1,0 +1,7 @@
+#!/bin/sh
+
+if [ "${ACTION}" = "ifup" ]; then
+    if [ "${INTERFACE}" = "lan" ] || [ "${INTERFACE}" = "lan6" ]; then
+        /etc/init.d/zabbix_agentd restart
+    fi
+fi

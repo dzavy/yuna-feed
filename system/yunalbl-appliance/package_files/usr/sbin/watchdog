@@ -1,0 +1,6 @@
+#!/bin/sh
+
+/bin/pidof zabbix_agentd &> /dev/null
+if [[ "$?" != "0" ]] ;then
+/etc/init.d/zabbix_agentd restart
+fi
