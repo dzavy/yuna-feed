@@ -21,7 +21,7 @@ define Package/yunalbl-appliance
 	SECTION:=base
 	CATEGORY:=Base system
 	TITLE:=YunaLBL Appliance
-	DEPENDS:=+haproxy +apache +modsecurity +zabbix-agentd +@ZABBIX_SSL
+	DEPENDS:=+apache +haproxy +keepalived +modsecurity +zabbix-agentd +@ZABBIX_SSL
 	DEPENDS+=+base-files +block-mount +busybox +ca-certificates +dropbear +fdisk +fstools +logd +odhcp6c +partx-utils +rng-tools +tcpdump +tune2fs +uci +zoneinfo-core
 	DEPENDS+=+kmod-8139too +kmod-button-hotplug +kmod-e1000 +kmod-r8169 +kmod-tg3 +kmod-usb-hid +kmod-usb2 +kmod-usb2-pci +kmod-usb3
 	DEPENDS+=+@USE_GLIBC +@OPENSSL_WITH_EC +@OPENSSL_WITH_EC2M +@BUSYBOX_CUSTOM +@BUSYBOX_CONFIG_LOGIN

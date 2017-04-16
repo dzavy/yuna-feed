@@ -31,6 +31,7 @@ define Package/modsecurity
   CATEGORY:=Network
   SUBMENU:=Web Servers/Proxies
   TITLE:=ModSecurity Module for Apache Web Server
+  DEPENDS +=+apache +libapr +libaprutil +libpcre +libopenssl +libcurl +libxml2
   URL:=https://modsecurity.org/
 endef
 
