@@ -20,7 +20,7 @@ PKG_LICENSE_FILES:=COPYING
 
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
 
-PKG_MAINTAINER:=Jan Havelka <dzavy@dzavy.net>
+PKG_MAINTAINER:=Etienne CHAMPETIER <champetier.etienne@gmail.com>
 
 PKG_INSTALL:=1
 PKG_FIXUP:=autoreconf
@@ -34,7 +34,7 @@ define Package/zabbix/Default
 	URL:=http://www.zabbix.com/
 	SUBMENU:=zabbix
 	USERID:=zabbix=53:zabbix=53
-	DEPENDS +=+ZABBIX_SSL:libopenssl $(ICONV_DEPENDS)
+	DEPENDS +=+libopenssl $(ICONV_DEPENDS)
 endef
 
 define Package/zabbix-agentd
@@ -135,7 +135,7 @@ define Package/zabbix/install/etc
 		$(1)/etc
 
 	$(INSTALL_CONF) \
-		./files/zabbix_$(2).conf \
+		$(PKG_INSTALL_DIR)/etc/zabbix_$(2).conf \
 		$(1)/etc/
 endef
 
