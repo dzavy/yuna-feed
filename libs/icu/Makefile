@@ -52,8 +52,8 @@ define Build/Configure
 		--disable-tracing \
 		--disable-extras \
 		--enable-dyload \
-		--enable-layout \
-		--enable-layoutex \
+		--disable-layout \
+		--disable-layoutex \
 		--disable-tools \
 		--disable-tests \
 		--disable-samples \
