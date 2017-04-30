@@ -103,7 +103,7 @@ define Build/Configure
 		--enable-ssl \
 		--enable-proxy \
 		--disable-disk-cache \
-		--enable-maintainer-mode \
+		--enable-mods-shared=all \
 		--with-mpm=prefork \
 		--with-mpm=worker \
 		--enable-mime-magic \
@@ -123,6 +123,9 @@ define Build/InstallDev
 	$(INSTALL_DIR) $(1)/etc
 	$(CP)   $(PKG_INSTALL_DIR)/etc/* \
 		$(1)/etc
+	$(INSTALL_DIR) $(1)/usr/bin
+	$(CP)	$(PKG_INSTALL_DIR)/usr/bin/* \
+		$(1)/usr/bin
 	$(INSTALL_DIR) $(1)/usr/include
 	$(CP)	$(PKG_INSTALL_DIR)/usr/include/* \
 		$(1)/usr/include
@@ -135,6 +138,7 @@ define Build/InstallDev
 	$(INSTALL_DIR) $(1)/usr/share
 	$(CP)   $(PKG_INSTALL_DIR)/usr/share/* \
 		$(1)/usr/share
+	$(SED) 's,/usr/share/build,$(STAGING_DIR)/usr/share/build,g' $(1)/usr/bin/apxs
 endef
 
 define Package/apache/preinst
