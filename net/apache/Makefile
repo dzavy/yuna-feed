@@ -131,9 +131,7 @@ define Build/InstallDev
 	$(CP)	$(PKG_INSTALL_DIR)/usr/include/* \
 		$(1)/usr/include
 	$(INSTALL_DIR) $(1)/usr/lib/apache/modules
-	$(CP)   $(PKG_INSTALL_DIR)/usr/lib/httpd.exp \
-		$(1)/usr/lib
-	$(CP)   $(PKG_INSTALL_DIR)/usr/lib/apache/modules/* \
+	$(CP)   $(PKG_INSTALL_DIR)/usr/lib/apache/modules/httpd.exp \
 		$(1)/usr/lib/apache/modules
 	$(INSTALL_DIR) $(1)/usr/sbin
 	$(CP)   $(PKG_INSTALL_DIR)/usr/sbin/* \
@@ -155,8 +153,8 @@ define Package/apache/install
 	# we don't need apxs on the router, it's just for building apache modules.
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/{ab,dbmmanage,htdbm,htdigest,htpasswd,httxt2dbm,logresolve} $(1)/usr/sbin/
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/sbin/{apachectl,checkgid,envvars,envvars-std,htcacheclean,httpd,rotatelogs} $(1)/usr/sbin/
-	$(INSTALL_DIR) $(1)/usr/lib
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/httpd.exp $(1)/usr/lib/
+	$(INSTALL_DIR) $(1)/usr/lib/apache/modules
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/apache/modules/* $(1)/usr/lib/apache/modules
 	$(INSTALL_DIR) $(1)/usr/share
 	$(CP) $(PKG_INSTALL_DIR)/usr/share/{error,htdocs,cgi-bin,build} $(1)/usr/share/
 	$(INSTALL_DIR) $(1)/etc/apache
