@@ -41,9 +41,7 @@ define Build/Compile
 endef
 
 define Package/yunalbl-appliance/install
-	$(INSTALL_DIR) $(1)/etc/hotplug.d/iface
 	$(INSTALL_DIR) $(1)/usr/sbin
-	$(INSTALL_BIN) ./package_files/etc/hotplug.d/iface/* $(1)/etc/hotplug.d/iface/
 	$(INSTALL_BIN) ./package_files/usr/sbin/* $(1)/usr/sbin/
 endef
 

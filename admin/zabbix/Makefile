@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=zabbix
 PKG_VERSION:=3.0.8
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=@SF/zabbix
@@ -193,6 +193,8 @@ define Package/zabbix-agentd/install
 	$(call Package/zabbix/install/sbin,$(1),agentd)
 	$(call Package/zabbix/install/etc,$(1),agentd)
 	$(call Package/zabbix/install/init.d,$(1),agentd)
+	$(INSTALL_DIR) $(1)/etc/hotplug.d/iface
+	$(INSTALL_BIN) ./files/hotplug-zabbix_agentd $(1)/etc/hotplug.d/iface/10-zabbix_agentd
 endef
 
 define Package/zabbix-extra-mac80211/install
