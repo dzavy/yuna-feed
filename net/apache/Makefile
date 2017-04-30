@@ -40,7 +40,7 @@ endef
 
 define Package/apache
 $(call Package/apache/Default)
-  DEPENDS:=+libapr +libaprutil +libpcre +libopenssl 
+  DEPENDS:=+libapr +libaprutil +libpcre +libopenssl +libxml2
 endef
 
 define Package/apache/description
