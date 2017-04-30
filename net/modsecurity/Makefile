@@ -25,7 +25,7 @@ CONFIGURE_ARGS+= \
 	--with-apr="$(STAGING_DIR)/usr/bin/apr-1-config" \
 	--with-apu="$(STAGING_DIR)/usr/bin/apu-1-config" \
 	--with-pcre="$(STAGING_DIR)/usr/bin/pcre-config" \
-	--with-libxml="$(STAGING_DIR)/usr/lib" \
+	--with-libxml="$(STAGING_DIR)/usr" \
 	--without-curl \
 	--without-lua \
 	--disable-mlogc
