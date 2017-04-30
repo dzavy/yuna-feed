@@ -103,7 +103,7 @@ define Build/Configure
 		--enable-ssl \
 		--enable-proxy \
 		--disable-disk-cache \
-		--enable-mods-shared=all \
+		--enable-maintainer-mode \
 		--with-mpm=prefork \
 		--with-mpm=worker \
 		--enable-mime-magic \
