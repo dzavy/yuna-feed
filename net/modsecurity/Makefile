@@ -15,6 +15,7 @@ PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://www.modsecurity.org/tarball/$(PKG_VERSION)/
 PKG_MD5SUM:=0fa92b852abc857a20b9e24f83f814cf
 PKG_INSTALL:=1
+PKG_FIXUP:=autoreconf
 
 PKG_MAINTAINER:=Jan Havelka <dzavy@dzavy.net>
 

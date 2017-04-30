@@ -109,6 +109,7 @@ define Build/Configure
 		--enable-mime-magic \
 		--without-suexec-bin \
 		--sysconfdir=/etc/apache \
+		--libexecdir=/usr/lib/apache/modules \
 		ap_cv_void_ptr_lt_long=no \
 		logfiledir="/var/log" \
 		runtimedir="/var/run" \
@@ -129,9 +130,11 @@ define Build/InstallDev
 	$(INSTALL_DIR) $(1)/usr/include
 	$(CP)	$(PKG_INSTALL_DIR)/usr/include/* \
 		$(1)/usr/include
-	$(INSTALL_DIR) $(1)/usr/lib
+	$(INSTALL_DIR) $(1)/usr/lib/apache/modules
 	$(CP)   $(PKG_INSTALL_DIR)/usr/lib/httpd.exp \
 		$(1)/usr/lib
+	$(CP)   $(PKG_INSTALL_DIR)/usr/lib/apache/modules/* \
+		$(1)/usr/lib/apache/modules
 	$(INSTALL_DIR) $(1)/usr/sbin
 	$(CP)   $(PKG_INSTALL_DIR)/usr/sbin/* \
 		$(1)/usr/sbin
