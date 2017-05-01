@@ -48,6 +48,8 @@ CONFIGURE_VARS += \
 	apr_cv_mutex_robust_shared=no \
 	apr_cv_tcp_nodelay_with_cork=yes \
 	apr_cv_use_lfs64=yes \
+	apr_cv_epoll=yes \
+	apr_cv_epoll_create1=yes \
 	LDFLAGS="$$$$LDFLAGS -lpthread" \
 
 define Build/InstallDev
