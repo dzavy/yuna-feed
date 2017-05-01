@@ -106,10 +106,11 @@ define Build/Configure
 		--enable-mods-shared=all \
 		--with-mpm=prefork \
 		--with-mpm=worker \
+		--with-mpm=event \
 		--enable-mime-magic \
 		--without-suexec-bin \
 		--sysconfdir=/etc/apache \
-		--libexecdir=/usr/lib/apache/modules \
+		--libexecdir=/usr/lib/apache \
 		ap_cv_void_ptr_lt_long=no \
 		logfiledir="/var/log" \
 		runtimedir="/var/run" \
@@ -130,9 +131,9 @@ define Build/InstallDev
 	$(INSTALL_DIR) $(1)/usr/include
 	$(CP)	$(PKG_INSTALL_DIR)/usr/include/* \
 		$(1)/usr/include
-	$(INSTALL_DIR) $(1)/usr/lib/apache/modules
-	$(CP)   $(PKG_INSTALL_DIR)/usr/lib/apache/modules/httpd.exp \
-		$(1)/usr/lib/apache/modules
+	$(INSTALL_DIR) $(1)/usr/lib/apache
+	$(CP)   $(PKG_INSTALL_DIR)/usr/lib/apache/httpd.exp \
+		$(1)/usr/lib/apache
 	$(INSTALL_DIR) $(1)/usr/sbin
 	$(CP)   $(PKG_INSTALL_DIR)/usr/sbin/* \
 		$(1)/usr/sbin
@@ -149,12 +150,12 @@ define Package/apache/preinst
 endef
 
 define Package/apache/install
+	$(INSTALL_DIR) $(1)/usr/bin
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/{ab,dbmmanage,htdbm,htdigest,htpasswd,httxt2dbm,logresolve} $(1)/usr/bin/
 	$(INSTALL_DIR) $(1)/usr/sbin
-	# we don't need apxs on the router, it's just for building apache modules.
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/{ab,dbmmanage,htdbm,htdigest,htpasswd,httxt2dbm,logresolve} $(1)/usr/sbin/
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/sbin/{apachectl,checkgid,envvars,envvars-std,htcacheclean,httpd,rotatelogs} $(1)/usr/sbin/
-	$(INSTALL_DIR) $(1)/usr/lib/apache/modules
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/apache/modules/* $(1)/usr/lib/apache/modules
+	$(INSTALL_DIR) $(1)/usr/lib/apache
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/apache/* $(1)/usr/lib/apache
 	$(INSTALL_DIR) $(1)/usr/share
 	$(CP) $(PKG_INSTALL_DIR)/usr/share/{error,htdocs,cgi-bin,build} $(1)/usr/share/
 	$(INSTALL_DIR) $(1)/etc/apache

@@ -44,8 +44,8 @@ define Package/modsecurity/description
 endef
 
 define Package/modsecurity/install
-	$(INSTALL_DIR) $(1)/usr/lib/apache/modules
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/apache/modules/mod_security2.so $(1)/usr/lib/apache/modules
+	$(INSTALL_DIR) $(1)/usr/lib/apache
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/apache/mod_security2.so $(1)/usr/lib/apache
 	$(INSTALL_DIR) $(1)/etc/apache
 	$(CP) ./files/mod_security.conf $(1)/etc/apache
 	$(INSTALL_DIR) $(1)/etc/apache/modsecurity.d/activated_rules
