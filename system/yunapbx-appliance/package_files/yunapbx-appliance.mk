@@ -29,6 +29,31 @@ define KernelPackage/cpufreq-acpi/description
   Kernel module for VIA E-Powersaver
 endef
 
+define KernelPackage/hwmon-coretemp
+	TITLE:=Intel Core/Core2/Atom thermal monitoring support
+	KCONFIG:=CONFIG_SENSORS_CORETEMP
+	FILES:=$(LINUX_DIR)/drivers/hwmon/coretemp.ko
+	AUTOLOAD:=$(call AutoProbe,coretemp)
+	DEPENDS:=kmod-hwmon-core
+endef
+
+define KernelPackage/hwmon-coretemp/description
+  Kernel module for Intel Core/Core2/Atom thermal monitor chip
+endef
+
+define KernelPackage/hwmon-k10temp
+	TITLE:=AMD Family 10h+ temperature sensor
+	KCONFIG:=CONFIG_SENSORS_K10TEMP
+	FILES:=$(LINUX_DIR)/drivers/hwmon/k10temp.ko
+	AUTOLOAD:=$(call AutoLoad,60,k10temp)
+	DEPENDS:=kmod-hwmon-core
+endef
+
+define KernelPackage/hwmon-k10temp/description
+  Thermal sensor support for AMD 10h, 11h, 12h (Llano), 14h (Brazos),
+  15h (Bulldozer/Trinity/Kaveri) and 16h (Kabini/Mullins) CPUs
+endef
+
 define KernelPackage/hwmon-via-cputemp
 	TITLE:=VIA CPU temp
 	SUBMENU:=Hardware Monitoring Support
@@ -45,4 +70,6 @@ endef
 
 $(eval $(call KernelPackage,cpufreq-powersaver))
 $(eval $(call KernelPackage,cpufreq-acpi))
+$(eval $(call KernelPackage,hwmon-coretemp))
+$(eval $(call KernelPackage,hwmon-k10temp))
 $(eval $(call KernelPackage,hwmon-via-cputemp))
