@@ -31,6 +31,7 @@ endef
 
 define KernelPackage/hwmon-coretemp
 	TITLE:=Intel Core/Core2/Atom thermal monitoring support
+	SUBMENU:=Hardware Monitoring Support
 	KCONFIG:=CONFIG_SENSORS_CORETEMP
 	FILES:=$(LINUX_DIR)/drivers/hwmon/coretemp.ko
 	AUTOLOAD:=$(call AutoProbe,coretemp)
@@ -43,6 +44,7 @@ endef
 
 define KernelPackage/hwmon-k10temp
 	TITLE:=AMD Family 10h+ temperature sensor
+	SUBMENU:=Hardware Monitoring Support
 	KCONFIG:=CONFIG_SENSORS_K10TEMP
 	FILES:=$(LINUX_DIR)/drivers/hwmon/k10temp.ko
 	AUTOLOAD:=$(call AutoLoad,60,k10temp)
