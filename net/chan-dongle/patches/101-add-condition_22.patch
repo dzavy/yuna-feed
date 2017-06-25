@@ -1,0 +1,10 @@
+--- a/channel.c
++++ b/channel.c
+@@ -1066,6 +1066,7 @@
+ 		case AST_CONTROL_PROCEEDING:
+ 		case AST_CONTROL_VIDUPDATE:
+ 		case AST_CONTROL_SRCUPDATE:
++		case AST_CONTROL_CONNECTED_LINE:
+ #if ASTERISK_VERSION_NUM >= 110000 /* 11+ */
+ 		case AST_CONTROL_PVT_CAUSE_CODE:
+ #endif /* ^11+ */
