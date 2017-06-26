@@ -1,0 +1,25 @@
+#!/bin/sh /etc/rc.common
+# Copyright (C) 2009-2017 OpenWrt.org
+
+START=55
+
+SSL_PATH="/etc/ssl/private"
+KEY_PASS="file:/sys/class/dmi/id/product_uuid"
+
+start() {
+
+    if [ ! -f "$SSL_PATH/server.key" ] || [ ! -f "$SSL_PATH/server.crt" ]; then
+        mkdir -m 0700 -p "$SSL_PATH"
+
+        /usr/sbin/touchmod "$SSL_PATH/server.key" 0600 root root
+        /usr/sbin/touchmod "$SSL_PATH/server.csr" 0600 root root
+        /usr/sbin/touchmod "$SSL_PATH/server.crt" 0600 root root
+
+        /usr/bin/openssl genrsa -aes256 -passout "$KEY_PASS" -out "$SSL_PATH/server.key" 2048 &>/dev/null
+        /usr/bin/openssl req -new -key "$SSL_PATH/server.key" -passin "$KEY_PASS" -days 3650 -sha256 -subj "/CN=`cat /proc/sys/kernel/hostname`" -out "$SSL_PATH/server.csr" &>/dev/null
+        /usr/bin/openssl x509 -req -in "$SSL_PATH/server.csr" -signkey "$SSL_PATH/server.key" -sha256 -passin "$KEY_PASS" -out "$SSL_PATH/server.crt" &>/dev/null
+    fi
+
+    mkdir -m 0777 -p /var/ssl
+    find /etc/ssl/certs/ -type f -exec /usr/bin/openssl x509 -in {} 2>/dev/null \; > /var/ssl/ca-bundle.crt
+}

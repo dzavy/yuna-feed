@@ -1,0 +1,10 @@
+#!/bin/sh /etc/rc.common
+# Copyright (C) 2014 OpenWrt.org
+
+START=50
+
+start() {
+    chmod 0440 /etc/sudoers
+    mkdir -m 0755 -p /var/lib/sudo
+    chmod 0700 /var/lib/sudo
+}
