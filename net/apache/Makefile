@@ -143,12 +143,6 @@ define Build/InstallDev
 	$(SED) 's,/usr/share/build,$(STAGING_DIR)/usr/share/build,g' $(1)/usr/bin/apxs
 endef
 
-define Package/apache/preinst
-	rm /usr/sbin/httpd
-	echo -e "You should take a look in the initscripts, busybox's httpd \n\
-	uses some parameters which are maybe unsupported by apache."
-endef
-
 define Package/apache/install
 	$(INSTALL_DIR) $(1)/usr/bin
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/{ab,dbmmanage,htdbm,htdigest,htpasswd,httxt2dbm,logresolve} $(1)/usr/bin/
@@ -160,13 +154,6 @@ define Package/apache/install
 	$(CP) $(PKG_INSTALL_DIR)/usr/share/{error,htdocs,cgi-bin,build} $(1)/usr/share/
 	$(INSTALL_DIR) $(1)/etc/apache
 	$(CP) $(PKG_INSTALL_DIR)/etc/apache/{httpd.conf,magic,mime.types,extra} $(1)/etc/apache/
-endef
-
-define Package/apache/postrm
-	rm -rf /usr/sbin/httpd
-	ln -s /bin/busybox /usr/sbin/httpd
-	echo -e "You may need to change your initscripts back for the use \n\
-		with busybox's httpd."
 endef
 
 define Package/apache-icons/install
