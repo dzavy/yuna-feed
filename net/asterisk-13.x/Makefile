@@ -9,12 +9,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=asterisk13
-PKG_VERSION:=13.15.0
+PKG_VERSION:=13.18.0
 PKG_RELEASE:=2
 
 PKG_SOURCE:=asterisk-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=http://downloads.asterisk.org/pub/telephony/asterisk/releases/
-PKG_HASH:=8b8a55557d9c882f9b68f61b62f5f8af5c9ad68b6da6a1aa3506fa1894fb5844
+PKG_SOURCE_URL:=https://downloads.asterisk.org/pub/telephony/asterisk/releases/
+PKG_HASH:=36efd526f749e58867b861e7b6234c47b89ac7c9b4f34d294623a5c99bed7b69
 
 PKG_BUILD_DIR:=$(BUILD_DIR)/asterisk-$(PKG_VERSION)
 PKG_BUILD_DEPENDS:=libxml2/host
@@ -24,6 +24,8 @@ PKG_LICENSE_FILES:=COPYING LICENSE
 PKG_MAINTAINER:=Jiri Slachta <jiri@slachta.eu>
 
 include $(INCLUDE_DIR)/package.mk
+include $(INCLUDE_DIR)/host-build.mk
+include $(INCLUDE_DIR)/version.mk
 
 define Package/asterisk13/install/module
 	$(INSTALL_DIR) $(1)/usr/lib/asterisk/modules
@@ -46,8 +48,12 @@ define Package/asterisk13/install/sbin
 endef
 
 define Package/asterisk13/install/sounds
-	$(INSTALL_DIR) $(1)/usr/lib/asterisk/sounds/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/asterisk/sounds/en/$(2) $(1)/usr/lib/asterisk/sounds/
+	$(INSTALL_DIR) $(1)/usr/share/asterisk/sounds/
+	$(CP) $(PKG_INSTALL_DIR)/usr/share/asterisk/sounds/en/$(2) $(1)/usr/share/asterisk/sounds/
+endef
+
+define Package/$(PKG_NAME)/config
+	source "$(SOURCE)/Config.in"
 endef
 
 define BuildAsterisk13Module
@@ -58,7 +64,7 @@ define BuildAsterisk13Module
   endef
 
   define Package/asterisk13-$(1)/conffiles
-$(foreach c,$(5),/etc/asterisk/$(c))
+$(subst $(space),$(newline),$(foreach c,$(5),/etc/asterisk/$(c)))
   endef
 
   define Package/asterisk13-$(1)/description
@@ -93,7 +99,7 @@ define Package/asterisk13
 $(call Package/asterisk13/Default)
   TITLE:=Complete open source PBX, v$(PKG_VERSION)
   MENU:=1
-  DEPENDS:=+jansson +libncurses +libopenssl +libpopt +libsqlite3 +libstdcpp +libuuid +libxml2 +libxslt +zlib
+  DEPENDS:=+jansson +libedit +libncurses +libopenssl +libpopt +libsqlite3 +libstdcpp +libuuid +libxml2 +libxslt +zlib
 endef
 
 define Package/asterisk13/description
@@ -115,6 +121,7 @@ define Package/asterisk13/conffiles
 /etc/asterisk/manager.conf
 /etc/asterisk/modules.conf
 /etc/asterisk/rtp.conf
+/etc/asterisk/stasis.conf
 /etc/asterisk/udptl.conf
 /etc/asterisk/users.conf
 /etc/default/asterisk
@@ -124,7 +131,7 @@ endef
 AST_CFG_FILES:= \
 	asterisk.conf acl.conf cel.conf ccss.conf extconfig.conf \
 	extensions.conf features.conf http.conf indications.conf \
-	logger.conf manager.conf modules.conf udptl.conf \
+	logger.conf manager.conf modules.conf stasis.conf udptl.conf \
 	users.conf
 
 AST_EMB_MODULES:=\
@@ -139,7 +146,7 @@ $(call Package/asterisk13/install/sbin,$(1),safe_asterisk)
 $(call Package/asterisk13/install/sbin,$(1),astgenkey)
 $(foreach m,$(AST_CFG_FILES),$(call Package/asterisk13/install/conffile,$(1),$(m));)
 $(foreach m,$(AST_EMB_MODULES),$(call Package/asterisk13/install/module,$(1),$(m));)
-	$(INSTALL_DIR) $(1)/usr/lib/asterisk/sounds/
+	$(INSTALL_DIR) $(1)/usr/share/asterisk/sounds/
 	$(INSTALL_DIR) $(1)/etc/default
 	$(INSTALL_DATA) ./files/asterisk.default $(1)/etc/default/asterisk
 	$(INSTALL_DIR) $(1)/etc/init.d
@@ -157,12 +164,12 @@ This package provides the sound-files for Asterisk-13.
 endef
 
 define Package/asterisk13-sounds/install
-	$(INSTALL_DIR) $(1)/usr/lib/asterisk/sounds/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/asterisk/sounds/en/* $(1)/usr/lib/asterisk/sounds/
-	rm -f $(1)/usr/lib/asterisk/sounds/vm-*
+	$(INSTALL_DIR) $(1)/usr/share/asterisk/sounds/
+	$(CP) $(PKG_INSTALL_DIR)/usr/share/asterisk/sounds/en/* $(1)/usr/share/asterisk/sounds/
+	rm -f $(1)/usr/share/asterisk/sounds/vm-*
 endef
 
-ifneq ($(SDK)$(CONFIG_PACKAGE_asterisk13-chan-dahdi),)
+ifneq ($(CONFIG_PACKAGE_asterisk13-chan-dahdi),)
   CONFIGURE_ARGS+= \
 	--with-dahdi="$(STAGING_DIR)/usr" \
 	--with-pri="$(STAGING_DIR)/usr" \
@@ -174,11 +181,7 @@ else
 	--without-tonezone
 endif
 
-TARGET_LDFLAGS+= \
-	$(if $(CONFIG_PACKAGE_$(PKG_NAME)-pbx-lua),-ldl -lcrypt)
-
-EXTRA_CFLAGS+=$(TARGET_CPPFLAGS)
-EXTRA_LDFLAGS+=$(TARGET_LDFLAGS) -Wl,-rpath-link,$(STAGING_DIR)/usr/lib
+TARGET_CFLAGS+=$(TARGET_CPPFLAGS)
 
 CONFIGURE_ARGS+= \
 	--without-execinfo \
@@ -194,6 +197,7 @@ CONFIGURE_ARGS+= \
 	--without-nbs \
 	--without-neon \
 	--without-neon29 \
+	--with-libedit="$(STAGING_DIR)/usr" \
 	--with-libxml2 \
 	--with-ncurses="$(STAGING_DIR)/usr" \
 	--without-netsnmp \
@@ -225,65 +229,67 @@ CONFIGURE_ARGS+= \
 	--enable-xmldoc
 
 CONFIGURE_VARS += \
+	ac_cv_lib_srtp2_srtp_init=no \
 	ac_cv_path_ac_pt_CONFIG_LIBXML2=$(STAGING_DIR)/host/bin/xml2-config
+
+MAKE_FLAGS+= \
+	ASTDATADIR="/usr/share/asterisk" \
+	DESTDIR="$(PKG_INSTALL_DIR)"
+
+# show full gcc arguments instead of [CC] and [LD]
+MAKE_FLAGS+= \
+	NOISY_BUILD="yes"
+
+# don't let asterisk mess with build flags
+MAKE_FLAGS+= \
+	AST_FORTIFY_SOURCE="" \
+	DEBUG="" \
+	OPTIMIZE=""
 
 AST_MENUSELECT_OPTS = \
 	--without-newt \
 	--without-curses \
-	--with-ncurses="$(STAGING_DIR_HOST)/usr" \
-	--with-libxml2="$(STAGING_DIR_HOST)/usr"
-
-define Build/Prepare
-	$(call Build/Prepare/Default)
-ifneq ($(CONFIG_TARGET_lantiq),)
-	$(CP) ./src-lantiq/* $(PKG_BUILD_DIR)/
-endif
-endef
+	--with-libxml2="$(STAGING_DIR_HOSTPKG)/usr"
 
 define Build/Configure
-	(cd $(PKG_BUILD_DIR); \
+	cd $(PKG_BUILD_DIR); \
+		./bootstrap.sh
+	$(call Build/Configure/Default)
+	cd $(PKG_BUILD_DIR)/menuselect; \
 		./bootstrap.sh; \
-	);
-	$(call Build/Configure/Default,,$(SITE_VARS))
-	(cd $(PKG_BUILD_DIR)/menuselect; \
-		./bootstrap.sh; \
+		CC="$(HOSTCC)" \
+		CFLAGS="$(HOST_CFLAGS) -I$(STAGING_DIR_HOSTPKG)/include/libxml2" \
+		CONFIG_SITE= \
+		LDFLAGS="$(HOST_LDFLAGS) -Wl,-rpath,$(STAGING_DIR_HOSTPKG)/lib" \
+		ac_cv_path_ac_pt_CONFIG_LIBXML2=$(STAGING_DIR_HOSTPKG)/bin/xml2-config \
 		./configure \
 		$(HOST_CONFIGURE_ARGS) \
-		$(AST_MENUSELECT_OPTS) \
-		LDFLAGS="$(HOST_LDFLAGS) -lxml2" \
-		CFLAGS="$(HOST_CFLAGS) -I$(STAGING_DIR)/usr/include/libxml2" \
-	);
+		$(AST_MENUSELECT_OPTS)
 endef
 
 define Build/Compile
-	$(MAKE) -C "$(PKG_BUILD_DIR)/menuselect" \
-		CFLAGS="$(HOST_CFLAGS) -I$(STAGING_DIR)/usr/include/libxml2" \
-		LDFLAGS="$(HOST_LDFLAGS) -lxml2"
-	$(MAKE) -C "$(PKG_BUILD_DIR)" \
-		include/asterisk/version.h \
-		include/asterisk/buildopts.h defaults.h \
-		makeopts.embed_rules
-	(cd $(PKG_BUILD_DIR); \
-		./menuselect/menuselect --disable BUILD_NATIVE; \
-	);	
-	ASTCFLAGS="$(EXTRA_CFLAGS)"
-	ASTLDFLAGS="$(EXTRA_LDFLAGS)"
-	$(MAKE) -C "$(PKG_BUILD_DIR)" \
-		ASTVARLIBDIR="/usr/lib/asterisk" \
-		ASTDATADIR="/usr/lib/asterisk" \
-		ASTKEYDIR="/usr/lib/asterisk" \
-		ASTDBDIR="/usr/lib/asterisk" \
-		NOISY_BUILD="yes" \
-		DEBUG="" \
-		OPTIMIZE="" \
-		DESTDIR="$(PKG_INSTALL_DIR)" \
-		all install samples
+	CC="$(HOSTCC)" \
+	CFLAGS="$(HOST_CFLAGS) -I$(STAGING_DIR_HOSTPKG)/include/libxml2" \
+	LDFLAGS="$(HOST_LDFLAGS) -Wl,-rpath,$(STAGING_DIR_HOSTPKG)/lib" \
+	$(MAKE) -C "$(PKG_BUILD_DIR)/menuselect"
+	$(MAKE) -C "$(PKG_BUILD_DIR)" menuselect-tree
+	cd "$(PKG_BUILD_DIR)" && \
+		./menuselect/menuselect \
+			--disable BUILD_NATIVE \
+			$(if $(CONFIG_ASTERISK13_LOW_MEMORY),--enable LOW_MEMORY) \
+			menuselect.makeopts
+	$(call Build/Compile/Default,all install samples)
 endef
 
 define Build/InstallDev
 	$(INSTALL_DIR) $(1)/usr/include/asterisk-13/include/asterisk/
 	$(CP) $(PKG_INSTALL_DIR)/usr/include/asterisk/*.h $(1)/usr/include/asterisk-13/include/asterisk/
 	$(CP) $(PKG_INSTALL_DIR)/usr/include/asterisk.h $(1)/usr/include/asterisk-13/include/
+ifeq ($(CONFIG_TARGET_ARCH_PACKAGES),"mips_24kc")
+	$(TAR) --create --xz \
+		--file=$(DL_DIR)/$(PKG_NAME)-$(call qstrip,$(CONFIG_TARGET_ARCH_PACKAGES))-headers-for-chan-lantiq-$(VERSION_NUMBER).tar.xz \
+		--directory=$(PKG_INSTALL_DIR)/usr include
+endif
 endef
 
 $(eval $(call BuildPackage,asterisk13))
@@ -316,7 +322,7 @@ $(eval $(call BuildAsterisk13Module,app-minivm,Minimal voicemail system,a voicem
 $(eval $(call BuildAsterisk13Module,app-mixmonitor,Record a call and mix the audio,record a call and mix the audio during the recording,,,app_mixmonitor,,))
 $(eval $(call BuildAsterisk13Module,app-originate,Originate a call,originating an outbound call and connecting it to a specified extension or application,,,app_originate,,))
 $(eval $(call BuildAsterisk13Module,app-playtones,Playtones application,play a tone list,,,app_playtones,,))
-$(eval $(call BuildAsterisk13Module,app-queue,True Call Queueing,support for ACD,,queues.conf queuerules.conf,app_queue,))
+$(eval $(call BuildAsterisk13Module,app-queue,True Call Queueing,support for ACD,,queues.conf queuerules.conf,app_queue,,))
 $(eval $(call BuildAsterisk13Module,app-read,Variable read,a trivial application to read a variable,,,app_read,,))
 $(eval $(call BuildAsterisk13Module,app-readexten,Extension to variable,a trivial application to read an extension into a variable,,,app_readexten,,))
 $(eval $(call BuildAsterisk13Module,app-record,Record sound file,to record a sound file,,,app_record,,))
