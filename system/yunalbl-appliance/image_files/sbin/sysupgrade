@@ -181,8 +181,8 @@ type platform_check_image >/dev/null 2>/dev/null || {
 }
 
 case "$IMAGE" in
-	http://*)
-		wget -O/tmp/sysupgrade.img "$IMAGE"
+	http://*|https://*|ftp://*)
+		wget --no-check-certificate -O/tmp/sysupgrade.img "$IMAGE"
 		IMAGE=/tmp/sysupgrade.img
 		;;
 esac
