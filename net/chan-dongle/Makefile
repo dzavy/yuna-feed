@@ -61,7 +61,7 @@ MAKE_ARGS:= \
 
 ifeq ($(BUILD_VARIANT),asterisk13)
   CONFIGURE_ARGS += --with-astversion=130000 --with-asterisk=$(STAGING_DIR)/usr/include/asterisk-13/include
-  MAKE_ARGS += CFLAGS="$(TARGET_CFLAGS) -DASTERISK_VERSION_NUM=130000 -DLOW_MEMORY -D_GNU_SOURCE -D_XOPEN_SOURCE=600 $(TARGET_CPPFLAGS) -I$(STAGING_DIR)/usr/lib/libiconv-full/include -I$(STAGING_DIR)/usr/include/asterisk-13/include -DHAVE_CONFIG_H -I. -fPIC"
+  MAKE_ARGS += CFLAGS="$(TARGET_CFLAGS) -DASTERISK_VERSION_NUM=130000 -D_GNU_SOURCE -D_XOPEN_SOURCE=600 $(TARGET_CPPFLAGS) -I$(STAGING_DIR)/usr/lib/libiconv-full/include -I$(STAGING_DIR)/usr/include/asterisk-13/include -DHAVE_CONFIG_H -I. -fPIC"
 endif
 
 define Package/conffiles/Default
