@@ -37,12 +37,6 @@ define Package/chan-dongle/Default
   TITLE:=Huawei UMTS 3G dongle support
 endef
 
-define Package/asterisk11-chan-dongle
-$(call Package/chan-dongle/Default)
-  DEPENDS+= asterisk11
-  VARIANT:=asterisk11
-endef
-
 define Package/asterisk13-chan-dongle
 $(call Package/chan-dongle/Default)
   DEPENDS+= asterisk13
@@ -53,7 +47,6 @@ define Package/description/Default
  Asterisk channel driver for Huawei UMTS 3G dongle.
 endef
 
-Package/asterisk11-chan-dongle/description = $(Package/description/Default)
 Package/asterisk13-chan-dongle/description = $(Package/description/Default)
 
 CONFIGURE_VARS += \
@@ -66,11 +59,6 @@ MAKE_ARGS:= \
 	LD="$(TARGET_CC)" \
 	LDFLAGS="$(TARGET_LDFLAGS) -L$(STAGING_DIR)/usr/lib/libiconv-full/lib -liconv"
 
-ifeq ($(BUILD_VARIANT),asterisk11)
-  CONFIGURE_ARGS += --with-astversion=110000 --with-asterisk=$(STAGING_DIR)/usr/include/asterisk-11/include
-  MAKE_ARGS += CFLAGS="$(TARGET_CFLAGS) -DASTERISK_VERSION_NUM=110000 -DLOW_MEMORY -D_GNU_SOURCE -D_XOPEN_SOURCE=600 $(TARGET_CPPFLAGS) -I$(STAGING_DIR)/usr/lib/libiconv-full/include -I$(STAGING_DIR)/usr/include/asterisk-11/include -DHAVE_CONFIG_H -I. -fPIC"
-endif
-
 ifeq ($(BUILD_VARIANT),asterisk13)
   CONFIGURE_ARGS += --with-astversion=130000 --with-asterisk=$(STAGING_DIR)/usr/include/asterisk-13/include
   MAKE_ARGS += CFLAGS="$(TARGET_CFLAGS) -DASTERISK_VERSION_NUM=130000 -DLOW_MEMORY -D_GNU_SOURCE -D_XOPEN_SOURCE=600 $(TARGET_CPPFLAGS) -I$(STAGING_DIR)/usr/lib/libiconv-full/include -I$(STAGING_DIR)/usr/include/asterisk-13/include -DHAVE_CONFIG_H -I. -fPIC"
@@ -80,7 +68,6 @@ define Package/conffiles/Default
 /etc/asterisk/dongle.conf
 endef
 
-Package/asterisk11-chan-dongle/conffiles = $(Package/conffiles/Default)
 Package/asterisk13-chan-dongle/conffiles = $(Package/conffiles/Default)
 
 define Build/Compile
@@ -95,8 +82,6 @@ define Package/Install/Default
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/lib/asterisk/modules/chan_dongle.so $(1)/usr/lib/asterisk/modules/
 endef
 
-Package/asterisk11-chan-dongle/install = $(Package/Install/Default)
 Package/asterisk13-chan-dongle/install = $(Package/Install/Default)
 
-$(eval $(call BuildPackage,asterisk11-chan-dongle))
 $(eval $(call BuildPackage,asterisk13-chan-dongle))
