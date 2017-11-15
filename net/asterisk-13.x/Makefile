@@ -229,7 +229,6 @@ CONFIGURE_ARGS+= \
 	--enable-xmldoc
 
 CONFIGURE_VARS += \
-	ac_cv_lib_srtp2_srtp_init=no \
 	ac_cv_path_ac_pt_CONFIG_LIBXML2=$(STAGING_DIR)/host/bin/xml2-config
 
 MAKE_FLAGS+= \
@@ -361,7 +360,7 @@ $(eval $(call BuildAsterisk13Module,chan-motif,Jingle channel,Motif Jingle Chann
 $(eval $(call BuildAsterisk13Module,chan-iax2,IAX2 channel,IAX support,+asterisk13-res-timing-timerfd,iax.conf iaxprov.conf,chan_iax2,,))
 $(eval $(call BuildAsterisk13Module,chan-lantiq,Lantiq TAPI channel,An implementation of Lantiq TAPI channel,@TARGET_lantiq +kmod-ltq-vmmc,lantiq.conf,chan_lantiq,,))
 $(eval $(call BuildAsterisk13Module,chan-oss,OSS channel,the channel chan_oss,,oss.conf,chan_oss,,))
-$(eval $(call BuildAsterisk13Module,chan-pjsip,pjsip channel,the channel pjsip,+asterisk13-res-sorcery +libpjsip +libpjmedia +libpjnath +libpjsip-simple +libpjsip-ua +libpjsua +libpjsua2,pjproject.conf pjsip.conf pjsip_notify.conf,func_pjsip_aor func_pjsip_contact func_pjsip_endpoint chan_pjsip res_pjproject res_pjsip_acl res_pjsip_authenticator_digest res_pjsip_caller_id res_pjsip_dialog_info_body_generator res_pjsip_diversion res_pjsip_dtmf_info res_pjsip_endpoint_identifier_anonymous res_pjsip_endpoint_identifier_ip res_pjsip_endpoint_identifier_user res_pjsip_exten_state res_pjsip_header_funcs res_pjsip_log_forwarder res_pjsip_logger res_pjsip_messaging res_pjsip_multihomed res_pjsip_mwi_body_generator res_pjsip_mwi res_pjsip_nat res_pjsip_notify res_pjsip_one_touch_record_info res_pjsip_outbound_authenticator_digest res_pjsip_outbound_publish res_pjsip_outbound_registration res_pjsip_path res_pjsip_pidf_body_generator res_pjsip_pidf_digium_body_supplement res_pjsip_pidf_eyebeam_body_supplement res_pjsip_publish_asterisk res_pjsip_pubsub res_pjsip_refer res_pjsip_registrar_expire res_pjsip_registrar res_pjsip_rfc3326 res_pjsip_sdp_rtp res_pjsip_send_to_voicemail res_pjsip_session res_pjsip res_pjsip_transport_websocket res_pjsip_t38 res_pjsip_xpidf_body_generator,,))
+$(eval $(call BuildAsterisk13Module,chan-pjsip,pjsip channel,the channel pjsip,+asterisk13-res-sorcery +libpjsip +libpjmedia +libpjnath +libpjsip-simple +libpjsip-ua +libpjsua +libpjsua2 +libsrtp2,pjproject.conf pjsip.conf pjsip_notify.conf,func_pjsip_aor func_pjsip_contact func_pjsip_endpoint chan_pjsip res_pjproject res_pjsip_acl res_pjsip_authenticator_digest res_pjsip_caller_id res_pjsip_dialog_info_body_generator res_pjsip_diversion res_pjsip_dtmf_info res_pjsip_endpoint_identifier_anonymous res_pjsip_endpoint_identifier_ip res_pjsip_endpoint_identifier_user res_pjsip_exten_state res_pjsip_header_funcs res_pjsip_log_forwarder res_pjsip_logger res_pjsip_messaging res_pjsip_multihomed res_pjsip_mwi_body_generator res_pjsip_mwi res_pjsip_nat res_pjsip_notify res_pjsip_one_touch_record_info res_pjsip_outbound_authenticator_digest res_pjsip_outbound_publish res_pjsip_outbound_registration res_pjsip_path res_pjsip_pidf_body_generator res_pjsip_pidf_digium_body_supplement res_pjsip_pidf_eyebeam_body_supplement res_pjsip_publish_asterisk res_pjsip_pubsub res_pjsip_refer res_pjsip_registrar_expire res_pjsip_registrar res_pjsip_rfc3326 res_pjsip_sdp_rtp res_pjsip_send_to_voicemail res_pjsip_session res_pjsip res_pjsip_transport_websocket res_pjsip_t38 res_pjsip_xpidf_body_generator,,))
 $(eval $(call BuildAsterisk13Module,chan-sip,SIP channel,the channel chan_sip,+asterisk13-app-confbridge,sip.conf sip_notify.conf,chan_sip,,))
 $(eval $(call BuildAsterisk13Module,chan-skinny,Skinny channel,the channel chan_skinny,,skinny.conf,chan_skinny,,))
 $(eval $(call BuildAsterisk13Module,chan-unistim,Unistim channel,channel driver for the UNISTIM (Unified Networks IP Stimulus) protocol,,unistim.conf,chan_unistim,,))
@@ -442,7 +441,7 @@ $(eval $(call BuildAsterisk13Module,res-rtp-multicast,RTP multicast engine,,,,re
 $(eval $(call BuildAsterisk13Module,res-smdi,Provide SMDI,Simple Message Desk Interface capability,,smdi.conf,res_smdi,,))
 $(eval $(call BuildAsterisk13Module,res-sorcery,Sorcery data layer,,,sorcery.conf,res_sorcery_astdb res_sorcery_config res_sorcery_memory res_sorcery_realtime,,))
 $(eval $(call BuildAsterisk13Module,res-speech,Generic Speech Recognition API,,,,res_speech,,))
-$(eval $(call BuildAsterisk13Module,res-srtp,Secure RTP (SRTP),,+libsrtp,,res_srtp,,))
+$(eval $(call BuildAsterisk13Module,res-srtp,Secure RTP (SRTP),,+libsrtp2,,res_srtp,,))
 $(eval $(call BuildAsterisk13Module,res-stasis,Stasis application support,,,stasis.conf,res_stasis res_stasis_answer res_stasis_device_state res_stasis_playback res_stasis_recording res_stasis_snoop,,))
 $(eval $(call BuildAsterisk13Module,res-statsd,Statsd client support,,,statsd.conf,res_statsd,,))
 $(eval $(call BuildAsterisk13Module,res-stun-monitor,STUN monitoring,resource STUN Monitor,,res_stun_monitor.conf,res_stun_monitor,,))
