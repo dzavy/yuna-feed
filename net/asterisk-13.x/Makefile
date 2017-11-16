@@ -121,7 +121,6 @@ define Package/asterisk13/conffiles
 /etc/asterisk/manager.conf
 /etc/asterisk/modules.conf
 /etc/asterisk/rtp.conf
-/etc/asterisk/stasis.conf
 /etc/asterisk/udptl.conf
 /etc/asterisk/users.conf
 /etc/default/asterisk
@@ -131,7 +130,7 @@ endef
 AST_CFG_FILES:= \
 	asterisk.conf acl.conf cel.conf ccss.conf extconfig.conf \
 	extensions.conf features.conf http.conf indications.conf \
-	logger.conf manager.conf modules.conf stasis.conf udptl.conf \
+	logger.conf manager.conf modules.conf udptl.conf \
 	users.conf
 
 AST_EMB_MODULES:=\
@@ -221,7 +220,6 @@ CONFIGURE_ARGS+= \
 	--without-tds \
 	--without-termcap \
 	--without-tinfo \
-	--with-uuid="$(STAGING_DIR)/usr" \	
 	$(if $(CONFIG_PACKAGE_$(PKG_NAME)-format-ogg-vorbis),--with-vorbis="$(STAGING_DIR)/usr",--without-vorbis) \
 	--without-vpb \
 	--with-z="$(STAGING_DIR)/usr" \
@@ -284,11 +282,6 @@ define Build/InstallDev
 	$(INSTALL_DIR) $(1)/usr/include/asterisk-13/include/asterisk/
 	$(CP) $(PKG_INSTALL_DIR)/usr/include/asterisk/*.h $(1)/usr/include/asterisk-13/include/asterisk/
 	$(CP) $(PKG_INSTALL_DIR)/usr/include/asterisk.h $(1)/usr/include/asterisk-13/include/
-ifeq ($(CONFIG_TARGET_ARCH_PACKAGES),"mips_24kc")
-	$(TAR) --create --xz \
-		--file=$(DL_DIR)/$(PKG_NAME)-$(call qstrip,$(CONFIG_TARGET_ARCH_PACKAGES))-headers-for-chan-lantiq-$(VERSION_NUMBER).tar.xz \
-		--directory=$(PKG_INSTALL_DIR)/usr include
-endif
 endef
 
 $(eval $(call BuildPackage,asterisk13))
@@ -335,12 +328,12 @@ $(eval $(call BuildAsterisk13Module,app-talkdetect,File playback with audio dete
 $(eval $(call BuildAsterisk13Module,app-verbose,Verbose logging,Verbose logging application,,,app_verbose,,))
 $(eval $(call BuildAsterisk13Module,app-waituntil,Sleep,support sleeping until the given epoch,,,app_waituntil,,))
 $(eval $(call BuildAsterisk13Module,app-while,While loop,a while loop implementation,,,app_while,,))
-$(eval $(call BuildAsterisk13Module,bridge-builtin-features,Bridging features,built in bridging features,,,bridge_builtin_features))
-$(eval $(call BuildAsterisk13Module,bridge-builtin-interval-features,Built in bridging interval features,built in bridging interval features,,,bridge_builtin_interval_features))
-$(eval $(call BuildAsterisk13Module,bridge-holding,Bridging for storing channels in a bridge,bridging technology for storing channels in a bridge,,,bridge_holding))
-$(eval $(call BuildAsterisk13Module,bridge-native-rtp,Native RTP bridging technology module,native RTP bridging technology module,,,bridge_native_rtp))
-$(eval $(call BuildAsterisk13Module,bridge-simple,Simple two channel bridging module,simple two channel bridging module,,,bridge_simple))
-$(eval $(call BuildAsterisk13Module,bridge-softmix,Multi-party software based channel mixing,multi-party software based channel mixing,,,bridge_softmix))
+$(eval $(call BuildAsterisk13Module,bridge-builtin-features,Bridging features,built in bridging features,,,bridge_builtin_features,,))
+$(eval $(call BuildAsterisk13Module,bridge-builtin-interval-features,Built in bridging interval features,built in bridging interval features,,,bridge_builtin_interval_features,,))
+$(eval $(call BuildAsterisk13Module,bridge-holding,Bridging for storing channels in a bridge,bridging technology for storing channels in a bridge,,,bridge_holding,,))
+$(eval $(call BuildAsterisk13Module,bridge-native-rtp,Native RTP bridging technology module,native RTP bridging technology module,,,bridge_native_rtp,,))
+$(eval $(call BuildAsterisk13Module,bridge-simple,Simple two channel bridging module,simple two channel bridging module,,,bridge_simple,,))
+$(eval $(call BuildAsterisk13Module,bridge-softmix,Multi-party software based channel mixing,multi-party software based channel mixing,,,bridge_softmix,,))
 $(eval $(call BuildAsterisk13Module,cdr,Provides CDR,Call Detail Record,,cdr.conf,app_cdr app_forkcdr func_cdr,,))
 $(eval $(call BuildAsterisk13Module,cdr-adaptive-odbc,Provides CDR ODBC,Call Detail Record with ODBC support,+asterisk13-cdr +asterisk13-odbc,cdr_adaptive_odbc.conf,cdr_adaptive_odbc,,))
 $(eval $(call BuildAsterisk13Module,cdr-csv,Provides CDR CSV,Call Detail Record with CSV support,+asterisk13-cdr,cdr_custom.conf,cdr_csv cdr_custom,,))
@@ -355,10 +348,9 @@ $(eval $(call BuildAsterisk13Module,config-odbc,Provides CDR ODBC,Call Detail Re
 $(eval $(call BuildAsterisk13Module,config-pgsql,PostgreSQL,PostgreSQL support,+libpq,res_pgsql.conf,res_config_pgsql,,))
 $(eval $(call BuildAsterisk13Module,config-sqlite3,PostgreSQL,PostgreSQL support,+libsqlite3,res_config_sqlite3.conf,res_config_sqlite3,,))
 $(eval $(call BuildAsterisk13Module,chan-alsa,ALSA channel,the channel chan_alsa,+alsa-lib,alsa.conf,chan_alsa,,))
-$(eval $(call BuildAsterisk13Module,chan-dahdi,DAHDI channel,DAHDI channel support,+dahdi-tools-libtonezone +kmod-dahdi +libpri,chan_dahdi.conf,chan_dahdi,,))
-$(eval $(call BuildAsterisk13Module,chan-motif,Jingle channel,Motif Jingle Channel Driver,+asterisk13-res-xmpp,motif.conf,chan_motif,,))
+$(eval $(call BuildAsterisk13Module,chan-dahdi,DAHDI channel,DAHDI channel support,+dahdi-tools-libtonezone +kmod-dahdi +libpri @!aarch64,chan_dahdi.conf,chan_dahdi,,))
 $(eval $(call BuildAsterisk13Module,chan-iax2,IAX2 channel,IAX support,+asterisk13-res-timing-timerfd,iax.conf iaxprov.conf,chan_iax2,,))
-$(eval $(call BuildAsterisk13Module,chan-lantiq,Lantiq TAPI channel,An implementation of Lantiq TAPI channel,@TARGET_lantiq +kmod-ltq-vmmc,lantiq.conf,chan_lantiq,,))
+$(eval $(call BuildAsterisk13Module,chan-motif,Jingle channel,Motif Jingle Channel Driver,+asterisk13-res-xmpp,motif.conf,chan_motif,,))
 $(eval $(call BuildAsterisk13Module,chan-oss,OSS channel,the channel chan_oss,,oss.conf,chan_oss,,))
 $(eval $(call BuildAsterisk13Module,chan-pjsip,pjsip channel,the channel pjsip,+asterisk13-res-sorcery +libpjsip +libpjmedia +libpjnath +libpjsip-simple +libpjsip-ua +libpjsua +libpjsua2 +libsrtp2,pjproject.conf pjsip.conf pjsip_notify.conf,func_pjsip_aor func_pjsip_contact func_pjsip_endpoint chan_pjsip res_pjproject res_pjsip_acl res_pjsip_authenticator_digest res_pjsip_caller_id res_pjsip_dialog_info_body_generator res_pjsip_diversion res_pjsip_dtmf_info res_pjsip_endpoint_identifier_anonymous res_pjsip_endpoint_identifier_ip res_pjsip_endpoint_identifier_user res_pjsip_exten_state res_pjsip_header_funcs res_pjsip_log_forwarder res_pjsip_logger res_pjsip_messaging res_pjsip_multihomed res_pjsip_mwi_body_generator res_pjsip_mwi res_pjsip_nat res_pjsip_notify res_pjsip_one_touch_record_info res_pjsip_outbound_authenticator_digest res_pjsip_outbound_publish res_pjsip_outbound_registration res_pjsip_path res_pjsip_pidf_body_generator res_pjsip_pidf_digium_body_supplement res_pjsip_pidf_eyebeam_body_supplement res_pjsip_publish_asterisk res_pjsip_pubsub res_pjsip_refer res_pjsip_registrar_expire res_pjsip_registrar res_pjsip_rfc3326 res_pjsip_sdp_rtp res_pjsip_send_to_voicemail res_pjsip_session res_pjsip res_pjsip_transport_websocket res_pjsip_t38 res_pjsip_xpidf_body_generator,,))
 $(eval $(call BuildAsterisk13Module,chan-sip,SIP channel,the channel chan_sip,+asterisk13-app-confbridge,sip.conf sip_notify.conf,chan_sip,,))
@@ -393,23 +385,26 @@ $(eval $(call BuildAsterisk13Module,func-base64,base64 support,support of base64
 $(eval $(call BuildAsterisk13Module,func-blacklist,Blacklist on callerid,looking up the callerid number and see if it is blacklisted,,,func_blacklist,,))
 $(eval $(call BuildAsterisk13Module,func-channel,Channel info,Channel info dialplan function,,,func_channel,,))
 $(eval $(call BuildAsterisk13Module,func-cut,CUT function,CUT function,,,func_cut,,))
-$(eval $(call BuildAsterisk13Module,func-db,Database interaction,functions for interaction with the database,,,func_db app_db,))
+$(eval $(call BuildAsterisk13Module,func-db,Database interaction,functions for interaction with the database,,,func_db app_db,,))
 $(eval $(call BuildAsterisk13Module,func-devstate,Blinky lights control,functions for manually controlled blinky lights,,,func_devstate,,))
-$(eval $(call BuildAsterisk13Module,func-enum,ENUM,ENUM,,enum.conf,func_enum,))
-$(eval $(call BuildAsterisk13Module,func-env,Environment functions,Environment dialplan functions,,,func_env,))
+$(eval $(call BuildAsterisk13Module,func-enum,ENUM,ENUM,,enum.conf,func_enum,,))
+$(eval $(call BuildAsterisk13Module,func-env,Environment functions,Environment dialplan functions,,,func_env,,))
 $(eval $(call BuildAsterisk13Module,func-extstate,Hinted extension state,retrieving the state of a hinted extension for dialplan control,,,func_extstate,,))
 $(eval $(call BuildAsterisk13Module,func-global,Global variable,global variable dialplan functions,,,func_global,,))
 $(eval $(call BuildAsterisk13Module,func-groupcount,Group count,for counting number of channels in the specified group,,,func_groupcount,,))
-$(eval $(call BuildAsterisk13Module,func-math,Math functions,Math functions,,,func_math,))
-$(eval $(call BuildAsterisk13Module,func-module,Simple module check function,Simple module check function,,,func_module,))
+$(eval $(call BuildAsterisk13Module,func-iconv,Charset conversion,charset conversion,@!USE_UCLIBC,,func_iconv,,))
+$(eval $(call BuildAsterisk13Module,func-math,Math functions,Math functions,,,func_math,,))
+$(eval $(call BuildAsterisk13Module,func-module,Simple module check function,Simple module check function,,,func_module,,))
 $(eval $(call BuildAsterisk13Module,func-presencestate,Hinted presence state,Gets or sets a presence state in the dialplan,,,func_presencestate,,))
-$(eval $(call BuildAsterisk13Module,func-realtime,realtime,the realtime dialplan function,,,func_realtime,,))
+$(eval $(call BuildAsterisk13Module,func-rand,RAND dialplan function,RAND dialplan function,,,func_rand,,))
+$(eval $(call BuildAsterisk13Module,func-realtime,REALTIME dialplan function,REALTIME dialplan function,,,func_realtime,,))
 $(eval $(call BuildAsterisk13Module,func-shell,Shell,support for shell execution,,,func_shell,,))
 $(eval $(call BuildAsterisk13Module,func-uri,URI encoding and decoding,Encodes and decodes URI-safe strings,,,func_uri,,))
 $(eval $(call BuildAsterisk13Module,func-vmcount,vmcount dialplan,a vmcount dialplan function,,,func_vmcount,,))
 $(eval $(call BuildAsterisk13Module,odbc,ODBC,ODBC support,+libpthread +libc +unixodbc,func_odbc.conf res_odbc.conf,func_odbc res_odbc res_odbc_transaction,,))
 $(eval $(call BuildAsterisk13Module,pbx-ael,Asterisk Extension Logic,support for symbolic Asterisk Extension Logic,,extensions.ael,pbx_ael,,))
 $(eval $(call BuildAsterisk13Module,pbx-dundi,Dundi,provides Dundi Lookup service for Asterisk,,dundi.conf,pbx_dundi,,))
+$(eval $(call BuildAsterisk13Module,pbx-lua,Lua,provides Lua resources for Asterisk,+liblua,extensions.lua,pbx_lua,,))
 $(eval $(call BuildAsterisk13Module,pbx-realtime,Realtime Switch,realtime switch support,,,pbx_realtime,,))
 $(eval $(call BuildAsterisk13Module,pbx-spool,Call Spool,outgoing call spool support,,,pbx_spool,,))
 $(eval $(call BuildAsterisk13Module,res-adsi,Provide ADSI,Analog Display Services Interface capability,,,res_adsi,,))
@@ -430,23 +425,23 @@ $(eval $(call BuildAsterisk13Module,res-format-attr-vp8,VP8 Format Attribute Mod
 $(eval $(call BuildAsterisk13Module,res-hep,HEPv3 API,Routines for integration with Homer using HEPv3,,,res_hep,,))
 $(eval $(call BuildAsterisk13Module,res-hep-pjsip,PJSIP HEPv3 Logger,PJSIP logging with Homer,+asterisk13-res-hep +asterisk13-chan-pjsip,,res_hep_pjsip,,))
 $(eval $(call BuildAsterisk13Module,res-hep-rtcp,RTCP HEPv3 Logger,RTCP logging with Homer,+asterisk13-res-hep,,res_hep_rtcp,,))
-$(eval $(call BuildAsterisk13Module,res-http-websocket,HTTP websocket support,,,,res_http_websocket,,))
-$(eval $(call BuildAsterisk13Module,res-monitor,Call Monitoring Resource,,,,res_monitor,,))
+$(eval $(call BuildAsterisk13Module,res-http-websocket,HTTP websocket support,WebSocket support for the Asterisk internal HTTP server,,,res_http_websocket,,))
+$(eval $(call BuildAsterisk13Module,res-monitor,Provide Monitor,Cryptographic Signature capability,,,res_monitor,,))
 $(eval $(call BuildAsterisk13Module,res-musiconhold,MOH,Music On Hold support,,musiconhold.conf,res_musiconhold,,))
 $(eval $(call BuildAsterisk13Module,res-parking,Phone Parking,Phone Parking application,,res_parking.conf,res_parking,,))
 $(eval $(call BuildAsterisk13Module,res-phoneprov,Phone Provisioning,Phone provisioning application for the asterisk internal http server,,phoneprov.conf,res_phoneprov,,))
-$(eval $(call BuildAsterisk13Module,res-realtime,Realtime,Realtime Interface,,,res_realtime,,))
-$(eval $(call BuildAsterisk13Module,res-rtp-asterisk,RTP stack,,+libpjsip +libpjmedia +libpjnath +libpjsip-simple +libpjsip-ua +libpjsua +libpjsua2,rtp.conf,res_rtp_asterisk,,))
-$(eval $(call BuildAsterisk13Module,res-rtp-multicast,RTP multicast engine,,,,res_rtp_multicast,,))
+$(eval $(call BuildAsterisk13Module,res-realtime,RealTime CLI,RealTime CLI,,,res_realtime,,))
+$(eval $(call BuildAsterisk13Module,res-rtp-asterisk,RTP stack,Supports RTP and RTCP with Symmetric RTP support for NAT traversal,+libpjsip +libpjmedia +libpjnath +libpjsip-simple +libpjsip-ua +libpjsua +libpjsua2,rtp.conf,res_rtp_asterisk,,))
+$(eval $(call BuildAsterisk13Module,res-rtp-multicast,RTP multicast engine,Multicast RTP Engine,,,res_rtp_multicast,,))
 $(eval $(call BuildAsterisk13Module,res-smdi,Provide SMDI,Simple Message Desk Interface capability,,smdi.conf,res_smdi,,))
-$(eval $(call BuildAsterisk13Module,res-sorcery,Sorcery data layer,,,sorcery.conf,res_sorcery_astdb res_sorcery_config res_sorcery_memory res_sorcery_realtime,,))
-$(eval $(call BuildAsterisk13Module,res-speech,Generic Speech Recognition API,,,,res_speech,,))
-$(eval $(call BuildAsterisk13Module,res-srtp,Secure RTP (SRTP),,+libsrtp2,,res_srtp,,))
+$(eval $(call BuildAsterisk13Module,res-sorcery,Sorcery data layer,Sorcery backend modules for data access intended for using realtime as backend ,,,res_sorcery_astdb res_sorcery_config res_sorcery_memory res_sorcery_realtime,,))
+$(eval $(call BuildAsterisk13Module,res-speech,Speech Recognition API,Support for the Asterisk Generic Speech Recognition API,,,res_speech,,))
+$(eval $(call BuildAsterisk13Module,res-srtp,SRTP Support,Secure RTP connection,+libsrtp2,,res_srtp,,))
 $(eval $(call BuildAsterisk13Module,res-stasis,Stasis application support,,,stasis.conf,res_stasis res_stasis_answer res_stasis_device_state res_stasis_playback res_stasis_recording res_stasis_snoop,,))
 $(eval $(call BuildAsterisk13Module,res-statsd,Statsd client support,,,statsd.conf,res_statsd,,))
 $(eval $(call BuildAsterisk13Module,res-stun-monitor,STUN monitoring,resource STUN Monitor,,res_stun_monitor.conf,res_stun_monitor,,))
-$(eval $(call BuildAsterisk13Module,res-timing-dahdi,DAHDI Timing Interface,,+asterisk13-chan-dahdi,,res_timing_dahdi,,))
-$(eval $(call BuildAsterisk13Module,res-timing-pthread,pthread Timing Interface,,,,res_timing_pthread,,))
-$(eval $(call BuildAsterisk13Module,res-timing-timerfd,Timerfd Timing Interface,,,,res_timing_timerfd,,))
+$(eval $(call BuildAsterisk13Module,res-timing-dahdi,DAHDI Timing Interface,DAHDI timing interface,+asterisk13-chan-dahdi,,res_timing_dahdi,,))
+$(eval $(call BuildAsterisk13Module,res-timing-pthread,pthread Timing Interface,POSIX pthreads Timing Interface,,,res_timing_pthread,,))
+$(eval $(call BuildAsterisk13Module,res-timing-timerfd,Timerfd Timing Interface,Timing interface provided by Linux kernel,,,res_timing_timerfd,,))
 $(eval $(call BuildAsterisk13Module,res-xmpp,XMPP client and component module,reference module for interfacting Asterisk directly as a client or component with XMPP server,+libiksemel +libopenssl,xmpp.conf,res_xmpp,,))
 $(eval $(call BuildAsterisk13Module,voicemail,Voicemail,voicemail related modules,+asterisk13-res-adsi +asterisk13-res-smdi,voicemail.conf,app_voicemail,vm-*,))
