@@ -62,7 +62,8 @@ ifneq ($(CONFIG_USE_UCLIBCXX),)
   TARGET_CXX=g++-uc
 endif
 
-TARGET_CFLAGS += $(FPIC) -fpermissive
+TARGET_CFLAGS += $(FPIC)
+TARGET_CXXFLAGS += $(FPIC) -fpermissive
 
 CONFIGURE_ARGS += \
 	--enable-shared \
