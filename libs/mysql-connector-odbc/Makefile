@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=mysql-connector-odbc
 PKG_VERSION:=5.1.13-src
-PKG_RELEASE:=5
+PKG_RELEASE:=6
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=http://dev.mysql.com/get/Downloads/Connector-ODBC/5.1/
@@ -37,9 +37,9 @@ endef
 
 define Package/mysql-connector-odbc/install
 	$(INSTALL_DIR) $(1)/usr/lib
-	$(INSTALL_DIR) $(1)/usr/share/mysql/
+	$(INSTALL_DIR) $(1)/etc/odbcinst.ini.d/
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libmyodbc5.so $(1)/usr/lib/
-	$(CP) ./files/odbcinst.ini $(1)/usr/share/mysql/
+	$(CP) ./files/mysql.ini $(1)/etc/odbcinst.ini.d/
 endef
 
 $(eval $(call BuildPackage,mysql-connector-odbc))
