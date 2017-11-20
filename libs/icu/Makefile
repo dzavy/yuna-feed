@@ -24,11 +24,11 @@ PKG_INSTALL:=1
 PKG_BUILD_PARALLEL:=1
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
 
-PKG_BUILD_DEPENDS:=icu/host
+#PKG_BUILD_DEPENDS:=icu/host
 
 
 include $(INCLUDE_DIR)/package.mk
-include $(INCLUDE_DIR)/host-build.mk
+#include $(INCLUDE_DIR)/host-build.mk
 
 TAR_OPTIONS+= icu/source --strip-components 2
 TAR_CMD=$(HOST_TAR) -C $(1) $(TAR_OPTIONS)
@@ -78,8 +78,8 @@ define Build/InstallDev
 		$(1)/usr/lib/
 endef
 
-define Host/install
-endef
+#define Host/install
+#endef
 
 define Package/icu/install
 	$(INSTALL_DIR) \
@@ -91,4 +91,4 @@ define Package/icu/install
 endef
 
 $(eval $(call BuildPackage,icu))
-$(eval $(call HostBuild))
+#$(eval $(call HostBuild))
