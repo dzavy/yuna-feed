@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=asterisk13-codec-opus
-PKG_VERSION:=1.1.0
+PKG_VERSION:=1.2.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=codec_opus-13.0_$(PKG_VERSION)-x86_32.tar.gz
 PKG_SOURCE_URL:=http://downloads.digium.com/pub/telephony/codec_opus/asterisk-13.0/x86-32/
-PKG_MD5SUM:=903cccab2d07985323bb34d7d0cc49b8
+PKG_MD5SUM:=74f84a164801bba7c0511332dafab5e5
 
 PKG_BUILD_DIR=$(BUILD_DIR)/codec_opus-13.0_$(PKG_VERSION)-x86_32
 PKG_INSTALL:=
