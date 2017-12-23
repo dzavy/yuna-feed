@@ -1,19 +1,25 @@
 #!/bin/sh /etc/rc.common
 
 start() {
+    bootpart=`mount | grep /boot | head -n1 | cut -f1 -d" "`
+    bootdev=${bootpart%1}
+
     echo "n
 p
 3
 215040
 
 w
-" | /usr/sbin/fdisk /dev/sda &> /dev/null
-    /usr/sbin/partx -a /dev/sda &> /dev/null
-    /usr/sbin/tune2fs -l /dev/sda3 &> /dev/null
+" | /usr/sbin/fdisk ${bootdev} &> /dev/null
+    /usr/sbin/partx -a ${bootdev} &> /dev/null
+    /usr/sbin/tune2fs -l ${bootdev}3 &> /dev/null
     if [[ "$?" != "0" ]] ;then
-        /usr/sbin/mkfs.ext4 -q -F -m0 -O ^has_journal /dev/sda3
+        /usr/sbin/mkfs.ext4 -q -F -m0 -O ^has_journal ${bootdev}3
     fi
-    /usr/sbin/e2fsck -p /dev/sda3 &> /dev/null
+    /usr/sbin/e2fsck -p ${bootdev}3 &> /dev/null
+
+    /sbin/uci set fstab.@mount[0].device=${bootdev}3
+    /sbin/uci commit
 
     rm /etc/rc.d/S00firstboot
     
