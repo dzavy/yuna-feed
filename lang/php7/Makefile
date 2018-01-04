@@ -6,8 +6,8 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=php
-PKG_VERSION:=7.1.11
-PKG_RELEASE:=4
+PKG_VERSION:=7.2.0
+PKG_RELEASE:=1
 
 PKG_MAINTAINER:=Michael Heimpold <mhei@heimpold.de>
 
@@ -16,7 +16,7 @@ PKG_LICENSE_FILES:=LICENSE
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=http://www.php.net/distributions/
-PKG_HASH:=074093e9d7d21afedc5106904218a80a47b854abe368d2728ed22184c884893e
+PKG_HASH:=87572a6b924670a5d4aac276aaa4a94321936283df391d702c845ffc112db095
 
 PKG_FIXUP:=libtool autoreconf
 PKG_BUILD_PARALLEL:=1
@@ -30,10 +30,10 @@ PHP7_MODULES = \
 	ftp \
 	gettext gd gmp \
 	hash \
-	iconv intl \
+	iconv imap intl \
 	json \
 	ldap \
-	mbstring mcrypt mysqli \
+	mbstring mysqli \
 	opcache openssl \
 	pcntl pdo pdo-mysql pdo-pgsql pdo-sqlite pgsql phar \
 	session shmop simplexml snmp soap sockets sqlite3 sysvmsg sysvsem sysvshm \
@@ -254,6 +254,15 @@ else
   CONFIGURE_ARGS+= --without-iconv
 endif
 
+ifneq ($(SDK)$(CONFIG_PACKAGE_php7-mod-imap),)
+  CONFIGURE_ARGS+= \
+		--with-imap=shared,"$(STAGING_DIR)/usr" \
+		--with-imap-kerberos=no \
+		--with-imap-ssl="$(STAGING_DIR)/usr"
+else
+  CONFIGURE_ARGS+= --without-imap
+endif
+
 ifneq ($(SDK)$(CONFIG_PACKAGE_php7-mod-intl),)
   CONFIGURE_ARGS+= --enable-intl=shared
   TARGET_CXXFLAGS+= -std=c++0x
@@ -279,12 +288,6 @@ ifneq ($(SDK)$(CONFIG_PACKAGE_php7-mod-mbstring),)
   CONFIGURE_ARGS+= --enable-mbstring=shared --enable-mbregex
 else
   CONFIGURE_ARGS+= --disable-mbstring
-endif
-
-ifneq ($(SDK)$(CONFIG_PACKAGE_php7-mod-mcrypt),)
-  CONFIGURE_ARGS+= --with-mcrypt=shared,"$(STAGING_DIR)/usr"
-else
-  CONFIGURE_ARGS+= --without-mcrypt
 endif
 
 ifneq ($(SDK)$(CONFIG_PACKAGE_php7-mod-mysqli),)
@@ -466,6 +469,8 @@ CONFIGURE_VARS+= \
 	php_cv_cc_rpath="no" \
 	iconv_impl_name="gnu_libiconv" \
 	ac_cv_php_xml2_config_path="$(STAGING_DIR)/host/bin/xml2-config" \
+	ac_cv_u8t_decompose=yes \
+	ac_cv_enable_valgrind_check=no \
 
 define Package/php7/conffiles
 /etc/php.ini
