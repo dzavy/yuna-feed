@@ -25,7 +25,7 @@ define Package/libtevent
 	SECTION:=libs
 	CATEGORY:=Libraries
 	TITLE:=Samba libtevent
-	DEPENDS:=+libopenssl
+	DEPENDS:=+libtalloc
 endef
 
 define Package/libtevent/description
