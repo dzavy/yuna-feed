@@ -20,7 +20,7 @@ PKG_MAINTAINER:=Jan Havelka <dzavy@dzavy.net>
 
 include $(INCLUDE_DIR)/package.mk
 
-define Package/libnssr
+define Package/libnss
 	SECTION:=libs
 	CATEGORY:=Libraries
 	TITLE:=Mozilla NSS
