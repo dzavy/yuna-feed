@@ -18,7 +18,15 @@ PKG_INSTALL:=1
 	
 PKG_MAINTAINER:=Jan Havelka <dzavy@dzavy.net>
 
+PKG_BUILD_DEPENDS:=libnspr/host
+
 include $(INCLUDE_DIR)/package.mk
+include $(INCLUDE_DIR)/host-build.mk
+
+TAR_OPTIONS+= $(PKG_NAME)-$(PKG_VERSION)/$(PKG_NAME) --strip-components 2
+TAR_CMD=$(HOST_TAR) -C $(1) $(TAR_OPTIONS)
+
+CONFIGURE_VARS+=CROSS_COMPILE=1
 
 define Package/libnspr
 	SECTION:=libs
@@ -32,13 +40,19 @@ define Package/libnspr/description
 endef
 
 define Build/InstallDev
-	$(INSTALL_DIR) $(1)/usr/lib
 	$(INSTALL_DIR) $(1)/usr/include
+	$(CP) $(PKG_INSTALL_DIR)/usr/include/* $(1)/usr/include/
+	$(INSTALL_DIR) $(1)/usr/lib
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/*.a $(1)/usr/lib/
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/*.so $(1)/usr/lib/
 	$(INSTALL_DIR) $(1)/usr/lib/pkgconfig
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/pkgconfig/nspr.pc $(1)/usr/lib/pkgconfig/
 endef
 
 define Package/libnspr/install
 	$(INSTALL_DIR) $(1)/usr/lib
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/*.so $(1)/usr/lib/
 endef
 
 $(eval $(call BuildPackage,libnspr))
+$(eval $(call HostBuild))
