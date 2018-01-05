@@ -20,6 +20,11 @@ PKG_MAINTAINER:=Jan Havelka <dzavy@dzavy.net>
 
 include $(INCLUDE_DIR)/package.mk
 
+TAR_OPTIONS+= $(PKG_NAME)-$(PKG_VERSION)/$(PKG_NAME) --strip-components 2
+TAR_CMD=$(HOST_TAR) -C $(1) $(TAR_OPTIONS)
+
+MAKE_VARS+=OS_TARGET=Linux CROSS_COMPILE=1 NSPR_LIB_DIR=$(STAGING_DIR)/usr/lib NSPR_INCLUDE_DIR=$(STAGING_DIR)/usr/include/nspr
+
 define Package/libnss
 	SECTION:=libs
 	CATEGORY:=Libraries
@@ -29,6 +34,13 @@ endef
 
 define Package/libnss/description
   Mozilla NSS
+endef
+
+define Build/Configure
+endef
+
+define Build/Compile
+	$(call Build/Compile/Default, all latest)
 endef
 
 define Build/InstallDev
