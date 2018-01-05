@@ -24,7 +24,7 @@ define Package/libnspr
 	SECTION:=libs
 	CATEGORY:=Libraries
 	TITLE:=Mozilla NSPR
-	DEPENDS:=+lpthread
+	DEPENDS:=+libpthread
 endef
 
 define Package/libnspr/description
