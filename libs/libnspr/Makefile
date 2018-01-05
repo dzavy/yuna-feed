@@ -1,0 +1,44 @@
+#
+# Copyright (C) 2006-2010 OpenWrt.org
+#
+# This is free software, licensed under the GNU General Public License v2.
+# See /LICENSE for more information.
+#
+
+include $(TOPDIR)/rules.mk
+
+PKG_NAME:=nspr
+PKG_VERSION:=4.17
+PKG_RELEASE:=1
+PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
+PKG_SOURCE_URL:=https://releases.mozilla.org/pub/$(PKG_NAME)/releases/v$(PKG_VERSION)/src/
+PKG_MD5SUM:=0534d9ac45dca251655b9b240670eab4
+PKG_INSTALL:=1
+	
+PKG_MAINTAINER:=Jan Havelka <dzavy@dzavy.net>
+
+include $(INCLUDE_DIR)/package.mk
+
+define Package/libnspr
+	SECTION:=libs
+	CATEGORY:=Libraries
+	TITLE:=Mozilla NSPR
+	DEPENDS:=+lpthread
+endef
+
+define Package/libnspr/description
+  Mozilla NSPR
+endef
+
+define Build/InstallDev
+	$(INSTALL_DIR) $(1)/usr/lib
+	$(INSTALL_DIR) $(1)/usr/include
+	$(INSTALL_DIR) $(1)/usr/lib/pkgconfig
+endef
+
+define Package/libnspr/install
+	$(INSTALL_DIR) $(1)/usr/lib
+endef
+
+$(eval $(call BuildPackage,libnspr))
