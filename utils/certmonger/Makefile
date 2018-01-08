@@ -20,7 +20,7 @@ PKG_MAINTAINER:=Jan Havelka <dzavy@dzavy.net>
 
 include $(INCLUDE_DIR)/package.mk
 
-CONFIGURE_ARGS+= --with-file-store-dir=/etc
+CONFIGURE_ARGS+= --with-file-store-dir=/etc/certmonger
 
 define Package/certmonger
 	SECTION:=utils
