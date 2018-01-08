@@ -20,24 +20,7 @@ PKG_MAINTAINER:=Jan Havelka <dzavy@dzavy.net>
 
 include $(INCLUDE_DIR)/package.mk
 
-CONFIGURE_ARGS = \
-		--target=$(GNU_TARGET_NAME) \
-		--host=$(GNU_TARGET_NAME) \
-		--build=$(GNU_HOST_NAME) \
-		--program-prefix="" \
-		--program-suffix="" \
-		--prefix=$(CONFIGURE_PREFIX) \
-		--exec-prefix=$(CONFIGURE_PREFIX) \
-		--bindir=$(CONFIGURE_PREFIX)/bin \
-		--sbindir=$(CONFIGURE_PREFIX)/sbin \
-		--libexecdir=$(CONFIGURE_PREFIX)/lib \
-		--sysconfdir=/etc \
-		--datadir=$(CONFIGURE_PREFIX)/share \
-		--localstatedir=/etc \
-		--mandir=$(CONFIGURE_PREFIX)/man \
-		--infodir=$(CONFIGURE_PREFIX)/info \
-		$(DISABLE_NLS) \
-		$(DISABLE_IPV6)
+CONFIGURE_ARGS+= --with-file-store-dir=/etc
 
 define Package/certmonger
 	SECTION:=utils
