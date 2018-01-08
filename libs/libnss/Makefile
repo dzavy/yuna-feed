@@ -20,16 +20,14 @@ PKG_MAINTAINER:=Jan Havelka <dzavy@dzavy.net>
 
 include $(INCLUDE_DIR)/package.mk
 
-TAR_OPTIONS+= $(PKG_NAME)-$(PKG_VERSION)/$(PKG_NAME) --strip-components 2
-TAR_CMD=$(HOST_TAR) -C $(1) $(TAR_OPTIONS)
-
-MAKE_VARS+=OS_TARGET=Linux CROSS_COMPILE=1 NSPR_LIB_DIR=$(STAGING_DIR)/usr/lib NSPR_INCLUDE_DIR=$(STAGING_DIR)/usr/include/nspr
+MAKE_PATH:=$(PKG_NAME)
+MAKE_VARS+=OS_TARGET=Linux BUILD_OPT=1 NSS_USE_SYSTEM_SQLITE=1 CROSS_COMPILE=1 SQLITE_LIB_DIR=$(STAGING_DIR)/usr/lib NSPR_LIB_DIR=$(STAGING_DIR)/usr/lib NSPR_INCLUDE_DIR=$(STAGING_DIR)/usr/include/nspr
 
 define Package/libnss
 	SECTION:=libs
 	CATEGORY:=Libraries
 	TITLE:=Mozilla NSS
-	DEPENDS:=+libnspr
+	DEPENDS:=+libnspr +libsqlite3 +zlib
 endef
 
 define Package/libnss/description
@@ -40,17 +38,33 @@ define Build/Configure
 endef
 
 define Build/Compile
-	$(call Build/Compile/Default, all latest)
+	$(call Build/Compile/Default, CCC="$(TARGET_CXX)" all)
 endef
 
 define Build/InstallDev
 	$(INSTALL_DIR) $(1)/usr/lib
-	$(INSTALL_DIR) $(1)/usr/include
+	$(INSTALL_DIR) $(1)/usr/include/nss
 	$(INSTALL_DIR) $(1)/usr/lib/pkgconfig
+	cp -L $(PKG_BUILD_DIR)/dist/*.OBJ/lib/libfreebl3.so $(1)/usr/lib/
+	cp -L $(PKG_BUILD_DIR)/dist/*.OBJ/lib/libnss3.so $(1)/usr/lib/
+	cp -L $(PKG_BUILD_DIR)/dist/*.OBJ/lib/libnssdbm3.so $(1)/usr/lib/
+	cp -L $(PKG_BUILD_DIR)/dist/*.OBJ/lib/libnssutil3.so $(1)/usr/lib/
+	cp -L $(PKG_BUILD_DIR)/dist/*.OBJ/lib/libsmime3.so $(1)/usr/lib/
+	cp -L $(PKG_BUILD_DIR)/dist/*.OBJ/lib/libsoftokn3.so $(1)/usr/lib/
+	cp -L $(PKG_BUILD_DIR)/dist/*.OBJ/lib/libssl3.so $(1)/usr/lib/
+	cp -L $(PKG_BUILD_DIR)/dist/public/nss/*.h $(1)/usr/include/nss/
+	$(CP) ./files/nss.pc $(1)/usr/lib/pkgconfig
 endef
 
 define Package/libnss/install
 	$(INSTALL_DIR) $(1)/usr/lib
+	cp -L $(PKG_BUILD_DIR)/dist/*.OBJ/lib/libfreebl3.so $(1)/usr/lib/
+	cp -L $(PKG_BUILD_DIR)/dist/*.OBJ/lib/libnss3.so $(1)/usr/lib/
+	cp -L $(PKG_BUILD_DIR)/dist/*.OBJ/lib/libnssdbm3.so $(1)/usr/lib/
+	cp -L $(PKG_BUILD_DIR)/dist/*.OBJ/lib/libnssutil3.so $(1)/usr/lib/
+	cp -L $(PKG_BUILD_DIR)/dist/*.OBJ/lib/libsmime3.so $(1)/usr/lib/
+	cp -L $(PKG_BUILD_DIR)/dist/*.OBJ/lib/libsoftokn3.so $(1)/usr/lib/
+	cp -L $(PKG_BUILD_DIR)/dist/*.OBJ/lib/libssl3.so $(1)/usr/lib/
 endef
 
 $(eval $(call BuildPackage,libnss))

@@ -1,0 +1,11 @@
+prefix=/usr
+exec_prefix=/usr
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include/nss
+
+Name: NSS
+Description: Network Security Services
+Version: 4.17.0
+Requires: nspr
+Libs: -L${exec_prefix}/lib -lssl3 -lsmime3 -lnss3 -lnssutil3 -lfreebl3 -lnssdbm3 -lsoftokn3
+Cflags: -I${prefix}/include/nss

@@ -27,6 +27,8 @@ TAR_OPTIONS+= $(PKG_NAME)-$(PKG_VERSION)/$(PKG_NAME) --strip-components 2
 TAR_CMD=$(HOST_TAR) -C $(1) $(TAR_OPTIONS)
 
 CONFIGURE_VARS+=CROSS_COMPILE=1
+CONFIGURE_ARGS+= --disable-debug --enable-optimize
+HOST_CONFIGURE_ARGS+= --disable-debug --enable-optimize --enable-64bit
 
 define Package/libnspr
 	SECTION:=libs

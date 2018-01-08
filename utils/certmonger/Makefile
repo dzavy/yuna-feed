@@ -20,20 +20,54 @@ PKG_MAINTAINER:=Jan Havelka <dzavy@dzavy.net>
 
 include $(INCLUDE_DIR)/package.mk
 
+CONFIGURE_ARGS = \
+		--target=$(GNU_TARGET_NAME) \
+		--host=$(GNU_TARGET_NAME) \
+		--build=$(GNU_HOST_NAME) \
+		--program-prefix="" \
+		--program-suffix="" \
+		--prefix=$(CONFIGURE_PREFIX) \
+		--exec-prefix=$(CONFIGURE_PREFIX) \
+		--bindir=$(CONFIGURE_PREFIX)/bin \
+		--sbindir=$(CONFIGURE_PREFIX)/sbin \
+		--libexecdir=$(CONFIGURE_PREFIX)/lib \
+		--sysconfdir=/etc \
+		--datadir=$(CONFIGURE_PREFIX)/share \
+		--localstatedir=/etc \
+		--mandir=$(CONFIGURE_PREFIX)/man \
+		--infodir=$(CONFIGURE_PREFIX)/info \
+		$(DISABLE_NLS) \
+		$(DISABLE_IPV6)
+
 define Package/certmonger
 	SECTION:=utils
 	CATEGORY:=Utilities
 	SUBMENU:=SSL
 	TITLE:=Certificate enrollment deamon
-	DEPENDS:=+libopenssl +libtevent +libtalloc +dbus +libopenldap +libnss
+	DEPENDS:=+libopenssl +libtevent +libtalloc +dbus +libopenldap +libnss +krb5-libs +xmlrpc-c-client +libxml2 +libidn +libpopt +libuuid
 endef
 
 define Package/certmonger/description
   certmonger is a service which attempts to simplify interaction with certifying authorities (CAs) on networks which use public-key infrastructure (PKI).
 endef
 
+define Package/certmonger/conffiles
+/etc/certmonger/certmonger.conf
+endef
+
 define Package/certmonger/install
+	$(INSTALL_DIR) $(1)/etc
 	$(INSTALL_DIR) $(1)/usr/bin
+	$(INSTALL_DIR) $(1)/usr/lib
+	$(INSTALL_DIR) $(1)/usr/sbin
+	$(INSTALL_DIR) $(1)/usr/share
+	$(INSTALL_DIR) $(1)/etc/init.d/
+	$(CP) $(PKG_INSTALL_DIR)/etc/* $(1)/etc/
+	$(CP) $(PKG_INSTALL_DIR)/usr/bin/* $(1)/usr/bin/
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/* $(1)/usr/lib/
+	$(CP) $(PKG_INSTALL_DIR)/usr/sbin/* $(1)/usr/sbin/
+	$(CP) $(PKG_INSTALL_DIR)/usr/share/* $(1)/usr/share/
+	$(INSTALL_BIN) ./files/certmonger.init $(1)/etc/init.d/certmonger
 endef
 
 $(eval $(call BuildPackage,certmonger))
