@@ -26,7 +26,7 @@ define Package/asterisk13-codec-opus
   CATEGORY:=Network
   TITLE:=Opus codec for Asterisk open source PBX
   URL:=http://www.digium.com
-  DEPENDS:= @TARGET_x86 asterisk13 +asterisk13-curl +asterisk13-res-sorcery +asterisk13-res-format-attr-opus +libopus
+  DEPENDS:= @TARGET_x86_generic @USE_GLIBC asterisk13 +asterisk13-curl +asterisk13-res-sorcery +asterisk13-res-format-attr-opus +libopus
 endef
 
 define Package/asterisk13-format-ogg-opus
@@ -35,7 +35,7 @@ define Package/asterisk13-format-ogg-opus
   CATEGORY:=Network
   TITLE:=Ogg/Opus format for Asterisk open source PBX
   URL:=http://www.digium.com
-  DEPENDS:= @TARGET_x86 asterisk13 +asterisk13-curl +asterisk13-res-sorcery +asterisk13-res-format-attr-opus +libopus
+  DEPENDS:= @TARGET_x86_generic @USE_GLIBC asterisk13 +asterisk13-curl +asterisk13-res-sorcery +asterisk13-res-format-attr-opus +libopus
 endef
 
 define Package/asterisk13-codec-opus/description
