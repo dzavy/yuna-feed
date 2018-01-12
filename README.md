@@ -9,7 +9,6 @@
 - sscep
 
 # Changed packages
-- asterisk-13.x - minor changes to modules
 - iksemel - compile with OpenSSL instead of GNUTLS
 - libtalloc - added talloc.pc
 - mysql - fixed build with GCC7 (-fpermissive)
