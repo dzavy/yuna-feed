@@ -26,7 +26,7 @@ define Package/asterisk13-codec-silk
   CATEGORY:=Network
   TITLE:=SILK codec for Asterisk open source PBX
   URL:=http://www.digium.com
-  DEPENDS:= @TARGET_x86 asterisk13 +asterisk13-res-format-attr-silk
+  DEPENDS:= @TARGET_x86_generic @USE_GLIBC asterisk13 +asterisk13-res-format-attr-silk
 endef
 
 define Package/asterisk13-codec-silk/description
