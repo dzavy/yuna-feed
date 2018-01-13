@@ -45,12 +45,13 @@ define Package/yunapbx-appliance/install
 	$(INSTALL_DIR) $(1)/etc/hotplug.d/iface
 	$(INSTALL_DIR) $(1)/etc/init.d
 	$(INSTALL_DIR) $(1)/etc/rc.d
+	$(INSTALL_DIR) $(1)/usr/bin
 	$(INSTALL_DIR) $(1)/usr/sbin
 	$(INSTALL_BIN) ./package_files/etc/hotplug.d/iface/* $(1)/etc/hotplug.d/iface/
 	$(INSTALL_BIN) ./package_files/etc/init.d/* $(1)/etc/init.d/
 	$(INSTALL_BIN) ./package_files/etc/rc.d/* $(1)/etc/rc.d/
+	$(INSTALL_BIN) ./package_files/usr/bin/* $(1)/usr/bin/
 	$(INSTALL_BIN) ./package_files/usr/sbin/* $(1)/usr/sbin/
 endef
 
 $(eval $(call BuildPackage,yunapbx-appliance))
-    

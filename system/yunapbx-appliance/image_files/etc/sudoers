@@ -3,3 +3,7 @@ root ALL=(ALL:ALL) ALL
 http ALL=(ALL) NOPASSWD: /sbin/uci
 http ALL=(ALL) NOPASSWD: /sbin/sysupgrade
 http ALL=(ALL) NOPASSWD: /sbin/reboot
+http ALL=(admin) NOPASSWD: /usr/bin/admin_change_password
+http ALL=(admin) NOPASSWD: /usr/bin/admin_check_password
+admin ALL=(root) /bin/uname
+admin ALL=(root) /usr/bin/passwd --stdin admin

@@ -11,4 +11,5 @@ prosody:x:54:
 asterisk:x:55:
 yunapbx:x:100:http,asterisk,prosody
 network:x:101:
+admin:x:500:
 nogroup:x:65534:
