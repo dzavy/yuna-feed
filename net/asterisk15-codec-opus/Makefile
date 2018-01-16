@@ -1,0 +1,66 @@
+#
+# Copyright (C) 2015 OpenWrt.org
+#
+# This is free software, licensed under the GNU General Public License v2.
+# See /LICENSE for more information.
+#
+
+include $(TOPDIR)/rules.mk
+
+PKG_NAME:=asterisk15-codec-opus
+PKG_VERSION:=1.3.0
+PKG_RELEASE:=1
+
+PKG_SOURCE:=codec_opus-15.0_$(PKG_VERSION)-x86_32.tar.gz
+PKG_SOURCE_URL:=http://downloads.digium.com/pub/telephony/codec_opus/asterisk-15.0/x86-32/
+PKG_MD5SUM:=b82a7d0dec3e4f18c1048fee6df4b48b
+
+PKG_BUILD_DIR=$(BUILD_DIR)/codec_opus-15.0_$(PKG_VERSION)-x86_32
+PKG_INSTALL:=
+
+include $(INCLUDE_DIR)/package.mk
+
+define Package/asterisk15-codec-opus
+  SUBMENU:=Telephony
+  SECTION:=net
+  CATEGORY:=Network
+  TITLE:=Opus codec for Asterisk open source PBX
+  URL:=http://www.digium.com
+  DEPENDS:= @TARGET_x86_generic @USE_GLIBC asterisk15 +asterisk15-curl +asterisk15-res-sorcery +asterisk15-res-format-attr-opus +libopus
+endef
+
+define Package/asterisk15-format-ogg-opus
+  SUBMENU:=Telephony
+  SECTION:=net
+  CATEGORY:=Network
+  TITLE:=Ogg/Opus format for Asterisk open source PBX
+  URL:=http://www.digium.com
+  DEPENDS:= @TARGET_x86_generic @USE_GLIBC asterisk15 +asterisk15-curl +asterisk15-res-sorcery +asterisk15-res-format-attr-opus +libopus
+endef
+
+define Package/asterisk15-codec-opus/description
+ Codec opus module for Asterisk.
+endef
+
+define Package/asterisk15-format-ogg-opus/description
+ Format Ogg/Opus module for Asterisk.
+endef
+
+define Build/Configure
+endef
+
+define Build/Compile
+endef
+
+define Package/asterisk15-codec-opus/install
+	$(INSTALL_DIR) $(1)/usr/lib/asterisk/modules/
+	$(CP) $(PKG_BUILD_DIR)/codec_opus.so $(1)/usr/lib/asterisk/modules/
+endef
+
+define Package/asterisk15-format-ogg-opus/install
+	$(INSTALL_DIR) $(1)/usr/lib/asterisk/modules/
+	$(CP) $(PKG_BUILD_DIR)/format_ogg_opus.so $(1)/usr/lib/asterisk/modules/
+endef
+
+$(eval $(call BuildPackage,asterisk15-codec-opus))
+$(eval $(call BuildPackage,asterisk15-format-ogg-opus))
