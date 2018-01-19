@@ -15,11 +15,9 @@ PKG_LICENSE_FILES:=
 
 PKG_MAINTAINER:=Jan Havelka <dzavy@dzavy.net>
 
-include $(INCLUDE_DIR)/package.mk
-include $(INCLUDE_DIR)/cmake.mk
-
 PKG_FIXUP:=autoreconf
-CMAKE_INSTALL:=1
+
+include $(INCLUDE_DIR)/package.mk
 
 define Package/statsite
   SECTION:=net
@@ -30,7 +28,7 @@ endef
 define Package/statsite/install
 	$(INSTALL_DIR) $(1)/usr/bin $(1)/etc/init.d/
 
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/statsite $(1)/usr/bin/
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/statsite $(1)/usr/bin/
 	$(INSTALL_BIN) ./files/statsite.init $(1)/etc/init.d/statsite
 	$(INSTALL_CONF) ./files/statsite.conf $(1)/etc/
 endef
