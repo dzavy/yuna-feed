@@ -32,6 +32,11 @@ define Package/statsite/install
 
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/statsite $(1)/usr/bin/
 	$(INSTALL_BIN) ./files/statsite.init $(1)/etc/init.d/statsite
+	$(INSTALL_CONF) ./files/statsite.conf $(1)/etc/
+endef
+
+define Package/statsite/conffiles
+/etc/statsite.conf
 endef
 
 $(eval $(call BuildPackage,statsite))
