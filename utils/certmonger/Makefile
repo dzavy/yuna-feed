@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=certmonger
 PKG_VERSION:=0.79.5
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://releases.pagure.org/$(PKG_NAME)/
@@ -36,6 +36,9 @@ endef
 
 define Package/certmonger/conffiles
 /etc/certmonger/certmonger.conf
+/etc/certmonger/cas/
+/etc/certmonger/local/
+/etc/certmonger/requests/
 endef
 
 define Package/certmonger/install
