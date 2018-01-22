@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=tevent
 PKG_VERSION:=0.9.34
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://www.samba.org/ftp/$(PKG_NAME)/
@@ -31,6 +31,8 @@ endef
 define Package/libtevent/description
   Tevent is an event system based on the talloc memory management library. It is the core event system used in Samba.
 endef
+
+TARGET_LDFLAGS += -L$(STAGING_DIR)/lib
 
 CROSS = " \
 	\nChecking simple C program: OK \
