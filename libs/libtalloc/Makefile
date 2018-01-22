@@ -10,7 +10,7 @@ include $(TOPDIR)/rules.mk
 PKG_NAME:=talloc
 PKG_VERSION:=2.1.10
 MAJOR_VERSION:=2
-PKG_RELEASE:=4
+PKG_RELEASE:=5
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://www.samba.org/ftp/talloc/
@@ -35,6 +35,8 @@ endef
 define Package/libtalloc/description
   talloc is a hierarchical, reference counted memory pool system with destructors.
 endef
+
+CONFIGURE_VARS += RPATH=/lib
 
 CROSS = " \
 	\nChecking simple C program: OK \
@@ -91,8 +93,6 @@ define Build/Configure
 			--with-libiconv="$(ICONV_PREFIX)" \
 			--cross-compile \
 			--cross-answers=$(PKG_BUILD_DIR)/cache.txt \
-			--disable-rpath \
-			--disable-rpath-install \
 	)
 endef
 
