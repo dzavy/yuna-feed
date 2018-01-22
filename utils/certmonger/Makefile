@@ -21,7 +21,6 @@ PKG_MAINTAINER:=Jan Havelka <dzavy@dzavy.net>
 include $(INCLUDE_DIR)/package.mk
 
 CONFIGURE_ARGS+= --with-file-store-dir=/etc/certmonger
-CONFIGURE_VARS+= TALLOC_LIBS="-L$(STAGING_DIR)/usr/lib -L$(STAGING_DIR)/lib -ltalloc -lbsd"
 
 define Package/certmonger
 	SECTION:=utils
