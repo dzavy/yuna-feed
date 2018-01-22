@@ -7,6 +7,7 @@
 - libtevent
 - mysql-connector-odbc
 - sscep
+- statsite
 
 # Changed packages
 - iksemel - compile with OpenSSL instead of GNUTLS
