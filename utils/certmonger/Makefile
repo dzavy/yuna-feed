@@ -21,7 +21,9 @@ PKG_MAINTAINER:=Jan Havelka <dzavy@dzavy.net>
 include $(INCLUDE_DIR)/package.mk
 
 CONFIGURE_ARGS+= --with-file-store-dir=/etc/certmonger
-CONFIGURE_VARS+= GETCERT_LIBS="-L$(STAGING_DIR)/usr/lib -L$(STAGING_DIR)/lib -ldbus-1 -ltalloc -lbsd"
+CONFIGURE_VARS+= \
+  GETCERT_LIBS="-L$(STAGING_DIR)/usr/lib -L$(STAGING_DIR)/lib -ldbus-1 -ltalloc -lbsd" \
+  CERTMONGER_LIBS="-L$(STAGING_DIR)/usr/lib -L$(STAGING_DIR)/lib -ldbus-1 -ltevent -ltalloc -lssl3 -lsmime3 -lnss3 -lnssutil3 -lfreebl3 -lnssdbm3 -lsoftokn3 -lplds4 -lplc4 -lnspr4 -lbsd"
 
 define Package/certmonger
 	SECTION:=utils
