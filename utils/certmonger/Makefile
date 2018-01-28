@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=certmonger
 PKG_VERSION:=0.79.5
-PKG_RELEASE:=5
+PKG_RELEASE:=6
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://releases.pagure.org/$(PKG_NAME)/
@@ -21,7 +21,7 @@ PKG_MAINTAINER:=Jan Havelka <dzavy@dzavy.net>
 include $(INCLUDE_DIR)/package.mk
 
 CONFIGURE_ARGS+= --with-file-store-dir=/etc/certmonger
-CONFIGURE_VARS+= GETCERT_LIBS="-L$(STAGING_DIR)/usr/lib -L$(STAGING_DIR)/lib -ldbus-1 -ltalloc"
+CONFIGURE_VARS+= GETCERT_LIBS="-L$(STAGING_DIR)/usr/lib -L$(STAGING_DIR)/lib -ldbus-1 -ltalloc -lbsd"
 
 define Package/certmonger
 	SECTION:=utils
