@@ -1,6 +1,8 @@
 # Additional packages
 - asterisk13-codec-opus
 - asterisk13-codec-silk
+- asterisk15-codec-opus
+- asterisk15-codec-silk
 - certmonger
 - libnspr
 - libnss
