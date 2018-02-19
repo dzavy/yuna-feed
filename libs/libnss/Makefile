@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=nss
-PKG_VERSION:=3.34.1
+PKG_VERSION:=3.35
 PKG_RELEASE:=1
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://releases.mozilla.org/pub/security/$(PKG_NAME)/releases/NSS_3_34_1_RTM/src/
-PKG_MD5SUM:=5922468bb1c54e4c8067f153fcf467e5
+PKG_SOURCE_URL:=https://releases.mozilla.org/pub/security/$(PKG_NAME)/releases/NSS_3_35_RTM/src/
+PKG_MD5SUM:=9467ec9e65c5aeb3254a50250490f5f7
 PKG_INSTALL:=1
 	
 PKG_MAINTAINER:=Jan Havelka <dzavy@dzavy.net>
@@ -46,6 +46,7 @@ define Build/InstallDev
 	$(INSTALL_DIR) $(1)/usr/include/nss
 	$(INSTALL_DIR) $(1)/usr/lib/pkgconfig
 	cp -L $(PKG_BUILD_DIR)/dist/*.OBJ/lib/libfreebl3.so $(1)/usr/lib/
+	cp -L $(PKG_BUILD_DIR)/dist/*.OBJ/lib/libfreeblpriv3.so $(1)/usr/lib/	
 	cp -L $(PKG_BUILD_DIR)/dist/*.OBJ/lib/libnss3.so $(1)/usr/lib/
 	cp -L $(PKG_BUILD_DIR)/dist/*.OBJ/lib/libnssdbm3.so $(1)/usr/lib/
 	cp -L $(PKG_BUILD_DIR)/dist/*.OBJ/lib/libnssutil3.so $(1)/usr/lib/
@@ -59,6 +60,7 @@ endef
 define Package/libnss/install
 	$(INSTALL_DIR) $(1)/usr/lib
 	cp -L $(PKG_BUILD_DIR)/dist/*.OBJ/lib/libfreebl3.so $(1)/usr/lib/
+	cp -L $(PKG_BUILD_DIR)/dist/*.OBJ/lib/libfreeblpriv3.so $(1)/usr/lib/
 	cp -L $(PKG_BUILD_DIR)/dist/*.OBJ/lib/libnss3.so $(1)/usr/lib/
 	cp -L $(PKG_BUILD_DIR)/dist/*.OBJ/lib/libnssdbm3.so $(1)/usr/lib/
 	cp -L $(PKG_BUILD_DIR)/dist/*.OBJ/lib/libnssutil3.so $(1)/usr/lib/
