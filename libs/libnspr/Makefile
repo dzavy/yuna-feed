@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=nspr
-PKG_VERSION:=4.17
+PKG_VERSION:=4.18
 PKG_RELEASE:=1
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://releases.mozilla.org/pub/$(PKG_NAME)/releases/v$(PKG_VERSION)/src/
-PKG_MD5SUM:=0534d9ac45dca251655b9b240670eab4
+PKG_MD5SUM:=2a558f9aeb109bfb16d78bdc42033a1e
 PKG_INSTALL:=1
 	
 PKG_MAINTAINER:=Jan Havelka <dzavy@dzavy.net>
