@@ -10,8 +10,8 @@ start_service() {
     mkdir -m 0700 -p /data/mysql
     mkdir -m 0770 -p /var/run/mysql
 
-    chown -R mysql:mysql /data/mysql
-    chown -R mysql:yunapbx /var/run/mysql
+    chown -R mariadb:mariadb /data/mysql
+    chown -R mariadb:yunapbx /var/run/mysql
 
     if [ ! -f "/data/mysql/mysql/tables_priv.MYD" ]; then
         /usr/bin/mysql_install_db --force

@@ -2,7 +2,6 @@ root:x:0:
 daemon:x:1:
 adm:x:4:
 mail:x:8:
-mysql:x:27:
 audio:x:29:
 http:x:33:
 haproxy:x:34:
@@ -11,5 +10,6 @@ prosody:x:54:
 asterisk:x:55:
 yunapbx:x:100:http,asterisk,prosody
 network:x:101:
+mariadb:x:376:
 admin:x:500:
 nogroup:x:65534:
