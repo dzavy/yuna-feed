@@ -20,7 +20,7 @@ PKG_MAINTAINER:=Jan Havelka <dzavy@dzavy.net>
 
 EXTRA_CFLAGS:=-I$(STAGING_DIR)/usr/include/mysql
 EXTRA_LDFLAGS:=-L$(STAGING_DIR)/usr/lib/mysql
-CMAKE_OPTIONS:=-DMARIADB_LINK_DYNAMIC=1
+CMAKE_OPTIONS:=-DMARIADB_LINK_DYNAMIC=1 -DODBC_INCLUDE_DIR=$(STAGING_DIR)/usr/include -DODBC_LIB_DIR=$(STAGING_DIR)/usr/lib
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/cmake.mk
