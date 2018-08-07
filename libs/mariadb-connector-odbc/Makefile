@@ -19,7 +19,7 @@ PKG_INSTALL:=1
 PKG_MAINTAINER:=Jan Havelka <dzavy@dzavy.net>
 
 EXTRA_CFLAGS:=-I$(STAGING_DIR)/usr/include/mysql
-EXTRA_LDFLAGS:=-lpthread -L$(STAGING_DIR)/usr/lib/mysql
+EXTRA_LDFLAGS:=-L$(STAGING_DIR)/usr/lib/mysql
 CMAKE_OPTIONS:=-DMARIADB_LINK_DYNAMIC=1
 
 include $(INCLUDE_DIR)/package.mk
@@ -30,7 +30,7 @@ define Package/mariadb-connector-odbc
 	CATEGORY:=Libraries
 	SUBMENU:=database
 	TITLE:=ODBC Connector for MariaDB/MySQL
-	DEPENDS:=+libpthread +unixodbc +libmysqlclient-r +librt
+	DEPENDS:=+libpthread +unixodbc +libmariadb +librt
 	PROVIDES:=mysql-connector-odbc
 endef
 
