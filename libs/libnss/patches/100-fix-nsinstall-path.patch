@@ -1,0 +1,13 @@
+--- a/nss/coreconf/UNIX.mk	2018-08-09 01:17:06.117463364 +0200
++++ b/nss/coreconf/UNIX.mk	2018-08-09 01:25:06.818914358 +0200
+@@ -23,8 +23,8 @@
+ NSINSTALL_DIR  = $(BUILD_TREE)/nss
+ NSINSTALL      = $(BUILD_TREE)/nss/nsinstall
+ else
+-NSINSTALL_DIR  = $(CORE_DEPTH)/coreconf/nsinstall
+-NSINSTALL      = $(NSINSTALL_DIR)/$(OBJDIR_NAME)/nsinstall
++NSINSTALL_DIR  = $(CORE_DEPTH)/../../../hostpkg/nspr-4.18/config
++NSINSTALL      = $(NSINSTALL_DIR)/nsinstall
+ endif
+ 
+ MKDEPEND_DIR    = $(CORE_DEPTH)/coreconf/mkdepend

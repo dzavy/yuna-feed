@@ -1,0 +1,11 @@
+--- a/configure.in	2018-01-18 13:37:14.000000000 +0100
++++ b/configure.in	2018-08-09 01:13:37.407399193 +0200
+@@ -36,7 +36,7 @@
+ OBJDIR='$(OBJDIR_NAME)'
+ OBJDIR_NAME=.
+ OBJDIR_SUFFIX=OBJ
+-NSINSTALL='$(MOD_DEPTH)/config/$(OBJDIR_NAME)/nsinstall'
++NSINSTALL='$(MOD_DEPTH)/../../hostpkg/nspr-4.18/config/nsinstall'
+ NOSUCHFILE=/no-such-file
+ LIBNSPR='-L$(dist_libdir) -lnspr$(MOD_MAJOR_VERSION)'
+ LIBPLC='-L$(dist_libdir) -lplc$(MOD_MAJOR_VERSION)'
