@@ -12,7 +12,9 @@
 - statsite
 
 # Changed packages
+- e2fsprogs - fixed build (added -lpthread)
 - iksemel - compile with OpenSSL instead of GNUTLS
+- libtalloc - removed dependency on libbsd
 - php7 - fixed build with GCC7 ($(FPIC))
 - ubox - changes to logread (file permissions and timestamp format)
 - zabbix - added TLS support

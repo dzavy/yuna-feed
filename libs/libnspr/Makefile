@@ -15,6 +15,7 @@ PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://releases.mozilla.org/pub/$(PKG_NAME)/releases/v$(PKG_VERSION)/src/
 PKG_MD5SUM:=2a558f9aeb109bfb16d78bdc42033a1e
 PKG_INSTALL:=1
+PKG_FIXUP:=autoreconf
 	
 PKG_MAINTAINER:=Jan Havelka <dzavy@dzavy.net>
 
