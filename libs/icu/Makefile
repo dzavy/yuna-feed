@@ -41,8 +41,7 @@ define Package/icu
   DEPENDS:=+libstdcpp +libpthread
 endef
 
-define Build/Configure
-	$(call Build/Configure/Default, \
+CONFIGURE_ARGS+= \
 		--disable-debug \
 		--enable-release \
 		--enable-shared \
@@ -57,6 +56,11 @@ define Build/Configure
 		--disable-tools \
 		--disable-tests \
 		--disable-samples \
+
+
+define Build/Configure
+	$(call Build/Configure/Default, \
+	
 		--with-cross-build="$(HOST_BUILD_DIR)" \
 		--with-data-packaging=archive \
 	)
