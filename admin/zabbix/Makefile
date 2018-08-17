@@ -34,7 +34,7 @@ define Package/zabbix/Default
 	URL:=http://www.zabbix.com/
 	SUBMENU:=zabbix
 	USERID:=zabbix=53:zabbix=53
-	DEPENDS +=+libopenssl $(ICONV_DEPENDS)
+	DEPENDS +=+libopenssl $(ICONV_DEPENDS) +libpcre
 endef
 
 define Package/zabbix-agentd
