@@ -45,19 +45,19 @@ endef
 define Package/zabbix-extra-mac80211
   $(call Package/zabbix/Default)
   TITLE+= discovery/userparameters for mac80211
-  DEPENDS = zabbix-agentd +@PACKAGE_MAC80211_DEBUGFS +@KERNEL_DEBUG_FS
+  DEPENDS = +zabbix-agentd @PACKAGE_MAC80211_DEBUGFS @KERNEL_DEBUG_FS
 endef
 
 define Package/zabbix-extra-network
   $(call Package/zabbix/Default)
   TITLE+= discovery/userparameters for network
-  DEPENDS = zabbix-agentd +libuci-lua +lua
+  DEPENDS = +zabbix-agentd +libuci-lua +lua
 endef
 
 define Package/zabbix-extra-wifi
   $(call Package/zabbix/Default)
   TITLE+= discovery/userparameters for wifi
-  DEPENDS = zabbix-agentd +libiwinfo-lua +libuci-lua +lua
+  DEPENDS = +zabbix-agentd +libiwinfo-lua +libuci-lua +lua
 endef
 
 define Package/zabbix-sender
@@ -73,13 +73,13 @@ endef
 define Package/zabbix-server
   $(call Package/zabbix/Default)
   TITLE+= server
-  DEPENDS += +libsqlite3
+  DEPENDS += +pgsql-cli +libevent2
 endef
 
 define Package/zabbix-proxy
   $(call Package/zabbix/Default)
   TITLE+= proxy
-  DEPENDS += +libsqlite3
+  DEPENDS += +pgsql-cli
 endef
 
 define Package/zabbix-extra-mac80211/description
@@ -106,7 +106,9 @@ CONFIGURE_ARGS+= \
 	--enable-proxy \
 	$(call autoconf_bool,CONFIG_IPV6,ipv6) \
 	--disable-java \
-	--with-sqlite3="$(STAGING_DIR)/usr" \
+	--with-postgresql \
+	--with-libevent=$(STAGING_DIR)/usr/include/libevent \
+	--with-libpcre=$(STAGING_DIR)/usr/include \
 	--with-openssl="$(STAGING_DIR)/usr"
 
 
