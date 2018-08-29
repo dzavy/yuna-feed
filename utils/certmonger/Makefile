@@ -15,6 +15,7 @@ PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://releases.pagure.org/$(PKG_NAME)/
 PKG_MD5SUM:=9ae020031010b37f4410c0add1ff0b37
 PKG_INSTALL:=1
+PKG_FIXUP:=autoreconf
 
 PKG_MAINTAINER:=Jan Havelka <dzavy@dzavy.net>
 
