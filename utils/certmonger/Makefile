@@ -8,14 +8,13 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=certmonger
-PKG_VERSION:=0.79.6
-PKG_RELEASE:=1
+PKG_VERSION:=0.79.5
+PKG_RELEASE:=7
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://releases.pagure.org/$(PKG_NAME)/
-PKG_MD5SUM:=9ae020031010b37f4410c0add1ff0b37
+PKG_MD5SUM:=1c3106c88f282aa0cae026a20df1a00b
 PKG_INSTALL:=1
-PKG_FIXUP:=autoreconf
 
 PKG_MAINTAINER:=Jan Havelka <dzavy@dzavy.net>
 
@@ -28,7 +27,7 @@ define Package/certmonger
 	CATEGORY:=Utilities
 	SUBMENU:=SSL
 	TITLE:=Certificate enrollment deamon
-	DEPENDS:=+libopenssl +libtevent +libtalloc +dbus +libopenldap +libnss +krb5-libs +xmlrpc-c-client +libxml2 +libidn2 +libpopt +libuuid
+	DEPENDS:=+libopenssl +libtevent +libtalloc +dbus +libopenldap +libnss +krb5-libs +xmlrpc-c-client +libxml2 +libidn +libpopt +libuuid
 endef
 
 define Package/certmonger/description
