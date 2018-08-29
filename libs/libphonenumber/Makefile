@@ -13,6 +13,7 @@ PKG_RELEASE:=1
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE:=v$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://github.com/googlei18n/$(PKG_NAME)/archive/
+PKG_MD5SUM:=5b9ecb0f9fb85b9a1f4e51a5dbf7b0f1
 PKG_INSTALL:=1
 
 PKG_MAINTAINER:=Jan Havelka <dzavy@dzavy.net>
