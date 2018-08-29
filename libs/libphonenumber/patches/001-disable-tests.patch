@@ -1,15 +1,15 @@
 --- a/cpp/CMakeLists.txt
 +++ b/cpp/CMakeLists.txt
-@@ -23,7 +23,7 @@
- # Helper functions dealing with finding libraries and programs this library
+@@ -32,7 +32,7 @@
  # depends on.
 
+ include (GNUInstallDirs)
 -include (../tools/cpp/gtest.cmake)
 +#include (../tools/cpp/gtest.cmake)
 
  function (print_error DESCRIPTION FILE)
    message (FATAL_ERROR
-@@ -94,7 +94,7 @@
+@@ -104,7 +104,7 @@
    include_directories (${Boost_INCLUDE_DIRS})
  endif ()
 
@@ -18,7 +18,7 @@
 
  if (${USE_RE2} STREQUAL "ON")
    find_required_library (RE2 re2/re2.h re2 "Google RE2")
-@@ -242,10 +242,10 @@
+@@ -252,10 +252,10 @@
  # Library sources excluding the metadata files, since special metadata is used
  # for unit-testing. Note that a single testing library is built for both
  # libphonenumber and geocoding.
@@ -33,7 +33,7 @@
 
  # Add metadata code generation targets.
 
-@@ -299,14 +299,14 @@
+@@ -309,14 +309,14 @@
  endif ()
 
  # Add the test metadata generation target.
@@ -56,18 +56,16 @@
 
  # Add the short metadata generation target.
  set (SHORT_METADATA_TARGET "generate-short-number-metadata")
-@@ -317,8 +317,8 @@
-   "short_metadata"
+@@ -328,7 +328,7 @@
  )
  # This is used both for the real library and for testing.
--list (APPEND SOURCES "src/phonenumbers/short_metadata.cc")
+ list (APPEND SOURCES "src/phonenumbers/short_metadata.cc")
 -list (APPEND TESTING_LIBRARY_SOURCES "src/phonenumbers/short_metadata.cc")
-+#list (APPEND SOURCES "src/phonenumbers/short_metadata.cc")
 +#list (APPEND TESTING_LIBRARY_SOURCES "src/phonenumbers/short_metadata.cc")
 
  if (${USE_ICU_REGEXP} STREQUAL "ON")
    if (${USE_ALTERNATE_FORMATS} STREQUAL "ON")
-@@ -430,88 +430,88 @@
+@@ -446,89 +446,89 @@
  endif ()
 
  # Build a specific library for testing purposes.
@@ -100,6 +98,7 @@
 -set (TEST_SOURCES
 -  "test/phonenumbers/asyoutypeformatter_test.cc"
 -  "test/phonenumbers/logger_test.cc"
+-  "test/phonenumbers/matcher_test.cc"
 -  "test/phonenumbers/phonenumberutil_test.cc"
 -  "test/phonenumbers/regexp_adapter_test.cc"
 -  "test/phonenumbers/regexp_cache_test.cc"
@@ -132,7 +131,7 @@
 +#  add_dependencies (phonenumber_testing generate_geocoding_data)
 +#endif ()
 +#target_link_libraries (phonenumber_testing ${LIBRARY_DEPS})
-+
++#
 +#if (${BUILD_GEOCODER} STREQUAL "ON")
 +#  # Test geocoding data cpp files generation.
 +#  set (GEOCODING_TEST_DIR "${RESOURCES_DIR}/test/geocoding")
@@ -151,11 +150,12 @@
 +#    COMMENT "Generating geocoding test data code"
 +#  )
 +#endif ()
-+
-+
++#
++#
 +#set (TEST_SOURCES
 +#  "test/phonenumbers/asyoutypeformatter_test.cc"
 +#  "test/phonenumbers/logger_test.cc"
++#  "test/phonenumbers/matcher_test.cc"
 +#  "test/phonenumbers/phonenumberutil_test.cc"
 +#  "test/phonenumbers/regexp_adapter_test.cc"
 +#  "test/phonenumbers/regexp_cache_test.cc"
@@ -166,7 +166,7 @@
 +#  "test/phonenumbers/unicodestring_test.cc"
 +#  "test/phonenumbers/utf/unicodetext_test.cc"
 +#)
-+
++#
 +#if (${BUILD_GEOCODER} STREQUAL "ON")
 +#  set (GEOCODING_TEST_SOURCES
 +#    "test/phonenumbers/geocoding/area_code_map_test.cc"
@@ -177,7 +177,7 @@
 +#  )
 +#  list (APPEND TEST_SOURCES ${GEOCODING_TEST_SOURCES})
 +#endif ()
-+
++#
 +#if (${USE_ICU_REGEXP} STREQUAL "ON")
 +#  # Add the phone number matcher tests.
 +#  list (APPEND TEST_SOURCES "test/phonenumbers/phonenumbermatch_test.cc")
@@ -195,7 +195,7 @@
 +#include_directories ("test")
 +#add_executable (libphonenumber_test ${TEST_SOURCES})
 +#set (TEST_LIBS phonenumber_testing ${GTEST_LIB})
-+
++#
 +#if (NOT WIN32)
 +#  list (APPEND TEST_LIBS pthread)
 +#endif ()
@@ -232,7 +232,7 @@
 
  # Install rules.
  install (FILES
-@@ -583,10 +583,10 @@
+@@ -606,13 +606,13 @@
 
  # Build an example program using geocoding, mainly to make sure that both
  # libraries are built properly.
@@ -250,6 +250,9 @@
 +#  )
 +#  target_link_libraries (geocoding_test_program geocoding phonenumber)
 +#endif ()
+
+ # Build an RPM
+ set (CPACK_PACKAGE_VERSION ${libphonenumber_VERSION_MAJOR}.${libphonenumber_VERSION_MINOR}.${libphonenumber_VERSION_PATCH})
 
 --- a/tools/cpp/CMakeLists.txt
 +++ b/tools/cpp/CMakeLists.txt
@@ -285,9 +288,9 @@
 +#  "test/cpp-build/generate_geocoding_data_test.cc"
 +#  "test/cpp-build/run_tests.cc"
 +#)
-+
++#
 +#set (TEST_LIBS ${GTEST_LIB})
-+
++#
 +#if (NOT WIN32)
 +#  list (APPEND TEST_LIBS pthread)
 +#endif ()
