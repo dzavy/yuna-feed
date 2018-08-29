@@ -28,7 +28,7 @@ define Package/certmonger
 	CATEGORY:=Utilities
 	SUBMENU:=SSL
 	TITLE:=Certificate enrollment deamon
-	DEPENDS:=+libopenssl +libtevent +libtalloc +dbus +libopenldap +libnss +krb5-libs +xmlrpc-c-client +libxml2 +libidn +libpopt +libuuid
+	DEPENDS:=+libopenssl +libtevent +libtalloc +dbus +libopenldap +libnss +krb5-libs +xmlrpc-c-client +libxml2 +libidn2 +libpopt +libuuid
 endef
 
 define Package/certmonger/description
