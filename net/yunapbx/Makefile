@@ -29,7 +29,7 @@ define Package/yunapbx
 	CATEGORY:=Utilities
 	SUBMENU:=Telephony
 	TITLE:=YunaPBX WebUI
-	DEPENDS:=+php7 +php7-mod-mysqli +php7-mod-json +php7-mod-session +php7-mod-curl +madplay
+	DEPENDS:=+madplay +php7 +php7-mod-curl +php7-mod-json +php7-mod-mbstring +php7-mod-pdo +php7-mod-session
 endef
 
 define Package/yunapbx/description
