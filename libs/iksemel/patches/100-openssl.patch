@@ -1,0 +1,146 @@
+--- a/src/tls-openssl.c	2019-03-16 17:31:33.679275931 +0100
++++ b/src/tls-openssl.c	2019-03-16 18:00:01.011410889 +0100
+@@ -10,6 +10,7 @@
+ #ifdef HAVE_OPENSSL
+ 
+ #include <openssl/ssl.h>
++#include "openssl-compat.h"
+ 
+ struct ikstls_data {
+ 	SSL_CTX *ctx;
+@@ -24,10 +25,8 @@
+ static int
+ my_bio_create (BIO *b)
+ {
+-	b->init = 1;
+-	b->num = 0;
+-	b->ptr = NULL;
+-	b->flags = 0 ;
++	BIO_set_init(b, 1);
++	BIO_set_data(b, NULL);
+ 	return 1;
+ }
+ 
+@@ -36,16 +35,15 @@
+ {
+ 	if (b == 0) return 0;
+ 
+-	b->ptr = NULL;
+-	b->init = 0;
+-	b->flags = 0;
++	BIO_set_data(b, NULL);
++	BIO_set_init(b, 0);
+ 	return 1;
+ }
+ 
+ static int
+ my_bio_read (BIO *b, char *buf, int len)
+ {
+-	struct ikstls_data *data = (struct ikstls_data *) b->ptr;
++	struct ikstls_data *data = (struct ikstls_data *) BIO_get_data(b);
+ 	int ret;
+ 
+ 	if (buf == NULL || len <= 0 || data == NULL) return 0;
+@@ -58,7 +56,7 @@
+ static int
+ my_bio_write (BIO *b, const char *buf, int len)
+ {
+-	struct ikstls_data *data = (struct ikstls_data *) b->ptr;
++	struct ikstls_data *data = (struct ikstls_data *) BIO_get_data(b);
+ 	int ret;
+ 
+ 	if (buf == NULL || len <= 0 || data == NULL) return 0;
+@@ -78,28 +76,29 @@
+ }
+ 
+ static int
+-my_bio_gets (BIO *b, char *buf, int len)
+-{
+-	return -1;
+-}
+-
+-static int
+ my_bio_puts (BIO *b, const char *str)
+ {
+ 	return my_bio_write (b, str, strlen(str));
+ }
+ 
+-static BIO_METHOD my_bio_method = {
+-	( 100 | 0x400 ),
+-	"iksemel transport",
+-	my_bio_write,
+-	my_bio_read,
+-	my_bio_puts,
+-	my_bio_gets,
+-	my_bio_ctrl,
+-	my_bio_create,
+-	my_bio_destroy
+-};
++static BIO_METHOD *methods_bufferevent;
++
++static BIO_METHOD *
++BIO_s_bufferevent(void)
++{
++    if (methods_bufferevent == NULL) {
++	methods_bufferevent = BIO_meth_new(( 100 | 0x400 ), "iksemel transport");
++	if (methods_bufferevent == NULL)
++	    return NULL;
++	BIO_meth_set_write(methods_bufferevent, my_bio_write);
++	BIO_meth_set_read(methods_bufferevent, my_bio_read);
++	BIO_meth_set_puts(methods_bufferevent, my_bio_puts);
++	BIO_meth_set_ctrl(methods_bufferevent, my_bio_ctrl);
++	BIO_meth_set_create(methods_bufferevent, my_bio_create);
++	BIO_meth_set_destroy(methods_bufferevent, my_bio_destroy);
++    }
++    return methods_bufferevent;
++}
+ 
+ static int
+ tls_handshake (struct ikstls_data **datap, ikstransport *trans, void *sock)
+@@ -134,8 +133,8 @@
+ 		return IKS_NOMEM;
+ 	}
+ 
+-	bio = BIO_new (&my_bio_method);
+-	bio->ptr = (void *) data;
++	bio = BIO_new (BIO_s_bufferevent());
++	BIO_set_data(bio, (void *) data);
+ 	SSL_set_bio (data->ssl, bio, bio);
+ 	if (SSL_connect (data->ssl) < 0) {
+ 		SSL_free (data->ssl);
+--- /dev/null	2019-03-14 13:30:55.079247060 +0100
++++ b/src/openssl-compat.h	2019-03-16 17:59:34.277236616 +0100
+@@ -0,0 +1,33 @@
++#ifndef OPENSSL_COMPAT_H
++#define OPENSSL_COMPAT_H
++
++#if OPENSSL_VERSION_NUMBER < 0x10100000L
++
++static BIO_METHOD *BIO_meth_new(int type, const char *name)
++{
++    BIO_METHOD *biom = calloc(1, sizeof(BIO_METHOD));
++
++    if (biom != NULL) {
++	biom->type = type;
++	biom->name = name;
++    }
++    return biom;
++}
++
++#define BIO_meth_set_write(b, f) (b)->bwrite = (f)
++#define BIO_meth_set_read(b, f) (b)->bread = (f)
++#define BIO_meth_set_puts(b, f) (b)->bputs = (f)
++#define BIO_meth_set_ctrl(b, f) (b)->ctrl = (f)
++#define BIO_meth_set_create(b, f) (b)->create = (f)
++#define BIO_meth_set_destroy(b, f) (b)->destroy = (f)
++
++#define BIO_set_init(b, val) (b)->init = (val)
++#define BIO_set_data(b, val) (b)->ptr = (val)
++#define BIO_set_shutdown(b, val) (b)->shutdown = (val)
++#define BIO_get_init(b) (b)->init
++#define BIO_get_data(b) (b)->ptr
++#define BIO_get_shutdown(b) (b)->shutdown
++
++#endif /* OPENSSL_VERSION_NUMBER < 0x10100000L */
++
++#endif /* OPENSSL_COMPAT_H */
