@@ -16,11 +16,9 @@ https://jenkins.dzavy.net/job/YunaPBX_Build_x86/lastSuccessfulBuild/artifact/bin
 - vorbis-tools
 
 # Changed packages
-- e2fsprogs - fixed build (added -lpthread)
 - iksemel - compile with OpenSSL instead of GNUTLS
 - php7 - fixed build with GCC7 ($(FPIC))
 - ubox - changes to logread (file permissions and timestamp format)
-- zabbix - added TLS support
 
 # 3rd party packages
 - luadbi
