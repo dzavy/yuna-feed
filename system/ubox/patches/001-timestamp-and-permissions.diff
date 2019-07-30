@@ -17,7 +17,7 @@
 -		sender.fd = open(log_file, O_CREAT | O_WRONLY | O_APPEND, 0600);
 +		sender.fd = open(log_file, O_CREAT | O_WRONLY | O_APPEND, 0644);
  		if (sender.fd < 0) {
- 			fprintf(stderr, "failed to open %s: %s\n", log_file, strerror(errno));
+ 			fprintf(stderr, "failed to open %s: %m\n", log_file);
  			exit(-1);
 @@ -141,9 +142,8 @@
  			snprintf(buf_ts, sizeof(buf_ts), "[%lu.%03u] ",
@@ -30,12 +30,12 @@
 
  	if (log_type == LOG_NET) {
  		int err;
-@@ -356,7 +356,7 @@
+@@ -270,7 +270,7 @@
  			uloop_timeout_set(&retry, 1000);
  		} else if (log_file) {
  			log_type = LOG_FILE;
 -			sender.fd = open(log_file, O_CREAT | O_WRONLY| O_APPEND, 0600);
 +			sender.fd = open(log_file, O_CREAT | O_WRONLY| O_APPEND, 0644);
  			if (sender.fd < 0) {
- 				fprintf(stderr, "failed to open %s: %s\n", log_file, strerror(errno));
+ 				fprintf(stderr, "failed to open %s: %m\n", log_file);
  				exit(-1);
