@@ -8,12 +8,13 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=mariadb-connector-odbc
-PKG_VERSION:=3.0.6-ga-src
+PKG_VERSION:=3.1.2-ga-src
 PKG_RELEASE:=1
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://downloads.mariadb.org/f/connector-odbc-3.0.6/
-PKG_HASH:=1b45b801774ea356f56ca7eb5dc5d58df8c0e61893c9f9901c4d716e34d5d71d
+PKG_SOURCE_URL:=https://downloads.mariadb.org/f/connector-odbc-3.1.2/
+
+PKG_HASH:=a581a627b5832f52ed44d23e98f1869832406033ebfe4bb0c732e25585a72b46
 PKG_INSTALL:=1
 
 PKG_MAINTAINER:=Jan Havelka <dzavy@dzavy.net>
