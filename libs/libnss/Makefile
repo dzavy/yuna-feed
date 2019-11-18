@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=nss
-PKG_VERSION:=3.35
+PKG_VERSION:=3.47
 PKG_RELEASE:=1
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://releases.mozilla.org/pub/security/$(PKG_NAME)/releases/NSS_3_35_RTM/src/
-PKG_MD5SUM:=9467ec9e65c5aeb3254a50250490f5f7
+PKG_SOURCE_URL:=https://releases.mozilla.org/pub/security/$(PKG_NAME)/releases/NSS_3_47_RTM/src/
+PKG_MD5SUM:=81e47f3c70c2c53f801ab39434c887fb
 PKG_INSTALL:=1
 	
 PKG_MAINTAINER:=Jan Havelka <dzavy@dzavy.net>
