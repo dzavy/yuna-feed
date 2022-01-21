@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=yunapbx
 PKG_VERSION:=2017-01-17
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 PKG_REV:=ad600c70a803f9d16a4f685eec8c7500ace83f28
 
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
@@ -29,7 +29,7 @@ define Package/yunapbx
 	CATEGORY:=Utilities
 	SUBMENU:=Telephony
 	TITLE:=YunaPBX WebUI
-	DEPENDS:=+madplay +php7 +php7-mod-curl +php7-mod-json +php7-mod-mbstring +php7-mod-pdo +php7-mod-session
+	DEPENDS:=+madplay +php8 +php8-mod-curl +php8-mod-json +php8-mod-mbstring +php8-mod-pdo +php8-mod-session
 endef
 
 define Package/yunapbx/description
